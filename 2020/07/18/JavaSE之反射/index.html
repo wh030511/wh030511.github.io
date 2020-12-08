@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>框架核心 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="JavaSE之反射 对Java反射机制的一些理解与思考。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="框架核心">
+<meta property="og:url" content="http://example.com/2020/07/18/JavaSE%E4%B9%8B%E5%8F%8D%E5%B0%84/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="JavaSE之反射 对Java反射机制的一些理解与思考。">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-07-18T10:00:10.408Z">
+<meta property="article:modified_time" content="2020-07-18T10:00:10.409Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-JavaSE之反射" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/07/18/JavaSE%E4%B9%8B%E5%8F%8D%E5%B0%84/" class="article-date">
+  <time datetime="2020-07-18T10:00:10.408Z" itemprop="datePublished">2020-07-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      框架核心
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="JavaSE之反射"><a href="#JavaSE之反射" class="headerlink" title="JavaSE之反射"></a>JavaSE之反射</h1><blockquote>
+<p>对Java反射机制的一些理解与思考。</p>
+</blockquote>
+<a id="more"></a>
+
+<h3 id="类型信息"><a href="#类型信息" class="headerlink" title="类型信息"></a>类型信息</h3><blockquote>
+<p>为了在运行时获取类和对象的信息，Java提供了两种方式，一是传统的“RTTI”，它假定我们在编译时已知所有的类型，二是反射，它允许我们在运行时发现和使用类的信息。</p>
+</blockquote>
+<h4 id="RTTI"><a href="#RTTI" class="headerlink" title="RTTI"></a>RTTI</h4><p><strong>1. 定义</strong></p>
+<p>运行时识别一个对象的类型。</p>
+<p><strong>2. 类的加载</strong></p>
+<p>Java中类的加载是一个动态加载使能的过程，其各个部分是在需要使用时才加载，与C++等静态加载语言不同。即：当调用类的静态结构时，会加载这个类（从这个意义上说，构造器也是类的静态结构）。</p>
+<p><strong>类的加载过程：</strong></p>
+<ol>
+<li><p>装载：将.class文件加载到JVM中（之前会有编译器将.java文件编译为.class文件）</p>
+<ol start="2">
+<li>连接：</li>
+</ol>
+<ul>
+<li>检查字节码文件的正确型</li>
+<li>给静态结构分配空间（此时类变量是默认值）</li>
+<li>将符号引用转为直接引用</li>
+</ul>
+<ol start="3">
+<li>初始化：初始化静态结构（此时类变量才是初始化值）</li>
+<li>使用</li>
+<li>卸载：涉及到了JVM垃圾回收机制，JVM判断一个类是无用类要同时满足以下的三个条件：</li>
+</ol>
+<ul>
+<li>没有指向该类实例对象的引用</li>
+<li>该类的类加载器被回收</li>
+<li>该类对应的Class对象没有在任何地方被引用，无法在任何地方通过反射访问到该类对象</li>
+</ul>
+</li>
+</ol>
+<p><strong>这些工作是类加载器完成的，类加载器是一条链，其继承关系如下：</strong></p>
+<ol>
+<li><p>引导类加载器：加载核心类库，即jre/lib下的jar包</p>
+<ol start="2">
+<li>扩展类加载器：加载jre/lib/ext下的jar包</li>
+<li>系统类加载器：一般用于加载自己定义的类</li>
+<li>自定义类加载器</li>
+</ol>
+</li>
+</ol>
+<p><strong>类加载的三种方式：</strong></p>
+<ol>
+<li><p>程序启动时，JVM初始化加载含有main()方法的主类，然后依次加载需要的类</p>
+<ol start="2">
+<li>Class.forName()动态加载，默认执行初始化块，可以通过指定参数决定是否加载初始化块</li>
+<li>ClassLoader.loadClass()动态加载，不会执行初始化块</li>
+</ol>
+</li>
+</ol>
+<p><strong>双亲委派模型：</strong></p>
+<p>一个类加载器接到加载任务时，会先交给父类加载器完成，只有父类加载器无法完成时，才会尝试执行加载任务。这样做是为了防止自定义的类覆盖Java的核心类库，损害JVM。</p>
+<p><strong>说明：</strong></p>
+<p><strong><em>类的元数据存在于方法区（如方法代码、变量名、方法名等，简单理解就是二进制文件），而类加载的最终产物Class对象，在hotspot java虚拟机中，该对象在1.8之后是存在于堆区的，封装了类在方法区内的数据结构，堆区的这个对象作为一个入口指向了方法区内的二进制文件。</em></strong></p>
+<p><strong>3. 理解</strong></p>
+<p>个人感觉，Java的向上转型就是RTTI，它相信你完全了解所有的类型信息，允许你将一个对象声明成它父类的引用，并在编译期予以通过。</p>
+<p>当它在运行时进行类的加载后，进行类型转换时（类型转换都是在运行时进行的），发现该对象与其引用并不存在继承或者实现的关系，发现被欺骗了，就会报运行时异常：ClassCastException</p>
+<h4 id="反射"><a href="#反射" class="headerlink" title="反射"></a>反射</h4><blockquote>
+<p>如果编译期已知了一个类的确切类型，那么使用RTTI就可以获得。但是在实际开发中，经过序列化、分布式开发、网络编程等等，在编译器很多类我们是无法获知的，所以就需要一种能在运行时获取类信息的机制帮助我们处理问题，这个机制就是反射。</p>
+</blockquote>
+<p><strong>1. 说明</strong></p>
+<p>Class类和java.lang.reflect类库一起对反射的概念进行了支持，该库包含了<code>Field</code>、<code>Method</code>以及<code>Constructor</code>类，分别封装了类结构的字段、方法、构造器。所以我们可以使用Constructor创建对象，使用Method调用方法，也可以通过get方法获得这些结构的详细信息。</p>
+<p>反射机制并不神奇，JVM只是检查这个对象，找到它所属的类（这个工作是通过Java对象头来完成的）。所以JVM也需要预先加载这个类，那么.class文件就是必需的。RTTI和反射之间的区别只在于，编译器是在编译期打开和检查.class文件，还是在运行时打开和检查.class文件。</p>
+<p><strong>2. 反射的应用</strong></p>
+<p>动态代理是反射的一个常见应用</p>
+<p><strong><em>代码：</em></strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">proxyTest</span> </span>&#123;<span class="comment">// 测试类</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span>&#123;</span><br><span class="line">        SuperMan superMan = <span class="keyword">new</span> SuperMan();</span><br><span class="line">        <span class="comment">// 获得代理类对象</span></span><br><span class="line">        Human proxyInstance = (Human) ProxyFactory.getProxyInstance(superMan);</span><br><span class="line"></span><br><span class="line">        System.out.println(proxyInstance.getBelief());</span><br><span class="line">        proxyInstance.eat(<span class="string">&quot;麻辣烫&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Human</span></span>&#123;</span><br><span class="line">    <span class="function">String <span class="title">getBelief</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">eat</span><span class="params">(String food)</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 被代理类</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SuperMan</span> <span class="keyword">implements</span> <span class="title">Human</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getBelief</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;I believe i can fly&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">eat</span><span class="params">(String food)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;我喜欢吃&quot;</span> + food);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 代理类工厂</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ProxyFactory</span></span>&#123;</span><br><span class="line">    <span class="comment">// 返回一个与代理类对象实现相同接口的被代理类对象</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Object <span class="title">getProxyInstance</span><span class="params">(Object obj)</span></span>&#123; <span class="comment">// obj : 被代理类对象</span></span><br><span class="line">        MyInvocationHandler handler = <span class="keyword">new</span> MyInvocationHandler();</span><br><span class="line">        handler.bind(obj);</span><br><span class="line">        <span class="keyword">return</span> Proxy.newProxyInstance(obj.getClass().getClassLoader(),</span><br><span class="line">                                obj.getClass().getInterfaces(),</span><br><span class="line">                                handler); <span class="comment">// 第三个参数指明了如何通过代理类调用被代理类的方法</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyInvocationHandler</span> <span class="keyword">implements</span> <span class="title">InvocationHandler</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Object obj; <span class="comment">// 被代理类对象</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">bind</span><span class="params">(Object obj)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.obj = obj;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 当我们通过代理类对象调用方法时，就会自动调用如下的方法</span></span><br><span class="line">    <span class="comment">// 将被代理类要执行的方法功能声明在此方法中</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">invoke</span><span class="params">(Object proxy, Method method, Object[] args)</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">        <span class="comment">// method 为代理类对象调用的方法，此方法也就作为了被代理类对象要调用的方法</span></span><br><span class="line">        <span class="comment">// obj 被代理对象</span></span><br><span class="line">        Object res = method.invoke(obj, args);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>Spring中的AOP是一个更加实用的动态代理机制</strong></p>
+<p><strong>3. 反射和封装的思考</strong></p>
+<p>封装性的本意是更好的对外提供接口，用private修饰的字段或者方法，创建出来总是要被使用的，外部不能用就提供给内部使用了。将这些信息封装起来，提示外部程序，无需了解内部结构，该类的所有功能都通过开放的方法或者字段提供了。</p>
+<p>使用反射确实可以获取到私有的字段或者方法，但是并没有什么意义，作为程序的设计者，你通过反射获得的私有方法，只不过是公共方法的一个未完全版而已，这么说吧，可以但是没有必要。</p>
+<p>这两个技术并不矛盾，作为程序的设计者，将数据封装起来，转眼又通过反射去调用，着实脑子不好。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/07/18/JavaSE%E4%B9%8B%E5%8F%8D%E5%B0%84/" data-id="ckifb2s4800036jnrah639t6t" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/07/18/Git/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          工程实战
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/07/18/Go%E8%AF%AD%E8%A8%80/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">工程实战</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/12/07/cpu%E9%A3%99%E9%AB%98%E6%8E%92%E6%9F%A5/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/04/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B4%A2%E5%BC%95/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/29/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F/">高并发相关技术</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/27/%E6%95%B0%E6%8D%AE%E5%BA%8F%E5%88%97%E5%8C%96%E6%96%B9%E6%A1%88/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/21/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>项目 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="黑马旅游网项目汇总 根据网上的自学建议，在学习完java的基础部分后，找了一个项目练手，不使用框架，完成需要的各种功能，将自己已经学过的知识串起来，再继续往下学习SSM框架内容。 在b站上找了黑马旅游网的项目，用了已经完成的前台效果，自己实现了注册登录、邮箱验证、分页数据显示与查询等功能，虽然都不是很难，而且还可以抄作业，但是由于个人电脑环境的问题吧，前前后后也踩了几个坑，记录一下。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="项目">
+<meta property="og:url" content="http://example.com/2020/07/18/%E9%BB%91%E9%A9%AC%E6%97%85%E6%B8%B8%E7%BD%91%E9%A1%B9%E7%9B%AE/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="黑马旅游网项目汇总 根据网上的自学建议，在学习完java的基础部分后，找了一个项目练手，不使用框架，完成需要的各种功能，将自己已经学过的知识串起来，再继续往下学习SSM框架内容。 在b站上找了黑马旅游网的项目，用了已经完成的前台效果，自己实现了注册登录、邮箱验证、分页数据显示与查询等功能，虽然都不是很难，而且还可以抄作业，但是由于个人电脑环境的问题吧，前前后后也踩了几个坑，记录一下。">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-07-18T10:00:10.416Z">
+<meta property="article:modified_time" content="2020-07-18T10:00:10.416Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-黑马旅游网项目" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/07/18/%E9%BB%91%E9%A9%AC%E6%97%85%E6%B8%B8%E7%BD%91%E9%A1%B9%E7%9B%AE/" class="article-date">
+  <time datetime="2020-07-18T10:00:10.416Z" itemprop="datePublished">2020-07-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      项目
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="黑马旅游网项目汇总"><a href="#黑马旅游网项目汇总" class="headerlink" title="黑马旅游网项目汇总"></a>黑马旅游网项目汇总</h1><blockquote>
+<p>根据网上的自学建议，在学习完java的基础部分后，找了一个项目练手，不使用框架，完成需要的各种功能，将自己已经学过的知识串起来，再继续往下学习SSM框架内容。</p>
+<p>在b站上找了黑马旅游网的项目，用了已经完成的前台效果，自己实现了注册登录、邮箱验证、分页数据显示与查询等功能，虽然都不是很难，而且还可以抄作业，但是由于个人电脑环境的问题吧，前前后后也踩了几个坑，记录一下。</p>
+</blockquote>
+<a id="more"></a>
+
+
+
+<h2 id="技术选型："><a href="#技术选型：" class="headerlink" title="技术选型："></a>技术选型：</h2><ol>
+<li>使用三层架构（好像是三层架构，我对MVC和三层架构的区别不是太明白，还需要多做些项目来体会），Maven作为项目管理工具，Tomcat服务器，IDEA编译器（好吧我在说废话）</li>
+<li>表示层前台使用html页面，使用Ajax与后台异步交互json数据。</li>
+<li>表示层后台使用Servlet。</li>
+<li>Service层。</li>
+<li>Dao层使用JDBCUtils、JedisUtils、BeanUtils、JavaBean等与数据库交互。</li>
+<li>数据库使用MySQL和Redis，数据库存放所有数据，redis缓存了不变的数据，提高访问效率。</li>
+</ol>
+<h2 id="坑与解决："><a href="#坑与解决：" class="headerlink" title="坑与解决："></a>坑与解决：</h2><h4 id="编写JDBCUtils工具类后，在单元测试时发现无法获得数据库连接。"><a href="#编写JDBCUtils工具类后，在单元测试时发现无法获得数据库连接。" class="headerlink" title="编写JDBCUtils工具类后，在单元测试时发现无法获得数据库连接。"></a>编写JDBCUtils工具类后，在单元测试时发现无法获得数据库连接。</h4><h6 id="原因："><a href="#原因：" class="headerlink" title="原因："></a>原因：</h6><p>没有使用提供的JDBCUtils工具类自己重新编写，在单元测试时发现无法获得连接，很懵，没有找到与提供的工具类有巨大不同的地方，上网寻找解决问题的方案，最终发现是由于JDBC驱动与MySQL版本不匹配，提供的pom文件中jdbc-to-java版本过低。</p>
+<h6 id="解决："><a href="#解决：" class="headerlink" title="解决："></a>解决：</h6><p>更改pom文件的version版本，使之与本地数据库相匹配。更改后maven下载了大概十分钟，再次尝试运行，依然报错，问题不一样了。这次是由于druid配置文件内容过少，没有使用SpringBoot，所以要多配置些东西，在网上找到后，复制粘贴，重新测试，问题解决。</p>
+<h4 id="通过JQuery给input标签绑定离焦事件，运行后发现该事件只在页面第一次加载时执行，后续离焦事件不触发"><a href="#通过JQuery给input标签绑定离焦事件，运行后发现该事件只在页面第一次加载时执行，后续离焦事件不触发" class="headerlink" title="通过JQuery给input标签绑定离焦事件，运行后发现该事件只在页面第一次加载时执行，后续离焦事件不触发"></a>通过JQuery给input标签绑定离焦事件，运行后发现该事件只在页面第一次加载时执行，后续离焦事件不触发</h4><h6 id="原因：-1"><a href="#原因：-1" class="headerlink" title="原因："></a>原因：</h6><p>对于JQuery熟悉度不够，不知道引用js中的方法时不带参数，多写了一对括号，造成了只在加载时运行一次的问题。</p>
+<h6 id="解决：-1"><a href="#解决：-1" class="headerlink" title="解决："></a>解决：</h6><p>蠢蠢的找了半天，更改代码即可（附上当时让我抓狂的罪魁祸首！）</p>
+<p><code>$(&quot;#username&quot;).blur(checkUserName);</code></p>
+<h4 id="Chrome交替出现412状态码"><a href="#Chrome交替出现412状态码" class="headerlink" title="Chrome交替出现412状态码"></a>Chrome交替出现412状态码</h4><h6 id="原因：-2"><a href="#原因：-2" class="headerlink" title="原因："></a>原因：</h6><p>前端在获得后台发来的json数据后，想将某个已知键对应的json数据填充到div标签中，失败，并且chrome交替出现412状态码，即刷新一次出现412，再次刷新页面恢复，三次刷新出现412。这个问题就比较弱智了，我在使用jackson将对象转成json时该放对象的位置误加了“”，放了一个字符串进去…我服辣。</p>
+<h6 id="解决：-2"><a href="#解决：-2" class="headerlink" title="解决："></a>解决：</h6><p>在网上寻找交替出现412的解决办法，大致一下两种：</p>
+<ol>
+<li>将post提交方式改为get方式 。为什么这样好使我觉得可能是ajax请求导致post头文件关于缓存出现了错误。</li>
+<li>使用标签的方式从 <code>&lt;button&gt;&lt;/button&gt;</code> 改为 <code>&lt;input type=&quot;button&quot;&gt;。</code> 为什么这样好使原因我不知道。</li>
+</ol>
+<p>可惜这两种方法对我没用，而且还导致了之后的一个问题的产生！我找到原因后将“”去掉就ok了。</p>
+<h4 id="数据库数据写入失败，报错信息：Data-truncation-Data-too-long-for-column-‘sex’-at-row-1"><a href="#数据库数据写入失败，报错信息：Data-truncation-Data-too-long-for-column-‘sex’-at-row-1" class="headerlink" title="数据库数据写入失败，报错信息：Data truncation: Data too long for column ‘sex’ at row 1"></a>数据库数据写入失败，报错信息：Data truncation: Data too long for column ‘sex’ at row 1</h4><h6 id="原因：-3"><a href="#原因：-3" class="headerlink" title="原因："></a>原因：</h6><p>就是上面所说的导致的问题，将post方式改成get方式导致数据从前台到后台的编码解码方案不一致，产生了乱码。（post请求通过request.setchaEncording指定了），没有在web.xml中全局指定编码集，也没有调用String的相关方法，造成了乱码传递到了数据库，数据库中sex声明长度为1，所以越界了。</p>
+<h6 id="解决：-3"><a href="#解决：-3" class="headerlink" title="解决："></a>解决：</h6><p>将之前指定的提交方式改回post，成功。</p>
+<h4 id="给页面基本不变的数据写入redis缓存报错反射异常"><a href="#给页面基本不变的数据写入redis缓存报错反射异常" class="headerlink" title="给页面基本不变的数据写入redis缓存报错反射异常"></a>给页面基本不变的数据写入redis缓存报错反射异常</h4><h6 id="原因：-4"><a href="#原因：-4" class="headerlink" title="原因："></a>原因：</h6><p>我吓死了，反射异常不熟悉啊。根据视频的做法将暴力反射取缔了（暴力反射这个词听起来好厉害哈哈哈），然后将声明成protected的方法屈辱的改写成public，满怀希望的再次运行，大失败！怒而Google，才了解到只要调用的方法出了异常会被反射异常包起来，言外之意就是并不是反射过程发生了异常，而是某个方法调用出了事儿。debug，启动！最后发现时Jedis工具类异常（没错我又不自量力的自己重写了哈哈哈，主要是他是用JdbcTemplate来在dao层查询数据的，而我想使用dbutils）。因为我之前写过没有问题的Jedis工具类，所以对比了一下发现区别在与初始化时，直接贴代码吧</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Properties prop = <span class="keyword">new</span> Properties();</span><br><span class="line">        InputStream is = JedisUtils.class.getClassLoader().getResourceAsStream(<span class="string">&quot;jedis.properties&quot;</span>);</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            prop.load(is);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        JedisPoolConfig config = <span class="keyword">new</span> JedisPoolConfig();</span><br><span class="line">        config.setMaxTotal(Integer.parseInt(prop.getProperty(<span class="string">&quot;maxTotal&quot;</span>)));</span><br><span class="line">        config.setMaxIdle(Integer.parseInt(prop.getProperty(<span class="string">&quot;maxIdle&quot;</span>)));</span><br><span class="line">        jedisPool = <span class="keyword">new</span> JedisPool(config,prop.getProperty(<span class="string">&quot;host&quot;</span>));</span><br></pre></td></tr></table></figure>
+
+
+
+<p>这样是没有问题的，而如果最后一句这样写：</p>
+<p><code>jedisPool = new JedisPool(config,prop.getProperty(&quot;host&quot;),prop.getProperty(&quot;port&quot;));</code></p>
+<p>就不得行。我觉得不科学，就去查看了这两个构造器：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">JedisPool</span><span class="params">(GenericObjectPoolConfig poolConfig, String host, <span class="keyword">int</span> port)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>(poolConfig, host, port, <span class="number">2000</span>, (String)<span class="keyword">null</span>, <span class="number">0</span>, (String)<span class="keyword">null</span>);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">JedisPool</span><span class="params">(GenericObjectPoolConfig poolConfig, String host)</span> </span>&#123;</span><br><span class="line">       <span class="keyword">this</span>(poolConfig, host, <span class="number">6379</span>, <span class="number">2000</span>, (String)<span class="keyword">null</span>, <span class="number">0</span>, (String)<span class="keyword">null</span>);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<p>我的天哪太神奇了，我确认了一下我redis服务器端口号确实是6379，我到现在还不知道是为啥呢。</p>
+<h4 id="给搜索框添加点击函数后页面跳转404不可达"><a href="#给搜索框添加点击函数后页面跳转404不可达" class="headerlink" title="给搜索框添加点击函数后页面跳转404不可达"></a>给搜索框添加点击函数后页面跳转404不可达</h4><h6 id="原因"><a href="#原因" class="headerlink" title="原因:"></a>原因:</h6><p>给搜索框添加了单击响应函数来完成搜索的功能，突然报404。debug调试，没能跳到后端，直接访问servlet，可以访问，检查url，没问题。检查跳转的代码：</p>
+<p><code>location.href=&quot;http://localhost/travel/route_list.html?cid=&quot;+cid+&quot;&amp;rname=&quot;+rname;</code></p>
+<p>发现了问题，还是与教学视频环境不一致的问题。因为Sql Server占据了80端口，所以我就没有把项目目录指定为80，所以教学视频的href需要一点小小的修改</p>
+<h6 id="解决：-4"><a href="#解决：-4" class="headerlink" title="解决："></a>解决：</h6><p>将上述代码改为：</p>
+<p><code>location.href=&quot;http://localhost:8080/travel/route_list.html?cid=&quot;+cid+&quot;&amp;rname=&quot;+rname;</code></p>
+<p>再次测试，问题解决。</p>
+<blockquote>
+<p>前前后后由于有作业抄，也没有踩太多坑，等自己开发项目的时候一定要细致再细致，有的小问题真的很难看出来，就比如多一对括号引号什么的（鞭尸自己），这些坑给我的教育呢，就是善用debug，善用搜索引擎，bug不可怕，害怕bug装鸵鸟才可怕。面对困难的最好办法，就是直面困难！奥里给！</p>
+</blockquote>
+<h2 id="项目拾遗"><a href="#项目拾遗" class="headerlink" title="项目拾遗"></a>项目拾遗</h2><blockquote>
+<p>再简单的项目认真去做，总能有点出乎意料的收获。这个旅游网的项目中，我也看到了让我惊呼：”卧槽还有这种操作“的操作，记录一下，慢慢品味。</p>
+</blockquote>
+<h4 id="前端传递的参数种类、个数都不确定，怎么编写sql呢？"><a href="#前端传递的参数种类、个数都不确定，怎么编写sql呢？" class="headerlink" title="前端传递的参数种类、个数都不确定，怎么编写sql呢？"></a>前端传递的参数种类、个数都不确定，怎么编写sql呢？</h4><p>在我没有练习这个项目前，面对这个问题一定很懵逼：啥玩意儿呀？这可咋整啊？但现在，我有了一个好办法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义sql模板</span></span><br><span class="line">        String sql = <span class="string">&quot;select count(*) from tab_route where 1=1&quot;</span>;</span><br><span class="line">        StringBuilder sb = <span class="keyword">new</span> StringBuilder(sql);</span><br><span class="line"></span><br><span class="line">        List params = <span class="keyword">new</span> ArrayList();</span><br><span class="line">        <span class="comment">// 判断参数是否有值</span></span><br><span class="line">        <span class="keyword">if</span> (cid != <span class="number">0</span>)&#123;</span><br><span class="line">            sb.append(<span class="string">&quot; and cid = ?&quot;</span>);</span><br><span class="line"></span><br><span class="line">            params.add(cid); <span class="comment">// 添加？对应的值</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (rname != <span class="keyword">null</span> &amp;&amp; rname.length() &gt; <span class="number">0</span>)&#123;</span><br><span class="line">            sb.append(<span class="string">&quot; and rname like ?&quot;</span>); <span class="comment">// 模糊查询</span></span><br><span class="line"></span><br><span class="line">            params.add(<span class="string">&quot;%&quot;</span> + rname + <span class="string">&quot;%&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        sql = sb.toString();</span><br><span class="line"></span><br><span class="line">        ScalarHandler handler = <span class="keyword">new</span> ScalarHandler();</span><br><span class="line">        <span class="keyword">long</span> totalCount = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            totalCount = (<span class="keyword">long</span>) runner.query(conn, sql, handler, params.toArray());</span><br><span class="line">        &#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>当当当当！sql模板，我当时被惊艳（也有可能我是个没得见识的人），我觉得真是 <strong>女少口阿</strong> ，用了一个模板保证不管有没有参数都能查询到，然后判断是否有要添加的条件，如果有则拼接字符串，并将参数放入一个list表中，最后将StringBuilder转为String作为sql，将list转为参数数组作为不定形参，太优雅了，<strong>女少口阿</strong></p>
+<blockquote>
+<p>这个项目前前后后做了5天，中间穿插了一个美团凉到不行的笔试（呜呜呜），算是将之前学习的JavaSE，JDBC,JavaWeb，Ajax和json等技术串联起来，对开发有了一点点模糊的概念。应该算是入门啦！开发还是比较有意思的，一点点搭建起来框架，完善功能，自己流畅的使用体会，还是比较爽的。接下来就要补补基础，看看算法，休整一段时间，向着JavaEE框架前进啦</p>
+<p>许愿春招成功！找到实习！ball ball啦</p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/07/18/%E9%BB%91%E9%A9%AC%E6%97%85%E6%B8%B8%E7%BD%91%E9%A1%B9%E7%9B%AE/" data-id="ckifb2s4r000u6jnrccnd60g8" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/07/18/%E9%9D%A2%E8%AF%95%E7%BB%8F%E9%AA%8C%E6%80%BB%E7%BB%93%E7%A7%AF%E7%B4%AF/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          面试
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/07/18/%E9%80%92%E5%BD%92%E3%80%81%E5%9B%9E%E6%BA%AF%E4%B8%8E%E5%88%86%E6%B2%BB/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">算法思想</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/12/07/cpu%E9%A3%99%E9%AB%98%E6%8E%92%E6%9F%A5/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/04/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B4%A2%E5%BC%95/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/29/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F/">高并发相关技术</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/27/%E6%95%B0%E6%8D%AE%E5%BA%8F%E5%88%97%E5%8C%96%E6%96%B9%E6%A1%88/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/21/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

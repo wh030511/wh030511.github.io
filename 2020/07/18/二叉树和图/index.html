@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>数据结构 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="二叉树和图">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据结构">
+<meta property="og:url" content="http://example.com/2020/07/18/%E4%BA%8C%E5%8F%89%E6%A0%91%E5%92%8C%E5%9B%BE/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="二叉树和图">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-07-18T10:00:10.411Z">
+<meta property="article:modified_time" content="2020-07-18T10:00:10.412Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-二叉树和图" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/07/18/%E4%BA%8C%E5%8F%89%E6%A0%91%E5%92%8C%E5%9B%BE/" class="article-date">
+  <time datetime="2020-07-18T10:00:10.411Z" itemprop="datePublished">2020-07-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      数据结构
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="二叉树和图"><a href="#二叉树和图" class="headerlink" title="二叉树和图"></a>二叉树和图</h1><a id="more"></a>
+
+<p><strong>1. 前序、中序、后序遍历的递归实现</strong></p>
+<p><strong><em>代码：</em></strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 前序遍历</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">preorderTraversal</span><span class="params">(TreeNode root)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(root == <span class="keyword">null</span>) <span class="keyword">return</span>;</span><br><span class="line">    System.out.print(root.val);</span><br><span class="line">    preorderTraversal(root.left);</span><br><span class="line">    preorderTraversal(root.right);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 中序遍历</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">inorderTraversal</span><span class="params">(TreeNode root)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(root == <span class="keyword">null</span>) <span class="keyword">return</span>;</span><br><span class="line">    inorderTraversal(root.left);</span><br><span class="line">    System.out.print(root);</span><br><span class="line">    inorderTraversal(root.right);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 后序遍历</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">postorderTraversal</span><span class="params">(TreeNode root)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(root == <span class="keyword">null</span>) <span class="keyword">return</span>;</span><br><span class="line">    postorderTraversal(root.left);</span><br><span class="line">    prstorderTraversal(root.right);</span><br><span class="line">    System.out.print(root.val);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>2. 前序、中序、后序遍历的非递归实现</strong></p>
+<p><strong><em>代码：</em></strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 前序遍历</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">preorderTraversal</span><span class="params">(TreeNode root)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(root == <span class="keyword">null</span>) <span class="keyword">return</span>;</span><br><span class="line">    Deque&lt;TreeNode&gt; stack = <span class="keyword">new</span> ArrayDeque&lt;&gt;(); <span class="comment">// 栈</span></span><br><span class="line">    stack.push(root);</span><br><span class="line">    <span class="keyword">while</span>(!stack.isEmpty())&#123;</span><br><span class="line">        TreeNode temp = stack.pop();</span><br><span class="line">        System.out.print(temp.val);</span><br><span class="line">        <span class="keyword">if</span>(temp.right != <span class="keyword">null</span>)&#123;</span><br><span class="line">            stack.push(temp.right);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(temp.left != <span class="keyword">null</span>)&#123;</span><br><span class="line">            stack.push(temp.left);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 中序遍历</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">inorderTraversal</span><span class="params">(TreeNode root)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(root == <span class="keyword">null</span>) <span class="keyword">return</span>;</span><br><span class="line">    Deque&lt;TreeNode&gt; stack = <span class="keyword">new</span> ArrayDeque&lt;&gt;();</span><br><span class="line">    TreeNode node = root;</span><br><span class="line">    <span class="keyword">while</span>(node != <span class="keyword">null</span> || !stack.isEmpty())&#123;</span><br><span class="line">        <span class="keyword">while</span>(node != <span class="keyword">null</span>)&#123;</span><br><span class="line">            stack.push(node);</span><br><span class="line">            node = node.left;</span><br><span class="line">        &#125;</span><br><span class="line">        node = stack.pop();</span><br><span class="line">        System.out.print(node.val);</span><br><span class="line">        node = node.right;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>这里对ArrayDeque做一个简要介绍：</strong></p>
+<ul>
+<li><p>ArrayDeque是Deque的一个实现类，Deque接口继承了Queue接口，可以用来作为栈和队列使用。优点在于比Stack作为栈和LinkedList作为队列时效率更高。</p>
+</li>
+<li><p>不能存放null值</p>
+</li>
+<li><p>其底层结构是使用数组和两个指针实现的，其中tail指针永远指向最后一个元素的下一个位置。数组长度永远会保证是2的幂次，如果初始化指定长度时就是2的幂次，那么最终幂次会+1</p>
+</li>
+<li><p>其扩容机制会扩容成当前容量的两倍。这个数据结构不是线程安全的。</p>
+<h6 id="作为栈："><a href="#作为栈：" class="headerlink" title="作为栈："></a>作为栈：</h6><p>push（）：调用addFirst（）方法</p>
+<p>pop（）：调用removeFirst（）方法</p>
+<blockquote>
+<p>remove和poll的区别还是和LinkedList一样的，即remove访问到null时会抛出异常，而poll会返回null</p>
+</blockquote>
+<h6 id="作为队列："><a href="#作为队列：" class="headerlink" title="作为队列："></a>作为队列：</h6><p>add（）/ offer（）：调用相关的xxxLast（）方法</p>
+<p>remove（）/ poll（）：调用相关的xxxFirst（）方法</p>
+<p>element（）/ peek（）：返回头部元素</p>
+<blockquote>
+<p>null值时，element抛异常，peek返回null</p>
+<p>满队列添加新元素时，add抛异常，offer返回false</p>
+</blockquote>
+</li>
+</ul>
+<p><strong>3. 路径之和Ⅱ（LC113）</strong></p>
+<p><strong><em>给定一个二叉树和一个目标和，找到所有从根节点到叶子节点路径总和等于给定目标和的路径。</em></strong></p>
+<p><strong><em>说明: 叶子节点是指没有子节点的节点</em></strong></p>
+<blockquote>
+<p>思路：回溯加剪枝即可。类似深搜。</p>
+</blockquote>
+<p><strong><em>代码：</em></strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">List&lt;List&lt;Integer&gt;&gt; res = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">    <span class="keyword">public</span> List&lt;List&lt;Integer&gt;&gt; pathSum(TreeNode root, <span class="keyword">int</span> sum) &#123;</span><br><span class="line">        <span class="keyword">if</span>(root == <span class="keyword">null</span>) <span class="keyword">return</span> res;</span><br><span class="line">        dfs(root , <span class="keyword">new</span> ArrayDeque&lt;&gt;() , sum);</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">   </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">dfs</span><span class="params">(TreeNode root , Deque&lt;Integer&gt; item , <span class="keyword">int</span> sum)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root == <span class="keyword">null</span>) <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">        sum -= root.val;</span><br><span class="line">        item.addLast(root.val);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(sum == <span class="number">0</span> &amp;&amp; root.left == <span class="keyword">null</span> &amp;&amp; root.right == <span class="keyword">null</span>)&#123;</span><br><span class="line">            res.add(<span class="keyword">new</span> ArrayList&lt;&gt;(item));</span><br><span class="line">            item.removeLast();</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        dfs(root.left , item , sum);</span><br><span class="line">        dfs(root.right , item , sum);</span><br><span class="line">        item.removeLast();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>4. 二叉树的最近公共祖先</strong></p>
+<p><strong><em>给定一个二叉树, 找到该树中两个指定节点的最近公共祖先。</em></strong></p>
+<p><strong><em>百度百科中最近公共祖先的定义为：“对于有根树 T 的两个结点 p、q，最近公共祖先表示为一个结点 x，满足 x 是 p、q 的祖先且 x 的深度尽可能大（一个节点也可以是它自己的祖先）。”</em></strong></p>
+<blockquote>
+<p>思路：对于p、q两个节点，找到从根节点到他们的路径，放到一个队列中，然后从头遍历这两个队列，最后一个相等的元素即为他们的最近公共祖先。</p>
+</blockquote>
+<p><strong><em>代码：</em></strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> TreeNode <span class="title">lowestCommonAncestor</span><span class="params">(TreeNode root, TreeNode p, TreeNode q)</span> </span>&#123;</span><br><span class="line">        Deque&lt;TreeNode&gt; pPath = <span class="keyword">new</span> ArrayDeque&lt;&gt;();</span><br><span class="line">        Deque&lt;TreeNode&gt; qPath = <span class="keyword">new</span> ArrayDeque&lt;&gt;();</span><br><span class="line"></span><br><span class="line">        getPath(root , p , pPath);</span><br><span class="line">        getPath(root , q , qPath);</span><br><span class="line"></span><br><span class="line">        TreeNode res = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">while</span>(!pPath.isEmpty() &amp;&amp; !qPath.isEmpty())&#123;</span><br><span class="line">            TreeNode p1 = pPath.removeLast();</span><br><span class="line">            TreeNode q1 = qPath.removeLast();</span><br><span class="line">            <span class="keyword">if</span>(p1 == q1)&#123;</span><br><span class="line">                res = p1;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">getPath</span><span class="params">(TreeNode root , TreeNode search , Deque&lt;TreeNode&gt; path)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root == search)&#123;</span><br><span class="line">            path.push(root);</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(root == <span class="keyword">null</span>) <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line"></span><br><span class="line">        path.push(root);</span><br><span class="line">        <span class="keyword">boolean</span> path1 = getPath(root.left, search, path);</span><br><span class="line">        <span class="keyword">if</span> (path1) <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        <span class="keyword">boolean</span> path2 = getPath(root.right, search, path);</span><br><span class="line">        <span class="keyword">if</span> (path2) <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        path.pop();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>其中，getPath方法就是用来获取路径的，需要注意的是，这个方法最好使用boolean返回值类型，在找到路径后一直return以结束方法调用，否则一定会执行pop方法，最终找好的路径也会只剩下根节点，非常可怕。</p>
+<p><strong>5. 二叉树展开成链表</strong></p>
+<p><strong><em>给定一个二叉树，==原地==将它展开为链表</em></strong></p>
+<blockquote>
+<p>将给定的二叉树前序遍历放到一个链表中，然后改写原来的root使其成为链表。这道题的难点在于原地展开，需要对java的值传递机制有一定的理解。</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">flatten</span><span class="params">(TreeNode root)</span> </span>&#123;</span><br><span class="line">        LinkedList&lt;TreeNode&gt; list = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">        Deque&lt;TreeNode&gt; stack = <span class="keyword">new</span> ArrayDeque&lt;&gt;();</span><br><span class="line">        <span class="keyword">if</span>(root == <span class="keyword">null</span>) <span class="keyword">return</span>;</span><br><span class="line">        stack.push(root);</span><br><span class="line">        <span class="keyword">while</span>(!stack.isEmpty())&#123;</span><br><span class="line">            TreeNode node = stack.pop();</span><br><span class="line">            list.add(node);</span><br><span class="line">            <span class="keyword">if</span>(node.right != <span class="keyword">null</span>)&#123;</span><br><span class="line">                stack.push(node.right);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(node.left != <span class="keyword">null</span>)&#123;</span><br><span class="line">                stack.push(node.left);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        TreeNode tmp = root;</span><br><span class="line">        list.poll(); <span class="comment">// 删除root</span></span><br><span class="line">        <span class="keyword">while</span>(!list.isEmpty())&#123;</span><br><span class="line">            tmp.left = <span class="keyword">null</span>;</span><br><span class="line">            tmp.right = list.poll();</span><br><span class="line">            tmp = tmp.right;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>这道题中，在给root赋值时，</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tmp.right = list.poll();</span><br><span class="line">tmp = tmp.right;</span><br></pre></td></tr></table></figure>
+
+<p>这两条语句的顺序是不能颠倒的，即不能写成</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tmp = tmp.right;</span><br><span class="line">tmp = list.poll();</span><br></pre></td></tr></table></figure>
+
+<p>这是因为list链表中存放的就是当前这颗二叉树的节点坐标，并没有new出来新的节点，所以tmp指针只是在原二叉树各个节点之间来回跳跃，并没有改写这颗二叉树。画了挺久的图才整明白。</p>
+<p><strong>6. 二叉树的右视图</strong></p>
+<p><strong><em>给定一棵二叉树，想象自己站在它的右侧，按照从顶部到底部的顺序，返回从右侧所能看到的节点值</em></strong></p>
+<blockquote>
+<p>思路：首先是想层次遍历二叉树，然后在数组中按照0、2、6、14这样的规律找到对应下标的元素就是二叉树的右视图。后来发现不对，不一定是一个完全二叉树。</p>
+<p>所以考虑使用map结构，给每个节点添加一个层次的属性，然后遍历即可找到对应的右视图。</p>
+<p>直到我看到下面的代码</p>
+</blockquote>
+<p><strong><em>代码：</em></strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Integer&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">    <span class="function"><span class="keyword">public</span> List&lt;Integer&gt; <span class="title">rightSideView</span><span class="params">(TreeNode root)</span> </span>&#123;</span><br><span class="line">        helper(root , <span class="number">0</span>);</span><br><span class="line">        <span class="keyword">return</span> list; </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">helper</span><span class="params">(TreeNode root , <span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root == <span class="keyword">null</span>) <span class="keyword">return</span>;</span><br><span class="line">        <span class="keyword">if</span>(n == list.size()) list.add(root.val);</span><br><span class="line">        helper(root.right , n + <span class="number">1</span>);</span><br><span class="line">        helper(root.left , n + <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>我人傻了，递归用的好真是牛逼。差不多是bfs的思想，一直遍历右边节点并放到最终的list集合中，如果存在某一层最右边节点不是上一层最右边节点的右节点，就会通过访问左边节点成功找到，太强了。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/07/18/%E4%BA%8C%E5%8F%89%E6%A0%91%E5%92%8C%E5%9B%BE/" data-id="ckifb2s4f000d6jnr4legd1bw" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/07/18/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE%E5%92%8C%E6%8E%92%E5%BA%8F%E6%A0%91/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          算法思想
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/07/18/Mybatis%E6%B3%A8%E8%A7%A3%E5%BC%80%E5%8F%91/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">SSM框架</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/12/07/cpu%E9%A3%99%E9%AB%98%E6%8E%92%E6%9F%A5/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/04/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B4%A2%E5%BC%95/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/29/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F/">高并发相关技术</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/27/%E6%95%B0%E6%8D%AE%E5%BA%8F%E5%88%97%E5%8C%96%E6%96%B9%E6%A1%88/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/21/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

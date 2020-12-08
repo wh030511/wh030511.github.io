@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>JavaSE | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Java多线程 关于Java多线程的复习与思考。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaSE">
+<meta property="og:url" content="http://example.com/2020/07/18/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%80%9D%E8%80%83/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Java多线程 关于Java多线程的复习与思考。">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-07-18T10:00:10.409Z">
+<meta property="article:modified_time" content="2020-07-18T10:00:10.409Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Java多线程思考" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/07/18/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%80%9D%E8%80%83/" class="article-date">
+  <time datetime="2020-07-18T10:00:10.409Z" itemprop="datePublished">2020-07-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      JavaSE
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Java多线程"><a href="#Java多线程" class="headerlink" title="Java多线程"></a>Java多线程</h1><blockquote>
+<p>关于Java多线程的复习与思考。</p>
+</blockquote>
+<a id="more"></a>
+
+<p>首先介绍两个概念：</p>
+<ul>
+<li>并行：在同一时刻发生在不同实体上的多个事件。</li>
+<li>并发：在同一时间间隔发生在同一实体上的多个事件。</li>
+</ul>
+<p>得益于硬件的发展，如今的PC可以拥有多核，每个处理器的性能也十分强大。在这种情况下，充分利用硬件的性能来提高软件的使用体验就是一个水到渠成的需求了。</p>
+<p>每个核去独立的处理进程就是并行，单个核处理进程造成的“伪并行”的现象就是并发。没错，在我的认知中，由于计算机CPU每秒可以进行数十亿次的浮点计算，所以在宏观层面，并发和并行并无区别。我们也乐于如此，尽管理性告诉我们只有一个勤勤恳恳的管家在做事，只不过他做的太快了以至于让我们误以为有许多仆人。但是管他呢，一边听音乐一边浏览网页不香吗？</p>
+<p>这个管家实在太厉害了，于是他分成了许多小管家，每个进程都由一个小管家去管理，这些小管家也掌握了“分身”的技能，这就是多线程了。</p>
+<p>坦率的讲，小管家并不高兴，他并不觉得自己做了更多的事：我本可以一鼓作气的完成我的工作，为什么要我东一榔头西一棒子去做同一件事呢？来回的折腾甚至还更耗时了呢！</p>
+<p>小管家忘了，不是所有人都能像他这样厉害哒！那边蠢蠢的IO还在哼哧哼哧的给小管家运来需要的数据呢，如果是单线程的话，做不了多久小管家就要停下来等等他愚蠢的IO朋友。而黑心的主人一点也不想让小管家休息，怎么办呢？有啦！主人把这个任务分成好几个小任务，小管家做完小任务A就去做小任务B吧，等小任务B做完了，小管家的IO朋友也运来需要的数据了，要是这样小管家还能休息，就拆出更多的任务C、任务D来，嘿嘿嘿。黑心的主人得意的笑了出来。</p>
+<p>所以，多线程没能提高小管家的效率，但是提高了小管家的占用率，变相的提高了整个任务的效率。</p>
+<p>Java多线程环境中，Java给每个线程一个自己独立的栈空间和程序计数器，栈帧中存放局部变量、指令等信息，程序计数器就指明了下一次要执行的指令，这样，每个线程就可以独立的进行工作了。</p>
+<p>与进程不同的是，线程之间共享内存空间（堆和方法区），不像进程并发那样哪怕不进行通信也能独立的完成自己的任务。所以多线程天然的就具有通信的条件：所谓通信，不就是交换数据吗？</p>
+<p>但是，共享了数据区，各个线程如何保证自己的数据不被别的线程恶意篡改呢？这就是多线程的线程安全问题。</p>
+<h2 id="线程的安全"><a href="#线程的安全" class="headerlink" title="线程的安全"></a>线程的安全</h2><p>线程的安全问题，主要可以通过以下几种思路解决。</p>
+<h3 id="一、藏起来"><a href="#一、藏起来" class="headerlink" title="一、藏起来"></a>一、藏起来</h3><blockquote>
+<p>既然放在堆里不靠谱，所有线程都能访问，那么就把他放到每个线程各自的栈空间不就得了？</p>
+</blockquote>
+<p>将对象的成员变量编程run方法的局部变量，不得不说，确实解决了线程的安全问题。但是无异于鸵鸟，原本天然的通信条件也被破坏了，并不是一个靠谱的选择。</p>
+<h3 id="二、人人有份"><a href="#二、人人有份" class="headerlink" title="二、人人有份"></a>二、人人有份</h3><blockquote>
+<p>既然这个数据大家都要用，不妨每人发一个，大家都操作自己的，岂不美哉？</p>
+</blockquote>
+<p>一种空间换时间的策略。Java的ThreadLocal类就是用这种思想来解决线程安全问题的。</p>
+<p>ThreadLocal类中有一个成员变量ThreadLocal.ThreadLocalMap，是ThreadLocal的一个静态内部类，其中维护了一个Entry数组用来存放数据，key是当前的线程，value是存放的值。</p>
+<p>通过ThreadLocal的set和get方法来改变或者获取当前线程的value。</p>
+<h3 id="三、上锁"><a href="#三、上锁" class="headerlink" title="三、上锁"></a>三、上锁</h3><blockquote>
+<p>我没用完，谁也别想用。</p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/07/18/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%80%9D%E8%80%83/" data-id="ckifb2s4900046jnrfu5f4bln" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/07/18/Spring/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          SSM框架
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/07/18/Linux%E5%AD%A6%E4%B9%A0/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">工具</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/12/07/cpu%E9%A3%99%E9%AB%98%E6%8E%92%E6%9F%A5/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/04/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B4%A2%E5%BC%95/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/29/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F/">高并发相关技术</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/27/%E6%95%B0%E6%8D%AE%E5%BA%8F%E5%88%97%E5%8C%96%E6%96%B9%E6%A1%88/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/21/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>工程实战 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Git Git是一个分布式版本管理工具，基于文件系统快照的方式保存不同版本的非重复数据。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="工程实战">
+<meta property="og:url" content="http://example.com/2020/07/18/Git/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Git Git是一个分布式版本管理工具，基于文件系统快照的方式保存不同版本的非重复数据。">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-07-18T10:00:10.408Z">
+<meta property="article:modified_time" content="2020-07-18T10:00:10.408Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Git" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/07/18/Git/" class="article-date">
+  <time datetime="2020-07-18T10:00:10.408Z" itemprop="datePublished">2020-07-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      工程实战
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Git"><a href="#Git" class="headerlink" title="Git"></a>Git</h1><blockquote>
+<p>Git是一个分布式版本管理工具，基于文件系统快照的方式保存不同版本的非重复数据。</p>
+</blockquote>
+<a id="more"></a>
+
+<h4 id="一、文件目录说明"><a href="#一、文件目录说明" class="headerlink" title="一、文件目录说明"></a>一、文件目录说明</h4><p>安装git后可以在创建的工作目录中使用git init命令初始化，会生成一个本地库的相关子目录和文件。为了区分不同开发人员，需要设置签名，通过git config命令指定用户名和邮箱。</p>
+<h4 id="二、常用命令整理"><a href="#二、常用命令整理" class="headerlink" title="二、常用命令整理"></a>二、常用命令整理</h4><table>
+<thead>
+<tr>
+<th align="center">命令</th>
+<th align="center">含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">git status</td>
+<td align="center">查看工作区、缓存区状态</td>
+</tr>
+<tr>
+<td align="center">git add [file name]</td>
+<td align="center">从工作区添加到暂存区</td>
+</tr>
+<tr>
+<td align="center">git commit -m “commit message”  [file name]</td>
+<td align="center">从暂存区提交到本地区</td>
+</tr>
+<tr>
+<td align="center">git log <br>git log –pretty=oneline、git log –oneline<br>git reflog</td>
+<td align="center">查看历史记录</td>
+</tr>
+<tr>
+<td align="center">git reset –hard [索引值]</td>
+<td align="center">版本后退与前进</td>
+</tr>
+<tr>
+<td align="center">git diff [索引值] [文件名]</td>
+<td align="center">将工作区中的文件与暂存区/历史版本进行比较</td>
+</tr>
+</tbody></table>
+<p>注：可以使用^或~来实现版本更换。但是只能用于后退，使用规则如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git reset --hard HEAD^^^ <span class="comment">// 后退三个版本</span></span><br><span class="line">git reset --hard HEAD~<span class="number">3</span> <span class="comment">// 同上</span></span><br></pre></td></tr></table></figure>
+
+<p>git reset参数辨析</p>
+<table>
+<thead>
+<tr>
+<th align="center">参数</th>
+<th align="center">含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">soft</td>
+<td align="center">在本地库移动HEAD指针</td>
+</tr>
+<tr>
+<td align="center">mixed</td>
+<td align="center">除了移动指针，也会重置暂存区</td>
+</tr>
+<tr>
+<td align="center">hard</td>
+<td align="center">移动指针、重置暂存区和工作区</td>
+</tr>
+</tbody></table>
+<h4 id="三、分支管理"><a href="#三、分支管理" class="headerlink" title="三、分支管理"></a>三、分支管理</h4><h6 id="Ⅰ、分支的好处"><a href="#Ⅰ、分支的好处" class="headerlink" title="Ⅰ、分支的好处"></a>Ⅰ、分支的好处</h6><p>同时并行的推进多个功能开发，提高开发效率</p>
+<p>各个分支在开发过程中相互独立</p>
+<h6 id="Ⅱ、分支操作"><a href="#Ⅱ、分支操作" class="headerlink" title="Ⅱ、分支操作"></a>Ⅱ、分支操作</h6><table>
+<thead>
+<tr>
+<th align="center">命令</th>
+<th align="center">含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">git branch -v</td>
+<td align="center">查看分支</td>
+</tr>
+<tr>
+<td align="center">git branch [分支名]</td>
+<td align="center">新建分支</td>
+</tr>
+<tr>
+<td align="center">git checkout [分支名]</td>
+<td align="center">切换分支</td>
+</tr>
+<tr>
+<td align="center">git merge [分支名]</td>
+<td align="center">合并分支</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+</tbody></table>
+<p>如果两个版本对于同一行有不同的意见，则会产生合并冲突。需要交流后决定如何采用， 解决冲突。</p>
+<p>解决冲突的步骤如下：</p>
+<ol>
+<li>编辑文件，删除特殊符号</li>
+<li>将文件修改到合适的版本</li>
+<li>git add [文件名]</li>
+<li>git commit -m “message”</li>
+</ol>
+<h4 id="四、本地库和远程库交互"><a href="#四、本地库和远程库交互" class="headerlink" title="四、本地库和远程库交互"></a>四、本地库和远程库交互</h4><h6 id="Ⅰ、基于github搭建远程库"><a href="#Ⅰ、基于github搭建远程库" class="headerlink" title="Ⅰ、基于github搭建远程库"></a>Ⅰ、基于github搭建远程库</h6><p>Create a new repository</p>
+<h6 id="Ⅱ、本地库推送到远程库"><a href="#Ⅱ、本地库推送到远程库" class="headerlink" title="Ⅱ、本地库推送到远程库"></a>Ⅱ、本地库推送到远程库</h6><table>
+<thead>
+<tr>
+<th align="center">命令</th>
+<th align="center">含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">git remote -v</td>
+<td align="center">查看本地库保存的远程库别名和地址</td>
+</tr>
+<tr>
+<td align="center">git remote add ‘name’ url</td>
+<td align="center">给远程库地址取别名</td>
+</tr>
+<tr>
+<td align="center">git push [别名] [分支]</td>
+<td align="center">将某分支推送到远程库</td>
+</tr>
+</tbody></table>
+<p>注：如果不是对最新版本的修改，不能推送，必须先拉取最新版进行修改后再推送。</p>
+<h6 id="Ⅲ、远程库到本地库"><a href="#Ⅲ、远程库到本地库" class="headerlink" title="Ⅲ、远程库到本地库"></a>Ⅲ、远程库到本地库</h6><table>
+<thead>
+<tr>
+<th align="center">命令</th>
+<th align="center">含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">git clone url</td>
+<td align="center">非创建者将远程库克隆到本地库</td>
+</tr>
+<tr>
+<td align="center">git fetch [别名] [分支]</td>
+<td align="center">将远程库某个分支拉取下来</td>
+</tr>
+<tr>
+<td align="center">git merge [别名]/[分支]</td>
+<td align="center">将远程的分支合并到本地</td>
+</tr>
+<tr>
+<td align="center">git poll [别名] [分支]</td>
+<td align="center">fetch + merge</td>
+</tr>
+</tbody></table>
+<p>克隆的效果：</p>
+<ol>
+<li>将远程库下载到本地</li>
+<li>创建远程地址别名</li>
+<li>初始化本地库</li>
+</ol>
+<p>邀请别人加入团队：</p>
+<p>github项目中——&gt;settings——&gt;Collaborators——&gt;输入被邀请人的GitHub账号——&gt;Copy invite link——&gt;发送给被邀请人</p>
+<p>只有成为团队成员才能将本地库推送到远程库</p>
+<h6 id="Ⅳ、跨团队协作"><a href="#Ⅳ、跨团队协作" class="headerlink" title="Ⅳ、跨团队协作"></a>Ⅳ、跨团队协作</h6><ol>
+<li>通过fork将别人的远程库fork到自己账号中</li>
+<li>再完成修改后通过Pull Requests——&gt;new pull request——&gt;create pull request，申请将自己的修改用于原项目</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/07/18/Git/" data-id="ckifb2s4600016jnrgej9dj7f" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/07/18/Linux%E5%AD%A6%E4%B9%A0/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          工具
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/07/18/JavaSE%E4%B9%8B%E5%8F%8D%E5%B0%84/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">框架核心</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/12/07/cpu%E9%A3%99%E9%AB%98%E6%8E%92%E6%9F%A5/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/04/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B4%A2%E5%BC%95/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/29/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F/">高并发相关技术</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/27/%E6%95%B0%E6%8D%AE%E5%BA%8F%E5%88%97%E5%8C%96%E6%96%B9%E6%A1%88/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/21/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

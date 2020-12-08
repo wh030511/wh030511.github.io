@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="序列化方案 网络通信和通用数据交换技术，大体介绍xml、json、protobuf、thrift四种方案。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://example.com/2020/07/27/%E6%95%B0%E6%8D%AE%E5%BA%8F%E5%88%97%E5%8C%96%E6%96%B9%E6%A1%88/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="序列化方案 网络通信和通用数据交换技术，大体介绍xml、json、protobuf、thrift四种方案。">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-07-27T02:28:26.981Z">
+<meta property="article:modified_time" content="2020-07-27T06:36:03.433Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-数据序列化方案" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/07/27/%E6%95%B0%E6%8D%AE%E5%BA%8F%E5%88%97%E5%8C%96%E6%96%B9%E6%A1%88/" class="article-date">
+  <time datetime="2020-07-27T02:28:26.981Z" itemprop="datePublished">2020-07-27</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="序列化方案"><a href="#序列化方案" class="headerlink" title="序列化方案"></a>序列化方案</h1><blockquote>
+<p>网络通信和通用数据交换技术，大体介绍xml、json、protobuf、thrift四种方案。</p>
+</blockquote>
+<a id="more"></a>
+
+<h2 id="XML"><a href="#XML" class="headerlink" title="XML"></a>XML</h2><p><strong>定义：</strong>可扩展标记语言，使用DOM树的形式描述数据，可以用于数据存储和传输。</p>
+<p><strong>优点：</strong>独立于语言和平台，发展较早，使用范围广；格式统一，可以与其他系统远程交互。</p>
+<p><strong>缺点：</strong>数据结构太过笨重，在网络传输过程中存在许多无谓的消耗。不同的浏览器之间解析方式不同，故需要编写许多重复代码。其组织也比较复杂，各种子节点父节点，解析困难。</p>
+<h2 id="Json（JavaScript-Object-Notation：js对象表示法）"><a href="#Json（JavaScript-Object-Notation：js对象表示法）" class="headerlink" title="Json（JavaScript  Object Notation：js对象表示法）"></a>Json（JavaScript  Object Notation：js对象表示法）</h2><p><strong>定义：</strong>轻量级数据交换格式，独立于语言和平台。</p>
+<p><strong>优点：</strong>javascript原生支持json，解析速度很快；json格式简单，传输成本比xml低很多；服务器解析速度快。</p>
+<p><strong>缺点：</strong>安全性不够高，没有错误处理。</p>
+<h2 id="Protocol-Buffer"><a href="#Protocol-Buffer" class="headerlink" title="Protocol Buffer"></a>Protocol Buffer</h2><blockquote>
+<p>pb是一种语言无关、平台无关、可扩展的序列化结构数据的方法，它可用于（数据）通信协议、数据存储等。由于是二进制传输方案，所以性能极强。同时，拥有很好的扩展性和兼容性。</p>
+</blockquote>
+<h4 id="使用步骤："><a href="#使用步骤：" class="headerlink" title="使用步骤："></a>使用步骤：</h4><p><strong>1. 创建.proto文件，定义数据结构：</strong>语法可以百度，不难。</p>
+<p><strong>2. 使用protoc编译.proto文件生成读写接口：</strong>提供将数据结构序列化和反序列化的方法。针对不同的语言（可以在编译时指定），可以生成相应语言的输入输出流，用于磁盘IO。</p>
+<p><strong>3. 调用提供的接口，实现序列化、反序列化和读写</strong></p>
+<h4 id="编码方案"><a href="#编码方案" class="headerlink" title="编码方案"></a>编码方案</h4><p>采用TV或者TLV的方式进行编码，取决于Tag的后三个bit规定的wire_type，取值如下：</p>
+<table>
+<thead>
+<tr>
+<th align="center">Type</th>
+<th align="center">Meaning</th>
+<th align="center">Used For</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">0</td>
+<td align="center">Varint</td>
+<td align="center">int32/int64/uint32/uint64/sint32/sint64/bool/enum</td>
+</tr>
+<tr>
+<td align="center">1</td>
+<td align="center">64-bit</td>
+<td align="center">fixed64/sfixed64/double</td>
+</tr>
+<tr>
+<td align="center">2</td>
+<td align="center">Lentgh-delimited</td>
+<td align="center">String/bytes/embedded/message/package/repeated/fields</td>
+</tr>
+<tr>
+<td align="center">5</td>
+<td align="center">32-bit</td>
+<td align="center">fixed32/sfixed32/float</td>
+</tr>
+</tbody></table>
+<p>(注：原3、4的start group和end group已被废弃)</p>
+<h5 id="Varints编码："><a href="#Varints编码：" class="headerlink" title="Varints编码："></a>Varints编码：</h5><p><strong>规则：</strong></p>
+<ol>
+<li>bit表示是否是最后一个字节，参照utf-8编码格式。</li>
+<li>存储补码</li>
+<li>补码低位在前（为编码实现的一个优化）</li>
+</ol>
+<p><strong>优点：</strong>对于小数来说，会减少很多空间的消耗，而小数字在传输的过程中是大概率事件。</p>
+<p><strong>缺点：</strong>大数和负数反而会浪费空间</p>
+<p><strong>解决：</strong>对于大数，采用64-bit或者32-bit来定义长度，对于负数采用ZigZag编码，即将有符号整数映射到无符号整数，然后再使用 Varints 编码。</p>
+<h5 id="Length-delimited类型"><a href="#Length-delimited类型" class="headerlink" title="Length-delimited类型"></a>Length-delimited类型</h5><p>即在message中使用之前定义过的message，采用Tag-Length-Value形式编码。</p>
+<h5 id="packed编码"><a href="#packed编码" class="headerlink" title="packed编码"></a>packed编码</h5><p>在proto3中默认置为true，就是把 repeated primitive 的编码结果打包，从而进一步压缩空间，进一步提高效率、速度。</p>
+<p>打包的含义其实就是：原先的 repeated 字段的编码结构为 <strong>Tag-Length-Value-Tag-Length-Value-Tag-Length-Value…**，因为这些 Tag 都是相同的（同一字段），因此可以将这些字段的 Value 打包，即将编码结构变为 **Tag-Length-Value-Value-Value…</strong></p>
+<h2 id="Thrift"><a href="#Thrift" class="headerlink" title="Thrift"></a>Thrift</h2><blockquote>
+<p>thrift即是一个rpc框架，也可以作为一个序列化方案，提供一站式解决方案。</p>
+<p>更应该和grpc对比。</p>
+</blockquote>
+<p>thrift通过一个中间语言IDL来定义rpc的数据类型和接口（在.thrift文件中），然后通过特殊的编译器生成不同语言的代码，生成的代码中不但包含目标语言的接口定义，方法，数据类型，还包含有rpc协议层和传输层的实现代码。</p>
+<h5 id=""><a href="#" class="headerlink" title=""></a></h5>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/07/27/%E6%95%B0%E6%8D%AE%E5%BA%8F%E5%88%97%E5%8C%96%E6%96%B9%E6%A1%88/" data-id="ckifb2s4m000l6jnretd98p65" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/07/29/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          高并发相关技术
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/07/21/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/12/07/cpu%E9%A3%99%E9%AB%98%E6%8E%92%E6%9F%A5/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/04/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B4%A2%E5%BC%95/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/29/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F/">高并发相关技术</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/27/%E6%95%B0%E6%8D%AE%E5%BA%8F%E5%88%97%E5%8C%96%E6%96%B9%E6%A1%88/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/21/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

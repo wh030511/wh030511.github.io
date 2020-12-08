@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>SSM框架 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="手撕Mybatis">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SSM框架">
+<meta property="og:url" content="http://example.com/2020/07/18/%E6%89%8B%E6%92%95Mybatis/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="手撕Mybatis">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-07-18T10:00:10.413Z">
+<meta property="article:modified_time" content="2020-07-18T10:00:10.413Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-手撕Mybatis" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/07/18/%E6%89%8B%E6%92%95Mybatis/" class="article-date">
+  <time datetime="2020-07-18T10:00:10.413Z" itemprop="datePublished">2020-07-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      SSM框架
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="手撕Mybatis"><a href="#手撕Mybatis" class="headerlink" title="手撕Mybatis"></a>手撕Mybatis</h1><a id="more"></a>
+
+<blockquote>
+<p>删去pom文件中mybatis的依赖，自己实现功能。</p>
+</blockquote>
+<p><strong>在测试文件中，使用Mybatis查询数据库中的所有记录主要分为以下几步。</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1 读取配置文件</span></span><br><span class="line">        InputStream is = Resources.getResourceAsStream(<span class="string">&quot;SqlMapConfig.xml&quot;</span>);</span><br><span class="line">        <span class="comment">// 2 创建SqlSessionFactory工厂模式</span></span><br><span class="line">        SqlSessionFactory factory = <span class="keyword">new</span> SqlSessionFactoryBuilder().build(is);</span><br><span class="line">        <span class="comment">// 3 使用工厂生产SqlSession对象</span></span><br><span class="line">        SqlSession sqlSession = factory.openSession();</span><br><span class="line">        <span class="comment">// 4 使用SqlSession创建Dao接口的代理对象</span></span><br><span class="line">        IUserDao userDao = sqlSession.getMapper(IUserDao.class);</span><br><span class="line">        <span class="comment">// 5 使用代理对象执行方法</span></span><br><span class="line">        List&lt;User&gt; users = userDao.findAll();</span><br><span class="line">        <span class="keyword">for</span> (User user : users) &#123;</span><br><span class="line">            System.out.println(user);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 6 释放资源</span></span><br><span class="line">        sqlSession.close();</span><br><span class="line">        is.close();</span><br></pre></td></tr></table></figure>
+
+<p><strong>所以要想手撕Mybatis，就要解决这些在Mybatis中集成的类对象。</strong></p>
+<h2 id="相关类的设计"><a href="#相关类的设计" class="headerlink" title="相关类的设计"></a>相关类的设计</h2><ul>
+<li><p><strong>Resources</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Resources</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 获得配置文件的输入流流</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> InputStream <span class="title">getResourceAsStream</span><span class="params">(String filePath)</span></span>&#123;</span><br><span class="line">        <span class="comment">// 使用类加载器来完成</span></span><br><span class="line">        <span class="keyword">return</span> Resources.class.getClassLoader().getResourceAsStream(filePath);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用类加载器来获得文件输入流，该文件是主配置文件，其中指明了Mysql的连接数据和副配置文件位置。</p>
+<p>不得不提的是，在我测试的时候这个方法报空指针异常！我找了很久才发现是<code>Resources</code>少些了一个s，:cry:</p>
+</li>
+<li><p><strong>SqlSessionFactoryBuilder</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SqlSessionFactoryBuilder</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> SqlSessionFactory <span class="title">build</span><span class="params">(InputStream config)</span></span>&#123;</span><br><span class="line">        Configuration cfg =  XMLConfigBuilder.loadConfiguration(config);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> DefaultSqlSessionFactory(cfg);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>通过该方法获得一个生产SqlSession的工厂，使用了构建者模式，这里的<code>XMLConfigBuilder</code>是一个工具类，用于解析XML文件，返回值是一个Configuration对象，Configuration类的声明如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Configuration</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String driver;</span><br><span class="line">    <span class="keyword">private</span> String url;</span><br><span class="line">    <span class="keyword">private</span> String username;</span><br><span class="line">    <span class="keyword">private</span> String password;</span><br><span class="line">    <span class="keyword">private</span> Map&lt;String , Mapper&gt; mappers = <span class="keyword">new</span> HashMap&lt;String, Mapper&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Map&lt;String, Mapper&gt; <span class="title">getMappers</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> mappers;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setMappers</span><span class="params">(Map&lt;String, Mapper&gt; mappers)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.mappers.putAll(mappers); <span class="comment">// 采用追加的方式</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getDriver</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> driver;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setDriver</span><span class="params">(String driver)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.driver = driver;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getUrl</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> url;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setUrl</span><span class="params">(String url)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.url = url;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getUsername</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> username;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setUsername</span><span class="params">(String username)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.username = username;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getPassword</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> password;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setPassword</span><span class="params">(String password)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.password = password;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这是一个JavaBean，其中的driver、url、name、password就是用于连接数据库的驱动、路径、用户名和密码，其值都是在<code>XMLConfigBuilder</code>中通过解析配置文件而确定了（mysql8之后要处理时区问题，并且要指明是否使用SSL，否则会报错）。</p>
+<p>而mappers中封装了在执行时必须的信息，即Mapper中的SQL语句和返回值类型。在代码中是这样的</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> Map&lt;String,Mapper&gt; <span class="title">loadMapperConfiguration</span><span class="params">(String mapperPath)</span><span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        InputStream in = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">            <span class="comment">//定义返回值对象</span></span><br><span class="line">            Map&lt;String,Mapper&gt; mappers = <span class="keyword">new</span> HashMap&lt;String,Mapper&gt;();</span><br><span class="line">            <span class="comment">//1.根据路径获取字节输入流</span></span><br><span class="line">            in = Resources.getResourceAsStream(mapperPath);</span><br><span class="line">            <span class="comment">//2.根据字节输入流获取Document对象</span></span><br><span class="line">            SAXReader reader = <span class="keyword">new</span> SAXReader();</span><br><span class="line">            Document document = reader.read(in);</span><br><span class="line">            <span class="comment">//3.获取根节点</span></span><br><span class="line">            Element root = document.getRootElement();</span><br><span class="line">            <span class="comment">//4.获取根节点的namespace属性取值</span></span><br><span class="line">            String namespace = root.attributeValue(<span class="string">&quot;namespace&quot;</span>);<span class="comment">//是组成map中key的部分</span></span><br><span class="line">            <span class="comment">//5.获取所有的select节点</span></span><br><span class="line">            List&lt;Element&gt; selectElements = root.selectNodes(<span class="string">&quot;//select&quot;</span>);</span><br><span class="line">            <span class="comment">//6.遍历select节点集合</span></span><br><span class="line">            <span class="keyword">for</span>(Element selectElement : selectElements)&#123;</span><br><span class="line">                <span class="comment">//取出id属性的值      组成map中key的部分</span></span><br><span class="line">                String id = selectElement.attributeValue(<span class="string">&quot;id&quot;</span>);</span><br><span class="line">                <span class="comment">//取出resultType属性的值  组成map中value的部分</span></span><br><span class="line">                String resultType = selectElement.attributeValue(<span class="string">&quot;resultType&quot;</span>);</span><br><span class="line">                <span class="comment">//取出文本内容            组成map中value的部分</span></span><br><span class="line">                String queryString = selectElement.getText();</span><br><span class="line">                <span class="comment">//创建Key</span></span><br><span class="line">                String key = namespace+<span class="string">&quot;.&quot;</span>+id;</span><br><span class="line">                <span class="comment">//创建Value</span></span><br><span class="line">                Mapper mapper = <span class="keyword">new</span> Mapper();</span><br><span class="line">                mapper.setQuerySQL(queryString);</span><br><span class="line">                mapper.setResultType(resultType);</span><br><span class="line">                <span class="comment">//把key和value存入mappers中</span></span><br><span class="line">                mappers.put(key,mapper);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> mappers;</span><br><span class="line">        &#125;<span class="keyword">catch</span>(Exception e)&#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(e);</span><br><span class="line">        &#125;<span class="keyword">finally</span>&#123;</span><br><span class="line">            in.close();</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+
+<p>在主配置文件中获得了副配置文件的位置（mapperPath），然后使用类加载器获得了文件流，取出配置文件中的namespace和id组成了key，将查询语句和返回值封装成value。执行完<code>XMLConfigBuilder</code>后，就获得了一个完整的Confiruration，其中包括与数据库连接所需要的数据和要执行查询的SQL语句还有返回值。</p>
+<p>注意，在Confiruration中，mappers的set方式采用的是追加的形式，这样是为了在副配置文件中有多个mapper时能全都保存，而不是被覆盖。</p>
+</li>
+<li><p><strong>SqlSessionFactory</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">SqlSessionFactory</span> </span>&#123;</span><br><span class="line">    <span class="function">SqlSession <span class="title">openSession</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DefaultSqlSessionFactory</span> <span class="keyword">implements</span> <span class="title">SqlSessionFactory</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Configuration cfg ;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">DefaultSqlSessionFactory</span><span class="params">(Configuration cfg)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.cfg = cfg;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> SqlSession <span class="title">openSession</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> DefaultSqlSession(cfg);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>SqlSessionFactory是一个接口，定义了openSession方法来获得SqlSession对象。其实现类是DefaultSqlSessionFactory，以我现在的理解，该工厂传递了封装好的Configuration对象cfg。</p>
+</li>
+<li><p><strong>SqlSession</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">SqlSession</span> </span>&#123;</span><br><span class="line">    <span class="comment">// daoInterfaceClass作为创建代理对象的第二个参数使用</span></span><br><span class="line">    &lt;T&gt; <span class="function">T <span class="title">getMapper</span><span class="params">(Class&lt;T&gt; daoInterfaceClass)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">close</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DefaultSqlSession</span> <span class="keyword">implements</span> <span class="title">SqlSession</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Configuration cfg ;</span><br><span class="line">    <span class="keyword">private</span> Connection connection;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">DefaultSqlSession</span><span class="params">(Configuration cfg)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.cfg = cfg;</span><br><span class="line">        connection = DataSourceUtil.getConnection(cfg);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> &lt;T&gt; <span class="function">T <span class="title">getMapper</span><span class="params">(Class&lt;T&gt; daoInterfaceClass)</span> </span>&#123;</span><br><span class="line">         <span class="keyword">return</span> (T)Proxy.newProxyInstance(daoInterfaceClass.getClassLoader(),</span><br><span class="line">                <span class="keyword">new</span> Class[]&#123;daoInterfaceClass&#125;,</span><br><span class="line">                <span class="keyword">new</span> MyInvocation(cfg.getMappers(), connection));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">close</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (connection != <span class="keyword">null</span>)&#123;</span><br><span class="line">                connection.close();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>SqlSession接口定义了两个方法，其中getMappers接受一个类对象，确切的说是一个接口对象，然后使用代理模式返回一个实现了所需功能的结果集。在它的实现类中，不难看出利用cfg创造了Connection连接，然后使用代理模式，传递了要实现的接口，所以关键在于<code>MyInvocation</code>是如何做的。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyInvocation</span> <span class="keyword">implements</span> <span class="title">InvocationHandler</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Map&lt;String , Mapper&gt; mappers;</span><br><span class="line">    <span class="keyword">private</span> Connection conn;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MyInvocation</span><span class="params">(Map&lt;String , Mapper&gt; mappers , Connection conn)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.mappers = mappers;</span><br><span class="line">        <span class="keyword">this</span>.conn = conn;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">invoke</span><span class="params">(Object proxy, Method method, Object[] args)</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">        <span class="comment">// 1 获得方法名</span></span><br><span class="line">        String methodName = method.getName();</span><br><span class="line">        <span class="comment">// 2 获得类名</span></span><br><span class="line">        String className = method.getDeclaringClass().getName();</span><br><span class="line">        <span class="comment">//3 获得key</span></span><br><span class="line">        String key = className + <span class="string">&quot;.&quot;</span> + methodName;</span><br><span class="line">        <span class="comment">//4 从mappers通过key找到value</span></span><br><span class="line">        Mapper mapper = mappers.get(key);</span><br><span class="line">        <span class="comment">//5 判断是否为空</span></span><br><span class="line">        <span class="keyword">if</span> (mapper == <span class="keyword">null</span>)&#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">&quot;mapper为空&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Executor().selectList(mapper, conn);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在InvocationHandler的实现类中，invoke做了这些事：通过反射拼接了mappers的key，通过key获得了value（所以当有多个SQL语句时，代码不需要任何改变，很好的保持了弹性，遵循了开闭原则），即SQL语句和返回值，然后调用了Executor的selectList方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> &lt;E&gt; <span class="function">List&lt;E&gt; <span class="title">selectList</span><span class="params">(Mapper mapper, Connection conn)</span> </span>&#123;</span><br><span class="line">        PreparedStatement pstm = <span class="keyword">null</span>;</span><br><span class="line">        ResultSet rs = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">//1.取出mapper中的数据</span></span><br><span class="line">            String queryString = mapper.getQuerySQL();<span class="comment">//select * from user</span></span><br><span class="line">            String resultType = mapper.getResultType();<span class="comment">//com.itheima.domain.User</span></span><br><span class="line">            Class domainClass = Class.forName(resultType);</span><br><span class="line">            <span class="comment">//2.获取PreparedStatement对象</span></span><br><span class="line">            pstm = conn.prepareStatement(queryString);</span><br><span class="line">            <span class="comment">//3.执行SQL语句，获取结果集</span></span><br><span class="line">            rs = pstm.executeQuery();</span><br><span class="line">            <span class="comment">//4.封装结果集</span></span><br><span class="line">            List&lt;E&gt; list = <span class="keyword">new</span> ArrayList&lt;E&gt;();<span class="comment">//定义返回值</span></span><br><span class="line">            <span class="keyword">while</span>(rs.next()) &#123;</span><br><span class="line">                <span class="comment">//实例化要封装的实体类对象</span></span><br><span class="line">                E obj = (E)domainClass.newInstance();</span><br><span class="line"></span><br><span class="line">                <span class="comment">//取出结果集的元信息：ResultSetMetaData</span></span><br><span class="line">                ResultSetMetaData rsmd = rs.getMetaData();</span><br><span class="line">                <span class="comment">//取出总列数</span></span><br><span class="line">                <span class="keyword">int</span> columnCount = rsmd.getColumnCount();</span><br><span class="line">                <span class="comment">//遍历总列数</span></span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= columnCount; i++) &#123;</span><br><span class="line">                    <span class="comment">//获取每列的名称，列名的序号是从1开始的</span></span><br><span class="line">                    String columnName = rsmd.getColumnName(i);</span><br><span class="line">                    <span class="comment">//根据得到列名，获取每列的值</span></span><br><span class="line">                    Object columnValue = rs.getObject(columnName);</span><br><span class="line">                    <span class="comment">//给obj赋值：使用Java内省机制（借助PropertyDescriptor实现属性的封装）</span></span><br><span class="line">                    PropertyDescriptor pd = <span class="keyword">new</span> PropertyDescriptor(columnName,domainClass);<span class="comment">//要求：实体类的属性和数据库表的列名保持一种</span></span><br><span class="line">                    <span class="comment">//获取它的写入方法</span></span><br><span class="line">                    Method writeMethod = pd.getWriteMethod();</span><br><span class="line">                    <span class="comment">//把获取的列的值，给对象赋值</span></span><br><span class="line">                    writeMethod.invoke(obj,columnValue);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="comment">//把赋好值的对象加入到集合中</span></span><br><span class="line">                list.add(obj);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> list;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(e);</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            release(pstm,rs);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>接下来就是JDBC的那一套了，通过SQL语句，返回值类型，反射等，返回了查询的结果集，完成了最初的功能。</p>
+</li>
+</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>手撕的视频我看了两遍，第一遍的时候不知所云，很难理清其中的逻辑关系。然后我去重新学习了反射技术，并了解了相关的设计模式。第二遍看的时候就如鱼得水，恍然大悟，兴冲冲的自己实现了它，也遇到了一些小问题，就比如没写s，愁的我直挠头。</p>
+<p>Mybatis的学习才刚刚开始，但是我觉得其中最重要的东西已经学完了，或者说，框架最重要的东西不在于框架，而是底层关于反射的理解和设计模式的熟悉。框架是多种设计模式的嵌套复合，其目的与设计模式也一样，提高复用，增强程序的整体弹性等等。所以看上去使用Mybatis比造一个工具类来的复杂多了，但是当面对大量的类似任务时，我相信会比工具类有好很多的表现，虽然我还没有经历过。</p>
+<p>Mybatis将简单的JDBC用设计模式一层一层的封装，但最后的工作还是要一步一步的注册驱动、获取连接、预处理、执行等等，这些工作都被封装了起来，但作为设计者，这些都应该了然于胸。再往后，Mybatis的xml文件可能被注解取代，有些工作可能逐渐简化被逆向工程取代，再往后，SpringBoot可能更加轻松些？我还没有学到，但是我想，集成度总是越来越高的。但是知道从哪里来的更重要。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/07/18/%E6%89%8B%E6%92%95Mybatis/" data-id="ckifb2s4l000j6jnr3a5f4fqt" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/07/18/%E5%B8%B8%E8%AF%86%E7%A7%AF%E7%B4%AF/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          工程实战
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/07/18/%E6%8A%80%E6%9C%AF%E5%AF%B9%E6%AF%94/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">工程实战</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/12/07/cpu%E9%A3%99%E9%AB%98%E6%8E%92%E6%9F%A5/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/04/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B4%A2%E5%BC%95/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/29/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F/">高并发相关技术</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/27/%E6%95%B0%E6%8D%AE%E5%BA%8F%E5%88%97%E5%8C%96%E6%96%B9%E6%A1%88/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/21/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

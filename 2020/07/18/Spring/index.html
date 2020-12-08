@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>SSM框架 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Spring JavaEE框架，核心是IOC和AOP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SSM框架">
+<meta property="og:url" content="http://example.com/2020/07/18/Spring/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Spring JavaEE框架，核心是IOC和AOP">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-07-18T10:00:10.410Z">
+<meta property="article:modified_time" content="2020-07-18T10:00:10.411Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Spring" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/07/18/Spring/" class="article-date">
+  <time datetime="2020-07-18T10:00:10.410Z" itemprop="datePublished">2020-07-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      SSM框架
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Spring"><a href="#Spring" class="headerlink" title="Spring"></a>Spring</h1><blockquote>
+<p>JavaEE框架，核心是IOC和AOP</p>
+</blockquote>
+<a id="more"></a>
+
+
+
+<h2 id="IOC"><a href="#IOC" class="headerlink" title="IOC"></a>IOC</h2><blockquote>
+<p>将创建对象的权力转移给了框架（工厂），不能确定框架（工厂）返回的对象是自己想要的，称为控制反转。削减了应用和资源之间的耦合关系。</p>
+</blockquote>
+<h4 id="引入"><a href="#引入" class="headerlink" title="引入"></a>引入</h4><p><strong>在使用new关键字时，会造成类与类之间的耦合。实际开发中，应当尽可能的将编译时的依赖延后到运行时。一个行之有效的策略就是通过反射创建对象，将对类的依赖转为对字符串的依赖。工厂模式应运而生。</strong></p>
+<p><strong>多数情况下，我们只需要一个对象即可，无需每次访问都创建一个新的对象，造成无谓的性能消耗。所以可以使用单例模式的思想，同一个对象只创建一个即可，然后将其放在一个Map中，不妨称之为对象池。</strong></p>
+<p><strong><em>工厂代码：</em></strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">            prop = <span class="keyword">new</span> Properties();</span><br><span class="line">            InputStream is = beanFactory.class.getClassLoader().getResourceAsStream(<span class="string">&quot;bean.properties&quot;</span>);</span><br><span class="line">            prop.load(is);</span><br><span class="line"></span><br><span class="line">            beans = <span class="keyword">new</span> HashMap&lt;String, Object&gt;();</span><br><span class="line"></span><br><span class="line">            Enumeration keys = prop.keys();</span><br><span class="line">            <span class="keyword">while</span> (keys.hasMoreElements()) &#123;</span><br><span class="line">                String key = keys.nextElement().toString();</span><br><span class="line"></span><br><span class="line">                String beanPath = prop.getProperty(key);</span><br><span class="line">                Object value = Class.forName(beanPath).newInstance();</span><br><span class="line"></span><br><span class="line">                beans.put(key, value);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> ExceptionInInitializerError(<span class="string">&quot;初始化失败&quot;</span>);</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+
+<p>上述的代码放在一个静态代码块中，在首次运行时加载。（美团二面面试官想让我写的代码就是这个吧。）</p>
+<h4 id="Spring中的IOC"><a href="#Spring中的IOC" class="headerlink" title="Spring中的IOC"></a>Spring中的IOC</h4><h6 id="获取IOC核心容器（可以理解为Map）"><a href="#获取IOC核心容器（可以理解为Map）" class="headerlink" title="获取IOC核心容器（可以理解为Map）"></a>获取IOC核心容器（可以理解为Map）</h6><p><strong>1. 两个核心容器接口</strong>：</p>
+<ul>
+<li><strong>ApplicationContext</strong>：采用立即加载的思想，读取配置文件的同时构建核心容器，适用于单例对象。</li>
+<li><strong>BeanFactory</strong>：采用延迟加载的策略，使用时才会构建相关对象，适用于多例对象。</li>
+</ul>
+<p><strong><em>tips：Spring框架可以根据xml文件中对象是单例还是多例只能决定加载策略。单例对象会将其放入到核心容器中，而多例不会</em></strong></p>
+<p><strong>2. 三种常用实现类：</strong></p>
+<ul>
+<li><strong>ClassPathXmlApplicationContext</strong>：加载类路径下的xml，使用较多。</li>
+<li><strong>FileSystemXmlApplicationContext</strong>：加载磁盘任意路径下的xml（考虑访问权限）。</li>
+<li><strong>AnnotationConfigApplicationContext</strong>：读取注解创建容器。</li>
+</ul>
+<h6 id="Spring对bean的管理细节"><a href="#Spring对bean的管理细节" class="headerlink" title="Spring对bean的管理细节"></a>Spring对bean的管理细节</h6><p><strong>1. 创建bean的三种方式</strong></p>
+<ul>
+<li><p><code>&lt;bean id = &quot;key&quot; , class = &quot;全限定类名&quot;&gt;</code>，使用全限定类名指定的类的无参构造器实例，如果没有会报错。依赖注入可以解决该问题。</p>
+</li>
+<li><p>使用某个类中的方法创建对象并放入容器中</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean id = <span class="string">&quot;ID&quot;</span> , <span class="class"><span class="keyword">class</span> </span>= <span class="string">&quot;相关类&quot;</span>&gt;</span><br><span class="line">&lt;bean id = <span class="string">&quot;key&quot;</span> factory-bean = <span class="string">&quot;ID&quot;</span> , factory-method = <span class="string">&quot;类中方法&quot;</span>&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用某个类中的静态方法创建对象并放入容器中</p>
+<p><code>&lt;bean id = &quot;key&quot; , class = &quot;相关类全类名&quot; ， factory-method = &quot;类中方法&quot;&gt;</code></p>
+</li>
+</ul>
+<p><strong>2. bean的作用范围</strong></p>
+<p>​    通过bean标签的scope属性调整，一共有五个作用范围</p>
+<table>
+<thead>
+<tr>
+<th align="center">作用范围</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">singleton</td>
+<td align="center">默认值，单例</td>
+</tr>
+<tr>
+<td align="center">prototype</td>
+<td align="center">多例</td>
+</tr>
+<tr>
+<td align="center">request</td>
+<td align="center">web应用的请求范围</td>
+</tr>
+<tr>
+<td align="center">session</td>
+<td align="center">web应用的会话范围</td>
+</tr>
+<tr>
+<td align="center">gobal-session</td>
+<td align="center">服务器集群环境下的会话范围</td>
+</tr>
+</tbody></table>
+<p><strong>3. bean对象的生命周期</strong></p>
+<table>
+<thead>
+<tr>
+<th align="center"></th>
+<th align="center">单例</th>
+<th align="center">多例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><strong>出生</strong></td>
+<td align="center">容器出生时</td>
+<td align="center">使用时</td>
+</tr>
+<tr>
+<td align="center"><strong>生存</strong></td>
+<td align="center">容器存活期间</td>
+<td align="center">使用过程中</td>
+</tr>
+<tr>
+<td align="center"><strong>死亡</strong></td>
+<td align="center">容器摧毁时</td>
+<td align="center">Java的GC机制判断bean是无用对象时回收</td>
+</tr>
+</tbody></table>
+<h6 id="Spring的依赖注入"><a href="#Spring的依赖注入" class="headerlink" title="Spring的依赖注入"></a>Spring的依赖注入</h6><blockquote>
+<p>个人理解：三种创建实例方式中，无论是哪种，Spring创建对象实例时都需要该对象提供无参的构造器，如果没有则会报错，这种情况下就需要一种机制，在Spring调用有参构造器时将参数赋予初值，依赖注入就是这样的机制。</p>
+<p>另一些场景中，有些数据是不会改变的，这些数据也应该在对象创建时就确定下来，依赖注入也能完成这样的功能。</p>
+</blockquote>
+<p><strong>1. 能注入的数据种类</strong></p>
+<ul>
+<li>基本数据类型和String</li>
+<li>其他bean类型</li>
+<li>集合类型</li>
+</ul>
+<p><strong>2. 注入方式</strong></p>
+<ul>
+<li><p>构造函数注入</p>
+<p>使用constructor-arg标签注入,其中有五个属性</p>
+<ul>
+<li>type：选取指定所有符合该数据类型的元素</li>
+<li>index：选取指定索引位置的元素</li>
+<li>name：选取指定名称的元素，使用较多</li>
+<li>value：给选定的元素赋值</li>
+<li>ref：当选定的元素依赖其他bean时使用ref替代value</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean id = <span class="string">&quot;&quot;</span> <span class="class"><span class="keyword">class</span> </span>= <span class="string">&quot;&quot;</span>&gt;</span><br><span class="line">	&lt;constructor-arg name = &quot;&quot; value = &quot;&quot;&gt;&lt;/constructor&gt;</span><br><span class="line">	...</span><br><span class="line">    &lt;constructor-arg name = &quot;&quot; value = &quot;&quot;&gt;&lt;/constructor&gt;</span><br><span class="line">&lt;/bean&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>弊端：</strong>某些不需要赋值的元素也必须赋值。</p>
+</li>
+<li><p>set方法注入</p>
+<p>当相关类中提供了set方法时，可以使用该方式按需注入数据,解决了构造器注入的弊端。在bean标签中使用property标签即可，property标签支持三种属性</p>
+<ul>
+<li>name：选取指定的元素，将原set方法的方法名中的set去掉，将首字母改成小写即为name的值</li>
+<li>value：给选定的元素赋值</li>
+<li>ref：当原定元素依赖其他bean时用ref替代value</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean id = <span class="string">&quot;&quot;</span> <span class="class"><span class="keyword">class</span> </span>= <span class="string">&quot;&quot;</span>&gt;</span><br><span class="line">	&lt;property name = &quot; &quot; value = &quot; &quot;&gt;&lt;/property&gt;</span><br><span class="line">	...</span><br><span class="line">	&lt;property name = &quot; &quot; value = &quot; &quot;&gt;&lt;/property&gt;</span><br><span class="line">&lt;/bean&gt;</span><br></pre></td></tr></table></figure>
+
+<p>对于复杂数据类型，在使用set方式注入时，只需要在property标签中使用相关的array/list/map等标签即可指定，如</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean id = <span class="string">&quot;&quot;</span> <span class="class"><span class="keyword">class</span> </span>= <span class="string">&quot;&quot;</span>&gt;</span><br><span class="line">	&lt;property name = <span class="string">&quot; &quot;</span>&gt;</span><br><span class="line">    	&lt;list&gt;</span><br><span class="line">    		&lt;value&gt;XXX&lt;value&gt;</span><br><span class="line">    	&lt;/list&gt;</span><br><span class="line">    	...</span><br><span class="line">    	&lt;map&gt;</span><br><span class="line">    		&lt;entry key = &quot;&quot; , value = &quot; &quot;&gt;&lt;/entry&gt;</span><br><span class="line">    	&lt;/map&gt;</span><br><span class="line">    &lt;/property&gt;</span><br><span class="line">&lt;/bean&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong><em>tips：</em></strong>相同的数据形式可以相互转换，如list、array和set ，map和props等。</p>
+</li>
+<li><p>注解注入</p>
+<table>
+<thead>
+<tr>
+<th align="center">注解</th>
+<th align="center">作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">@Component</td>
+<td align="center">生成该注解修饰的类的实例对象，并放在IOC容器中</td>
+</tr>
+<tr>
+<td align="center">@Controller</td>
+<td align="center">与@Component作用相同，修饰表现层</td>
+</tr>
+<tr>
+<td align="center">@Service</td>
+<td align="center">与@Component作用相同，修饰业务层</td>
+</tr>
+<tr>
+<td align="center">@Repository</td>
+<td align="center">与@Component作用相同，修饰持久层</td>
+</tr>
+<tr>
+<td align="center">@Autowired</td>
+<td align="center">该注解修饰的变量会自动注入（从IOC容器中按照数据类型、变量名的顺序依次匹配）</td>
+</tr>
+<tr>
+<td align="center">@Qualifier</td>
+<td align="center">除了用于修饰parameter，不能单独使用。被修饰的变量会在类型注入的基础上进行名称注入。名称由value属性指定</td>
+</tr>
+<tr>
+<td align="center">@Resource</td>
+<td align="center">该注解修饰的变量会自动注入（通过name属性指定bean的id，在IOC容器中寻找）</td>
+</tr>
+<tr>
+<td align="center">@Value</td>
+<td align="center">自动注入基本数据类型和String，其注入值通过spEL（${表达式}）指定</td>
+</tr>
+<tr>
+<td align="center">@Scope</td>
+<td align="center">指定bean的作用范围，通过value属性指定</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<h6 id="Spring的其他注解"><a href="#Spring的其他注解" class="headerlink" title="Spring的其他注解"></a>Spring的其他注解</h6><p>当使用注解开发时，需要用到以下注解来替换xml文件。</p>
+<ul>
+<li>@Configuration：该注解修饰的类为配置类。</li>
+<li>@Bean：该注解修饰的方法会将返回值作为bean对象放在IOC容器中，key默认为方法名，可以通过name属性指定，</li>
+<li>@ComponentScan：通过该注解的value属性指定创建容器时需要扫描的包</li>
+<li>@Import：通过value属性导入其他的配置类，作为当前配置类的子类</li>
+<li>@PropertySource：通过value属性指定properties文件的路径</li>
+</ul>
+<h6 id="Spring和JUnit整合"><a href="#Spring和JUnit整合" class="headerlink" title="Spring和JUnit整合"></a>Spring和JUnit整合</h6><blockquote>
+<p>JUnit没有main方法能执行的原因是，JUnit默认构造了一个main方法，会扫描该类中由@Test注解修饰的方法，去执行他们。但是这个main方法不能识别spring框架，所以解决思路就是使用spring提供的main方法替换junit默认的main方法，这就是Spring和JUnit的整合。</p>
+</blockquote>
+<ol>
+<li><p>pom文件中导入spring-test坐标</p>
+</li>
+<li><p>用@RunWith（SpringJUnit4Cla’s’sRunner.class）来替换JUint测试类默认的main方法</p>
+</li>
+<li><p>通过@ContextConfiguration（）告知spring运行器，IOC容器创建是基于注解还是xml文件的，并告知相关位置。可选的属性值包括：</p>
+<ul>
+<li>locations：指定xml文件所在位置，classpath：+xml文件的类路径</li>
+<li>classes：指定注解类所在位置，接受一个字节码文件（xxx.class）</li>
+</ul>
+<p><strong><em>tips：spring版本为5.x时，相关的junit版本要大于4.1.2</em></strong></p>
+</li>
+</ol>
+<h4 id="Spring中的AOP"><a href="#Spring中的AOP" class="headerlink" title="Spring中的AOP"></a>Spring中的AOP</h4><blockquote>
+<p>AOP：面向切面编程</p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/07/18/Spring/" data-id="ckifb2s4b00086jnr20wmbb8t" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/07/18/Redis/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          数据库
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/07/18/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%80%9D%E8%80%83/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">JavaSE</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/12/07/cpu%E9%A3%99%E9%AB%98%E6%8E%92%E6%9F%A5/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/04/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B4%A2%E5%BC%95/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/29/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F/">高并发相关技术</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/27/%E6%95%B0%E6%8D%AE%E5%BA%8F%E5%88%97%E5%8C%96%E6%96%B9%E6%A1%88/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/21/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

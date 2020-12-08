@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>算法思想 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="贪心问题的整理与回顾 贪心就是由局部最优得到全局最优的一种算法思想，用于解决最优解问题。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="算法思想">
+<meta property="og:url" content="http://example.com/2020/07/18/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B9%8B%E8%B4%AA%E5%BF%83%E9%97%AE%E9%A2%98/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="贪心问题的整理与回顾 贪心就是由局部最优得到全局最优的一种算法思想，用于解决最优解问题。">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2020/07/18/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B9%8B%E8%B4%AA%E5%BF%83%E9%97%AE%E9%A2%98/assets/fail.png">
+<meta property="article:published_time" content="2020-07-18T10:00:10.412Z">
+<meta property="article:modified_time" content="2020-07-18T10:00:10.412Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2020/07/18/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B9%8B%E8%B4%AA%E5%BF%83%E9%97%AE%E9%A2%98/assets/fail.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-学习笔记之贪心问题" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/07/18/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B9%8B%E8%B4%AA%E5%BF%83%E9%97%AE%E9%A2%98/" class="article-date">
+  <time datetime="2020-07-18T10:00:10.412Z" itemprop="datePublished">2020-07-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      算法思想
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="贪心问题的整理与回顾"><a href="#贪心问题的整理与回顾" class="headerlink" title="贪心问题的整理与回顾"></a>贪心问题的整理与回顾</h1><blockquote>
+<p>贪心就是由局部最优得到全局最优的一种算法思想，用于解决最优解问题。</p>
+</blockquote>
+<a id="more"></a>
+
+<h2 id="简单的贪心问题"><a href="#简单的贪心问题" class="headerlink" title="简单的贪心问题"></a>简单的贪心问题</h2><blockquote>
+<p>若干张1元，5元，10元，50元，100元的钞票，如何取得632元使得所用的钞票张数最少？</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public void greed(int num)&#123;</span><br><span class="line">    return num &#x2F; 100 + (num % 100) &#x2F; 50 + (num % 50) &#x2F; 10 + (num % 10) &#x2F; 5 + (num % 5);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这就是贪心最基础的运用，再这个例子中，也可以看出贪心和动态规划的区别，如果所有钞票的面额都是比它小的钞票面额的倍数，可以用贪心求解，否则要用动态规划。举个例子：当补充了一个7的面额后，对于目标金额14元，按照贪心的思想，取一个10元四个1元共需要5张纸币，明显这个答案是错误的，所以就要使用动规了。</p>
+<h2 id="贪心问题进阶：摇摆序列-LC376"><a href="#贪心问题进阶：摇摆序列-LC376" class="headerlink" title="贪心问题进阶：摇摆序列(LC376)"></a>贪心问题进阶：摇摆序列(LC376)</h2><blockquote>
+<p>如果连续数字之间的差严格地在正数和负数之间交替，则数字序列称为摆动序列。第一个差（如果存在的话）可能是正数或负数。少于两个元素的序列也是摆动序列。</p>
+<p>例如， [1,7,4,9,2,5] 是一个摆动序列，因为差值 (6,-3,5,-7,3) 是正负交替出现的。相反, [1,4,7,2,5] 和 [1,7,4,5,5] 不是摆动序列，第一个序列是因为它的前两个差值都是正数，第二个序列是因为它的最后一个差值为零。<br>给定一个整数序列，返回作为摆动序列的最长子序列的长度。 </p>
+<p>通过从原始序列中删除一些（也可以不删除）元素来获得子序列，剩下的元素保持其原始顺序。</p>
+</blockquote>
+<p>阅读这道题后可以将问题简化为：求一个数组连续递增和递减的总段数。</p>
+<p>画出折线图，不难发现拐点的个数+2（首尾）就是所求值，这里就体现了贪心的思想，即：在一个连续递增或递减的子序列中，只选取该序列首位两端的值作为有用点，以给下一个值的选取留出尽可能大的余地。这就是这道题贪心的地方。<br>我做这道题时采用了一个HashMap来给数组的每一个值绑定一个状态，”equals” “up” “down” ，用来描述这个点和前一个点的关系，因为要考虑相等，所以还需要一个tmp来记录连续相等的个数，代码很冗余，创建和查找Map也浪费了时间空间，最终一顿操作猛如虎，击败全国百分五…所以这里贴上看过解析后优化的代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">public int wiggleMaxLength(int[] nums) &#123;</span><br><span class="line">        final int BEGIN &#x3D; 0;</span><br><span class="line">        final int UP &#x3D; 1;</span><br><span class="line">        final int DOWN &#x3D; -1;</span><br><span class="line">        &#x2F;&#x2F; 特判</span><br><span class="line">        if(nums.length &#x3D;&#x3D; 2 &amp;&amp;  nums[0] &#x3D;&#x3D; nums[1]) return 1;</span><br><span class="line">        if(nums.length &lt; 3) return nums.length;</span><br><span class="line"></span><br><span class="line">        int STATUS &#x3D; BEGIN;</span><br><span class="line">        int res &#x3D; 1;</span><br><span class="line">        for(int i &#x3D; 1 ; i &lt; nums.length;i++)&#123;</span><br><span class="line">            switch(STATUS)&#123;</span><br><span class="line">                case BEGIN:</span><br><span class="line">                    if(nums[i-1] &gt; nums[i])&#123;</span><br><span class="line">                        STATUS &#x3D; DOWN;</span><br><span class="line">                        res++;</span><br><span class="line">                    &#125;</span><br><span class="line">                    else if(nums[i-1] &lt; nums[i])&#123;</span><br><span class="line">                        STATUS &#x3D; UP;</span><br><span class="line">                        res++;</span><br><span class="line">                    &#125;</span><br><span class="line">                    break;</span><br><span class="line">                case UP:</span><br><span class="line">                    if(nums[i-1] &gt; nums[i])&#123;</span><br><span class="line">                        STATUS &#x3D; DOWN;</span><br><span class="line">                        res++;</span><br><span class="line">                    &#125;</span><br><span class="line">                    break;</span><br><span class="line">                case DOWN:</span><br><span class="line">                    if(nums[i] &gt; nums[i-1])&#123;</span><br><span class="line">                        STATUS &#x3D; UP;</span><br><span class="line">                        res++;</span><br><span class="line">                    &#125;</span><br><span class="line">                    break;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return res;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>代码优化时采用了状态机，只用了一个STATUS来记录上一个点所处的状态，当状态机转换时res+1，无需考虑相等的情况，优雅多了，而且基本没有时间开销，击败全国百分百哈哈，可惜，不是我想的。（此时的我还不知道将要遭受什么样的重大打击）</p>
+<h2 id="贪心问题再进阶：移掉K位数字（LC402）"><a href="#贪心问题再进阶：移掉K位数字（LC402）" class="headerlink" title="贪心问题再进阶：移掉K位数字（LC402）"></a>贪心问题再进阶：移掉K位数字（LC402）</h2><blockquote>
+<p>给定一个以字符串表示的非负整数 num，移除这个数中的 k 位数字，使得剩下的数字最小。</p>
+<p>注意:</p>
+<p>num 的长度小于 10002 且 ≥ k。<br>num 不会包含任何前导零。</p>
+</blockquote>
+<p>我是在学习贪心的视频上看到这道题的，首先自己往贪心上想了想，觉得有些复杂，就听了视频的讲解，视频给出了贪心的方向：从头遍历字符串，如果第i个字符小于前一个字符，则将前一个字符删去，这样就用去了一次删除机会，要删除k次，所以遍历k次字符串，时间复杂度也还好，最多O(n^2)，下面给出贪心方向正确性的证明：</p>
+<p>存在这样一个字符串”21xxx”，要删除一个字符使得结果最小，显然对于第一个字符2，存在删与不删两种情况，如果删去，最后会得到“1”开头的一个定长字符串，若不删，则无论删除任何其他哪个字符，最终都会得到一个“2”开头的定长字符串，所以对于字符“2”，是一定要删的。剩下的正确性就是一个递归的过程。</p>
+<p>当明白这一点后，我尝试完成代码实现，很坑，包括但不限于0的处理，递增序列的处理等等，而且直到最后我也没能AC，一个很长很长的测试用例卡住了，应该是超时了。</p>
+<p>于是，我继续观看了教学视频，学习了用一个stack将K次遍历降低至1次，这个算法的大致思想是这样的：从头开始遍历一个字符串，如果它小于栈顶的那个字符，则将栈顶元素弹出，将此字符push进栈中，同时k-1，直到k=0或者字符串遍历完成。</p>
+<p>在这个算法中也有许多小问题需要解决：</p>
+<ol>
+<li>字符串最后是一段递增序列。解决方案是从栈顶pop出k个元素。</li>
+<li>当有0存在时。解决方案是在满足k&gt;=0的前提下，将栈中不为0的字符依次弹出，将0放入以满足要求。</li>
+</ol>
+<p>附上代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">removeKdigits</span><span class="params">(String num, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (num.length() == k) <span class="keyword">return</span> <span class="string">&quot;0&quot;</span>; <span class="comment">// 特判</span></span><br><span class="line"></span><br><span class="line">        Stack&lt;Character&gt; stack = <span class="keyword">new</span> Stack&lt;&gt;(); <span class="comment">// 使用栈存放</span></span><br><span class="line">        stack.push(num.charAt(<span class="number">0</span>));</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span> ; i &lt; num.length(); i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(num.charAt(i) &lt; stack.peek() &amp;&amp; k &gt; <span class="number">0</span>)&#123;</span><br><span class="line">                <span class="comment">// 如果栈顶元素大于其下一个元素</span></span><br><span class="line">                stack.pop();</span><br><span class="line">                k--;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 当遇到0时 单独处理</span></span><br><span class="line">            <span class="keyword">while</span>(num.charAt(i) == <span class="string">&#x27;0&#x27;</span> &amp;&amp; !stack.empty() &amp;&amp; stack.peek() != <span class="string">&#x27;0&#x27;</span> &amp;&amp; k &gt; <span class="number">0</span>)&#123;</span><br><span class="line">                stack.pop();</span><br><span class="line">                k--;</span><br><span class="line">            &#125;</span><br><span class="line">            stack.push(num.charAt(i));</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 防止最后出现递增数列</span></span><br><span class="line">        <span class="keyword">while</span>(k &gt; <span class="number">0</span>)&#123;</span><br><span class="line">            stack.pop();</span><br><span class="line">            k--;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        StringBuilder sb = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">        <span class="keyword">while</span>(!stack.empty())&#123;</span><br><span class="line">            sb.append(stack.pop());</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 删除开始的0 格式化输出</span></span><br><span class="line">        <span class="keyword">int</span> index = sb.length() - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span>(index &gt; <span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>(sb.charAt(index) != <span class="string">&#x27;0&#x27;</span>) <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">else</span>&#123;</span><br><span class="line">                sb.deleteCharAt(index);</span><br><span class="line">                index--;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> sb.reverse().toString();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="但是！我没有AC"><a href="#但是！我没有AC" class="headerlink" title="但是！我没有AC!"></a>但是！我没有AC!</h4><p>还是死在一个巨长的测试用例了，未过用例是这样的：</p>
+<p><img src="assets/fail.png" alt="fail"></p>
+<p>除了第一个数字其他都对……这就离谱……</p>
+<p>我很懵，还没有找到问题，这道题提交了不下十次，很郁闷，花费了大概三四个小时，头昏脑胀还没解决问题，只好先放着，明天头脑清醒再来看吧。</p>
+<h2 id="Let-us-jump：跳跃游戏（LC55）"><a href="#Let-us-jump：跳跃游戏（LC55）" class="headerlink" title="Let us jump：跳跃游戏（LC55）"></a>Let us jump：跳跃游戏（LC55）</h2><blockquote>
+<p>给定一个非负整数数组，你最初位于数组的第一个位置。</p>
+<p>数组中的每个元素代表你在该位置可以跳跃的最大长度。</p>
+<p>判断你是否能够到达最后一个位置。</p>
+</blockquote>
+<p>这道题开始的想法就是动态规划，建立一个和该数组同样长的dp数组，自底向上填写数组，如果可达置为true，不可达置为false，最终返回dp[nums.length-1]，这个解法是可行的，代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">canJump</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(nums.length == <span class="number">0</span> || nums == <span class="keyword">null</span>) <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        <span class="keyword">boolean</span>[] dp = <span class="keyword">new</span> <span class="keyword">boolean</span>[nums.length];</span><br><span class="line">        dp[<span class="number">0</span>] = <span class="keyword">true</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.length ; i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(dp[i])&#123;</span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">int</span> j = i+<span class="number">1</span> ; j &lt;= i+nums[i] &amp;&amp; j &lt; nums.length; j++)&#123;</span><br><span class="line">                dp[j] = <span class="keyword">true</span>;</span><br><span class="line">                <span class="keyword">if</span>(dp[nums.length - <span class="number">1</span>])&#123;</span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[nums.length-<span class="number">1</span>];</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>本来以为一层循环就够了，提交失败后观察错误用例，发现了当中间有0时，很可能夭折到不了结尾，所以添加了判断条件: <code>if(dp[i])</code>用来排除0的干扰。</p>
+<p>明显这个代码两层循环，时间复杂度为O(n^2)，根据视频使用贪心优化：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">canJump</span><span class="params">(<span class="keyword">int</span>[] nums)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(nums.length == <span class="number">0</span> || nums == <span class="keyword">null</span>) <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    <span class="keyword">int</span> max_index = nums[<span class="number">0</span>]; <span class="comment">//记录所能达到的最远距离</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; nums.length; i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(max_index &gt;= nums.length-<span class="number">1</span>) <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        <span class="keyword">if</span>(i &gt; max_index) <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        <span class="keyword">if</span>(nums[i] + i &gt; max_index)&#123;</span><br><span class="line">            max_index = nums[i] + i;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>只需要一次遍历和仅仅4字节的额外空间就可以完成，通过max_index记录到目前位置所能到达的最远距离（贪心），一旦这个最远距离超过了数组长度，则一定可以到达最后一个位置，在此期间，若是能到达的最远位置甚至到不了目前位置，很明显不得行了，返回false。</p>
+<h2 id="跳跃游戏2（LC45）"><a href="#跳跃游戏2（LC45）" class="headerlink" title="跳跃游戏2（LC45）"></a>跳跃游戏2（LC45）</h2><blockquote>
+<p>给定一个非负整数数组，你最初位于数组的第一个位置。</p>
+<p>数组中的每个元素代表你在该位置可以跳跃的最大长度。</p>
+<p>你的目标是使用最少的跳跃次数到达数组的最后一个位置。</p>
+<p><strong>说明:</strong></p>
+<p>假设你总是可以到达数组的最后一个位置。</p>
+</blockquote>
+<p>是leetcode上面一道hard的题目，也是跳跃游戏1的变形，套用上面的思维可以很快的推导出思路：不就是在无法前进的时候（即i &gt; max_index） ，”迫不得已”的向前跳一次，由于题目中说明了总是可以到达数组的最后一个元素的，所以我们大可以方向大胆的这么想，附上代码实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">jump</span><span class="params">(<span class="keyword">int</span>[] nums)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(nums.length &lt; <span class="number">2</span>)&#123; <span class="comment">// 特判，此时不需要跳</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> count = <span class="number">1</span>; <span class="comment">// 最少需要跳一次</span></span><br><span class="line">    <span class="keyword">int</span> max_index = nums[<span class="number">0</span>]; <span class="comment">// 记录此时所能到达的最远位置 默认为0</span></span><br><span class="line">    <span class="keyword">int</span> pre_max_max_index = nums[<span class="number">0</span>]; <span class="comment">// 记录在i点经过一次跳跃后所能到达的最远距离</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; nums.length; i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(max_index &gt;= nums.length-<span class="number">1</span>)&#123; <span class="comment">// 已经能到达数组最后一个元素</span></span><br><span class="line">            <span class="keyword">return</span> count;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(i &gt; max_index)&#123; <span class="comment">// 如果再不跳就无法前进的话，则跳一次</span></span><br><span class="line">            count++;</span><br><span class="line">            max_index = pre_max_max_index;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 如果此时记录的“经过一次跳跃后所能到达的最远距离”小于“跳到i位置后再跳一次所能到达的最远位置”</span></span><br><span class="line">        <span class="keyword">if</span>(pre_max_max_index &lt; i + nums[i])&#123; </span><br><span class="line">            <span class="comment">// 重新记录pre_max_max_index</span></span><br><span class="line">            pre_max_max_index = i + nums[i];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> count;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面这段代码是我刚刚撸的，拿去LeetCode重新执行了下，耗时从1ms上升到2ms，对比了一下上面的代码和我之前提交的代码，多了这么一个判断：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(max_index &gt;= nums.length-<span class="number">1</span>)&#123; <span class="comment">// 已经能到达数组最后一个元素</span></span><br><span class="line">            <span class="keyword">return</span> count;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我觉得应该减少耗时了呀，很大可能不需要遍历完成就直接跳出循环，为什么还会涨时间开销呢？那就只能是比较的时间开销了吧。</p>
+<h2 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h2><p><strong>依稀记得大一刚开始接触贪心的时候，教导我们的学长就是通过“取张数最少的钱”这个例子来讲述的，当时很不以为然，觉得这一点也不算法，明显就是一个自然而然的过程，体现不出算法的美感来。时隔三年再次学习贪心，才恍然其精妙绝伦，难想，确实难想，但真的想出来之后代码又很简单而且正确，实在是太算法了。比如最后那道题，如果没有前一个跳跃游戏的铺垫，一定是绝难想出高明的算法来的，事后回顾才发现，这里的贪心是“贪心的贪心”，多向前贪了一点，整个问题直接豁然开朗。贪心有千千万的变式，而贪心思想是固定不变的，所以，找到局部最优解，进而推得整体最优，这里的局部有多大，怎样才是最优，值得我去好好琢磨，多多练习。</strong></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/07/18/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B9%8B%E8%B4%AA%E5%BF%83%E9%97%AE%E9%A2%98/" data-id="ckifb2s4j000g6jnre6lc15fl" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/07/18/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B9%8B%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          算法思想
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/07/18/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE%E5%92%8C%E6%8E%92%E5%BA%8F%E6%A0%91/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">算法思想</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/12/07/cpu%E9%A3%99%E9%AB%98%E6%8E%92%E6%9F%A5/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/04/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B4%A2%E5%BC%95/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/29/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F/">高并发相关技术</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/27/%E6%95%B0%E6%8D%AE%E5%BA%8F%E5%88%97%E5%8C%96%E6%96%B9%E6%A1%88/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/21/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

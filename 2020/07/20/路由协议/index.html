@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>计算机网络 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="IP寻址 互联网中数据的传输依赖于路由器中的路由控制表，本文旨在探寻这张表的形成与使用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计算机网络">
+<meta property="og:url" content="http://example.com/2020/07/20/%E8%B7%AF%E7%94%B1%E5%8D%8F%E8%AE%AE/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="IP寻址 互联网中数据的传输依赖于路由器中的路由控制表，本文旨在探寻这张表的形成与使用">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlly1gh7whj1ajzg30u016i0yk.gif">
+<meta property="article:published_time" content="2020-07-20T01:35:10.604Z">
+<meta property="article:modified_time" content="2020-07-29T08:01:36.156Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://tva1.sinaimg.cn/large/007S8ZIlly1gh7whj1ajzg30u016i0yk.gif">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-路由协议" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/07/20/%E8%B7%AF%E7%94%B1%E5%8D%8F%E8%AE%AE/" class="article-date">
+  <time datetime="2020-07-20T01:35:10.604Z" itemprop="datePublished">2020-07-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      计算机网络
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="IP寻址"><a href="#IP寻址" class="headerlink" title="IP寻址"></a>IP寻址</h1><blockquote>
+<p>互联网中数据的传输依赖于路由器中的路由控制表，本文旨在探寻这张表的形成与使用</p>
+</blockquote>
+<a id="more"></a>
+
+<h2 id="静态路由"><a href="#静态路由" class="headerlink" title="静态路由"></a>静态路由</h2><p><strong>定义：</strong>由管理员手动定义网络路由信息，并将该信息输入到路由器中。</p>
+<p><strong>缺点：</strong>工作量巨大，路由表巨臃肿，加入新的网络时每个路由器中的信息都要添加。同时当路由器发生故障时，整个网络会瘫痪，需要管理员手工恢复。</p>
+<h2 id="动态路由"><a href="#动态路由" class="headerlink" title="动态路由"></a>动态路由</h2><blockquote>
+<p>由管理员设置好路由协议，相邻的网络之间会交流自己知道的网络连接信息。</p>
+</blockquote>
+<h3 id="路由控制范围"><a href="#路由控制范围" class="headerlink" title="路由控制范围"></a>路由控制范围</h3><p><strong>1. 自治系统（路由控制域）：</strong>一般是一个公司、组织机构、学校等不希望暴露给外界的小型单位，自治系统中的路由协议采用内部网关协议，如RIP或者OSPF。</p>
+<p><strong>2. 互联网：</strong>所有的自治系统组成的网络，路由协议采用外部网关协议，如BGP。</p>
+<h3 id="路由算法"><a href="#路由算法" class="headerlink" title="路由算法"></a>路由算法</h3><p><strong>1. 距离向量算法：</strong>每个路由器中维护一张表格，记录了到达目标网络的下一跳路由地址（如果有多个选择，则选择跳数最少的），RIP就是基于距离向量算法的协议。</p>
+<p><strong>2. 链路状态算法：</strong>每个路由器中维护当前自治系统的网络拓扑结构，所以每个路由器内的信息都是一致的。显然，保持所有路由器节点的信息一致需要大量内存和CPU资源的支持。OSPF就是基于链路状态算法的协议。</p>
+<h3 id="路由协议"><a href="#路由协议" class="headerlink" title="路由协议"></a>路由协议</h3><h4 id="RIP（路由信息协议）"><a href="#RIP（路由信息协议）" class="headerlink" title="RIP（路由信息协议）"></a>RIP（路由信息协议）</h4><p><strong>实现：</strong>每个路由器定期向全网（LAN）广播自己的路由控制信息（30s），如果没有收到路由控制信息，就断开链接（考虑到网络丢包的情况，一般会在6次收不到信息后断开链接）。每个路由器根据自己收到的路由控制信息，根据距离向量算法计算出到达某个目标网络最短的跳数后，形成路由控制表。</p>
+<p><strong>缺点：</strong>网络数量越多，要传递的路由控制信息越大。当整个网络稳定后，还是要定期交换路由控制信息，一定程度上浪费了网络带宽。</p>
+<p><strong>问题：</strong>当某个网络断开链接后，虽然该网络的路由不再发送路由控制信息（以期望数据传送绕开该网络），但是它可能会收到自己曾经发送出去的信息并将跳数加一，这种情况称为“无限计数”。</p>
+<p><strong>解决：</strong></p>
+<ol>
+<li>规定整个网络中的最大跳数为16。</li>
+<li>水平分割：每个路由器不再给发送给自己信息的路由器发送信息。</li>
+</ol>
+<p><strong>尚存问题：</strong>当整个网络中本身就存在环路的情况下，反向回路会成为迂回通道不断循环往复的转发信息。</p>
+<p><strong>解决：</strong></p>
+<ol>
+<li>毒性逆转：当链路被断开后，不是不发送消息，而是发送一个跳数为16的消息。</li>
+<li>触发更新：一旦网络断开，立即发送消息，不再等待30s。</li>
+</ol>
+<blockquote>
+<p>即使有了这些措施，但是面对复杂的网络结构，路由信息想要达到稳定的结构还是需要花费一段时间的，OSPF能较好的解决这个问题。</p>
+</blockquote>
+<h4 id="OSPF（开放最短路径优先）"><a href="#OSPF（开放最短路径优先）" class="headerlink" title="OSPF（开放最短路径优先）"></a>OSPF（开放最短路径优先）</h4><blockquote>
+<p>相邻路由器之间传递链路状态生成网络拓扑信息，在自治区域内传递拓扑信息，生成路由控制表。OSPF给每一条链路赋予一个权重，选择一个权重最小的路由作为最终路由（与RIP不同）。</p>
+</blockquote>
+<p><strong>5种包类型</strong></p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>包名</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>问候（HELLO）</td>
+<td>确认相邻路由器、确定指定路由器</td>
+</tr>
+<tr>
+<td>2</td>
+<td>数据库描述（Database Description）</td>
+<td>链路状态数据库的摘要信息</td>
+</tr>
+<tr>
+<td>3</td>
+<td>链路状态请求（Link State Request）</td>
+<td>请求从链路状态数据库获取链路状态信息</td>
+</tr>
+<tr>
+<td>4</td>
+<td>链路状态更新（Link State Update）</td>
+<td>更新链路状态数据库中的链路状态信息</td>
+</tr>
+<tr>
+<td>5</td>
+<td>链路状态确认应答（Link State Acknowledge）</td>
+<td>链路状态信息更新的确认应答</td>
+</tr>
+</tbody></table>
+<p><strong>工作流程：</strong></p>
+<ol>
+<li>通过发送HELLO包确认是否连接。</li>
+<li>为了同步路由控制信息，利用数据库描述包相互发送路由摘要信息和版本信息。</li>
+<li>如果版本较老，则发送链路状态请求包请求路由控制信息</li>
+<li>由链路状态更新包接收路由状态信息</li>
+<li>通过链路状态确认包通知大家本地已经接收到路由控制信息。</li>
+</ol>
+<blockquote>
+<p>通过这样的方式，可以在网络稳定的时候减少网络流量，并且也能达到迅速更新路由信息的目的。</p>
+</blockquote>
+<p><strong>工作原理：</strong></p>
+<p>LAN中10s发送一个HELLO包，如果没有收到，则进行连接是否断开的判断（连续四次空等则认为连接断开），在进行链接恢复操作时，路由器会发送一个链路状态更新包，通知其他路由器网络状态的变化。</p>
+<p>链路状态更新包分为两种：网络LSA和路由器LSA，分别是以网络为中心和以路由器为中心生成的信息。</p>
+<p>在收到这些信息后，每个路由器就都能生成一个可以表示网络结构的链路状态数据库，根据这个数据库，采用Dijkstra算法，就能生成相应的路由控制表。</p>
+<p><strong>问题：</strong>网络规模增大时，算法所需的时间处理时间会越来越长，对CPU和内存的要求也会越来越高。</p>
+<p><strong>解决：</strong>将自治系统分层，分成多个区域。要求这些区域中必须有一个主干区域与每个区域相连。由此也带来了自治系统中路由器的分类：</p>
+<ol>
+<li>区域边界路由器：连接区域和主干区域的路由器</li>
+<li>内部路由器：区域内部的路由器</li>
+<li>主干路由器：只与主干区域内连接的路由器</li>
+<li>AS边界路由器：与外部相连接的路由器</li>
+</ol>
+<blockquote>
+<p>每个区域内的路由器存放本区域的网络拓扑的数据库，在该信息的基础上计算出路由控制表，有效减少了路由控制信息，减轻处理负担。</p>
+</blockquote>
+<h4 id="BGP（边界网关协议）"><a href="#BGP（边界网关协议）" class="headerlink" title="BGP（边界网关协议）"></a>BGP（边界网关协议）</h4><blockquote>
+<p>BGP是连接不同AS的一种协议，其最终路由控制表由网络地址和下一站的路由器组表示，会根据所要经过的AS个数进行路由控制。</p>
+</blockquote>
+<p><strong>AS号：</strong>每个自治系统都有一个16比特的AS编号，BGP根据这个编号进行相应的路由控制。</p>
+<p><strong>BGP扬声器：</strong>根据BGP交换路由控制信息的路由器。</p>
+<p><strong>工作过程：</strong></p>
+<p>BGP数据包送达目标网络时，会生成一个中途经过所有AS的编号列表，这个表格就是AS路径信息访问列表（AS Path List），当出现多条路径时，BGP会从列表中选择一个较短的路由。</p>
+<p>BGP是一个路径向量协议，在AS路径信息访问列表中包含了转发方向和距离，还有途径所有AS的编号。这种路径向量型能够检测出环路，避免了无限计数的问题，令网络更容易进入一个稳定的状态。</p>
+<blockquote>
+<p>路由控制是跨越整个互联网的分布式系统，互联网中的路由控制，以网络中的所有路由器都持有正确的路由信息为基础，使这些路由器的信息保持准确的协议就是路由协议。路由协议散布在互联网的各个角落，是支撑互联网正常运行的一个巨大的分布式系统。</p>
+</blockquote>
+<p>这张图也太可了，保存保存。</p>
+<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlly1gh7whj1ajzg30u016i0yk.gif" alt="20190801160026975"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/07/20/%E8%B7%AF%E7%94%B1%E5%8D%8F%E8%AE%AE/" data-id="ckifb2s4p000q6jnr8s2h2fca" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/07/21/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/07/18/IDL/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/12/07/cpu%E9%A3%99%E9%AB%98%E6%8E%92%E6%9F%A5/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/04/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B4%A2%E5%BC%95/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/29/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F/">高并发相关技术</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/27/%E6%95%B0%E6%8D%AE%E5%BA%8F%E5%88%97%E5%8C%96%E6%96%B9%E6%A1%88/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/21/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

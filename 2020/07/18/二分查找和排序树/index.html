@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>算法思想 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="二分查找和排序树">
+<meta property="og:type" content="article">
+<meta property="og:title" content="算法思想">
+<meta property="og:url" content="http://example.com/2020/07/18/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE%E5%92%8C%E6%8E%92%E5%BA%8F%E6%A0%91/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="二分查找和排序树">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-07-18T10:00:10.411Z">
+<meta property="article:modified_time" content="2020-07-18T10:00:10.411Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-二分查找和排序树" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/07/18/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE%E5%92%8C%E6%8E%92%E5%BA%8F%E6%A0%91/" class="article-date">
+  <time datetime="2020-07-18T10:00:10.411Z" itemprop="datePublished">2020-07-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      算法思想
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="二分查找和排序树"><a href="#二分查找和排序树" class="headerlink" title="二分查找和排序树"></a>二分查找和排序树</h1><a id="more"></a>
+
+<h3 id="预备知识"><a href="#预备知识" class="headerlink" title="预备知识"></a>预备知识</h3><p><strong><em>常见的二分查找：</em></strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">binarySearch</span><span class="params">(<span class="keyword">int</span>[] arr , <span class="keyword">int</span> lo , <span class="keyword">int</span> hi , <span class="keyword">int</span> target)</span></span>&#123;</span><br><span class="line">	<span class="keyword">while</span>(lo &lt; hi)&#123;</span><br><span class="line">        <span class="keyword">int</span> mi = (lo + hi) &gt;&gt; <span class="number">1</span>; <span class="comment">// 找到中间的数</span></span><br><span class="line">        <span class="keyword">if</span>(target &lt; arr[mi]) hi = lo;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(arr[mi] &lt; target) lo = mi + <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">return</span> mi; <span class="comment">// 返回满足条件的数组下标</span></span><br><span class="line">    &#125; </span><br><span class="line">    <span class="keyword">return</span> -<span class="number">1</span>; <span class="comment">// 找不到元素</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这是最基础的二分查找，其算法复杂度大概是1.5logn。仔细分析这个算法可以发现，其左转和右转的代价是不一样的，左转只需要进行一次比对，而右转需要进行两次，所以改良思路就是让转向代价相等。</p>
+<p><strong><em>改良代码：</em></strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">binarySearch</span><span class="params">(<span class="keyword">int</span>[] arr , <span class="keyword">int</span> lo , <span class="keyword">int</span> hi, <span class="keyword">int</span> target)</span></span>&#123;</span><br><span class="line">	<span class="keyword">while</span>(<span class="number">1</span> &lt; hi - lo)&#123; <span class="comment">// 算法会执行到最后</span></span><br><span class="line">        <span class="keyword">int</span> mi = (lo + hi) &gt;&gt; <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span>(target &lt; arr[mi]) hi = mi;</span><br><span class="line">        <span class="keyword">else</span> lo = mi;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> (arr[lo] == target) ? arr[lo] : -<span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>该方法会一直执行到最后，直到hi=lo+1，此时如果存在满足条件的值，一定是arr[lo]，这个算法由于不会提前退出，所以在最好情况下的事件复杂度要劣于上一种算法，但是最坏条件下要远远好于原算法，整体的性能更加稳定。</p>
+<p>如果我们需要找到<strong>不大于</strong>target的最后一个数，还需要对代码进行一些修改。</p>
+<p><strong><em>再次修改：</em></strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">binarySearch</span><span class="params">(<span class="keyword">int</span>[] arr , <span class="keyword">int</span> lo , <span class="keyword">int</span> hi , <span class="keyword">int</span> target)</span></span>&#123;</span><br><span class="line">	<span class="keyword">while</span>(lo &lt; hi)&#123;</span><br><span class="line">        <span class="keyword">int</span> mi = (lo + hi) &gt;&gt; <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span>(target &lt; arr[mi]) hi = mi;</span><br><span class="line">        <span class="keyword">else</span> lo = mi+<span class="number">1</span>;</span><br><span class="line">    &#125; <span class="comment">// 最终lo == hi</span></span><br><span class="line">    <span class="keyword">return</span> --lo;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h3><p><strong>1. 搜索插入位置（LC35）</strong></p>
+<p><strong><em>给定一个排序数组和一个目标值，在数组中找到目标值，并返回其索引。如果目标值不存在于数组中，返回它将会被按顺序插入的位置。</em></strong></p>
+<blockquote>
+<p>思路：按照返回不大于目标数的最后一个数的算法来拓展，当找到的数与目标相等时返回其本身，否则+1。要处理好边界条件。</p>
+</blockquote>
+<p><strong><em>代码：</em></strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">searchInsert</span><span class="params">(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> binarySearch(nums , <span class="number">0</span> , nums.length - <span class="number">1</span>, target);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">binarySearch</span><span class="params">(<span class="keyword">int</span>[] arr , <span class="keyword">int</span> lo , <span class="keyword">int</span> hi , <span class="keyword">int</span> target)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(arr[hi] == target) <span class="keyword">return</span> hi;</span><br><span class="line">        <span class="keyword">if</span>(arr[hi] &lt; target) <span class="keyword">return</span> hi + <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span>(target &lt;= arr[lo]) <span class="keyword">return</span> lo;</span><br><span class="line">        <span class="keyword">while</span>(lo &lt; hi)&#123;</span><br><span class="line">            <span class="keyword">int</span> mi = (lo + hi) &gt;&gt; <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">if</span>(target &lt; arr[mi]) hi = mi;</span><br><span class="line">            <span class="keyword">else</span> lo = mi + <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> arr[lo-<span class="number">1</span>] == target ? --lo : lo; </span><br><span class="line"></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>2. 在排序数组中查找元素的第一个和最后一个位置（LC34）</strong></p>
+<p><strong><em>给定一个按照升序排列的整数数组 nums，和一个目标值 target。找出给定目标值在数组中的开始位置和结束位置。</em></strong></p>
+<p><strong><em>你的算法时间复杂度必须是 O(log n) 级别。</em></strong></p>
+<p><strong><em>如果数组中不存在目标值，返回 [-1, -1]。</em></strong></p>
+<blockquote>
+<p>思路：在模板中只需要处理当arr[mi] == target的逻辑即可。</p>
+</blockquote>
+<p><strong><em>代码：</em></strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">int</span>[] searchRange(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> target) &#123;</span><br><span class="line">        <span class="keyword">int</span>[] res = <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;-<span class="number">1</span>,-<span class="number">1</span>&#125;;</span><br><span class="line">        <span class="keyword">int</span> lo = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> hi = nums.length - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span>(lo &lt;= hi)&#123;</span><br><span class="line">            <span class="keyword">int</span> mi = (lo + hi) &gt;&gt; <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">if</span>(target == nums[mi])&#123;</span><br><span class="line">                <span class="keyword">int</span> left = mi;</span><br><span class="line">                <span class="keyword">int</span> right = mi;</span><br><span class="line">                <span class="keyword">while</span>(left &gt;= lo &amp;&amp; nums[left] == target)&#123;</span><br><span class="line">                    res[<span class="number">0</span>] = left;</span><br><span class="line">                    left--;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">while</span>(right &lt;= hi &amp;&amp; nums[right] == target)&#123;</span><br><span class="line">                    res[<span class="number">1</span>] = right;</span><br><span class="line">                    right++;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">return</span> res;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(target &lt; nums[mi])&#123;</span><br><span class="line">                hi = mi - <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(nums[mi] &lt; target)&#123;</span><br><span class="line">                lo = mi + <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>3. 搜索旋转排序数组（LC33）</strong></p>
+<p><strong><em>假设按照升序排序的数组在预先未知的某个点上进行了旋转。</em></strong></p>
+<p><strong><em>( 例如，数组 [0,1,2,4,5,6,7] 可能变为 [4,5,6,7,0,1,2] )。</em></strong></p>
+<p><strong><em>搜索一个给定的目标值，如果数组中存在这个目标值，则返回它的索引，否则返回 -1 。</em></strong></p>
+<p><strong><em>你可以假设数组中不存在重复的元素。</em></strong></p>
+<p><strong><em>你的算法时间复杂度必须是 O(log n) 级别。</em></strong></p>
+<blockquote>
+<p>思路：二分查找真的是，思路很简单，细节是魔鬼。边界条件要好好考虑。这道题的主体思路就是寻找到发生旋转的节点，然后通过判断target和最后一个数的大小关系决定在哪段中进行二分查找。</p>
+</blockquote>
+<p><strong><em>代码：</em></strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">search</span><span class="params">(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(nums == <span class="keyword">null</span> || nums.length == <span class="number">0</span>) <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span>(nums.length == <span class="number">1</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> (target == nums[<span class="number">0</span>]) ? <span class="number">0</span> : -<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> index = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">boolean</span> flag = <span class="keyword">true</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.length - <span class="number">1</span>; i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(nums[i] &gt; nums[i+<span class="number">1</span>])&#123;</span><br><span class="line">                flag = <span class="keyword">false</span>;</span><br><span class="line">                index = i;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(flag) <span class="keyword">return</span> binarySearch(nums , target , <span class="number">0</span> , nums.length);</span><br><span class="line">        <span class="keyword">if</span>(target &lt;= nums[nums.length - <span class="number">1</span>])&#123;</span><br><span class="line">            <span class="keyword">return</span> binarySearch(nums , target , index + <span class="number">1</span>, nums.length);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> binarySearch(nums , target , <span class="number">0</span> , index + <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">binarySearch</span><span class="params">(<span class="keyword">int</span>[] arr , <span class="keyword">int</span> target , <span class="keyword">int</span> lo , <span class="keyword">int</span> hi)</span></span>&#123;</span><br><span class="line">        <span class="keyword">while</span>(<span class="number">1</span> &lt; (hi - lo))&#123;</span><br><span class="line">            <span class="keyword">int</span> mi = (lo + hi) &gt;&gt; <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">if</span>(target &lt; arr[mi]) hi = mi;</span><br><span class="line">            <span class="keyword">else</span> lo = mi;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> (target == arr[lo]) ? lo : -<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>有几个注意点:</p>
+<ul>
+<li>binarySearch的参数hi接收的是一个<strong>哨兵</strong>而非最后一个元素的下标，所以要在最后一个元素的基础上+1。</li>
+<li>需要一个flag来记录数组是否旋转过。</li>
+<li>target和数组最后一个元素比对时要同时考虑小于和等于。</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/07/18/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE%E5%92%8C%E6%8E%92%E5%BA%8F%E6%A0%91/" data-id="ckifb2s4e000c6jnrfcxn0q8a" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/07/18/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B9%8B%E8%B4%AA%E5%BF%83%E9%97%AE%E9%A2%98/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          算法思想
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/07/18/%E4%BA%8C%E5%8F%89%E6%A0%91%E5%92%8C%E5%9B%BE/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">数据结构</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/12/07/cpu%E9%A3%99%E9%AB%98%E6%8E%92%E6%9F%A5/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/04/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B4%A2%E5%BC%95/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/29/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F/">高并发相关技术</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/27/%E6%95%B0%E6%8D%AE%E5%BA%8F%E5%88%97%E5%8C%96%E6%96%B9%E6%A1%88/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/21/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

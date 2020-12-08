@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>工具 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Linux备忘录 记录linux的文件目录和常见命令等">
+<meta property="og:type" content="article">
+<meta property="og:title" content="工具">
+<meta property="og:url" content="http://example.com/2020/07/18/Linux%E5%AD%A6%E4%B9%A0/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Linux备忘录 记录linux的文件目录和常见命令等">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-07-18T10:00:10.409Z">
+<meta property="article:modified_time" content="2020-07-18T10:00:10.409Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Linux学习" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/07/18/Linux%E5%AD%A6%E4%B9%A0/" class="article-date">
+  <time datetime="2020-07-18T10:00:10.409Z" itemprop="datePublished">2020-07-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      工具
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Linux备忘录"><a href="#Linux备忘录" class="headerlink" title="Linux备忘录"></a>Linux备忘录</h1><blockquote>
+<p>记录linux的文件目录和常见命令等</p>
+</blockquote>
+<a id="more"></a>
+
+<h3 id="Linux认知"><a href="#Linux认知" class="headerlink" title="Linux认知"></a>Linux认知</h3><p>一款免费的，开源的操作系统，继承自unix系统，是GNU人机交互理念的操作系统层，只是一个内核，不同的厂商提供了不同的包装，如centOS，Redhat，Ubuntu，Suse，红旗Linux等。</p>
+<h3 id="Linux安装"><a href="#Linux安装" class="headerlink" title="Linux安装"></a>Linux安装</h3><p>先下载一款软件VM，通过VM在物理机上划分出一块空间作为虚拟机，在这块空间上安装Linux系统。注意要在BIOS中开启虚拟化设备支持（Intel Virtual Technology）。在指定虚拟机参数时建议根据物理机的性能来指定，虚拟机的网络连接模式分为三种，分别是：</p>
+<ol>
+<li>桥连。在这种网络连接模式下，虚拟机可以和其他系统通信，但是会占据当前局域网的一个ip地址，所以可能会导致ip冲突。</li>
+<li>NAT网络地址转换方式。虚拟机可以访问外网，使用非本局域网的ip地址，不会造成ip冲突。</li>
+<li>主机模式。虚拟机作为一个独立主机，不能访问外网。</li>
+</ol>
+<h3 id="Linux目录结构"><a href="#Linux目录结构" class="headerlink" title="Linux目录结构"></a>Linux目录结构</h3><p><strong>Linux是一个树状结构，最上层是根目录，各个目录存放的内容预先都规划好了，在Linux中，一切皆是文件。</strong></p>
+<p>根目录下主要分为这些目录：</p>
+<ul>
+<li><p><em>/bin</em> ：Binary的缩写，存放最常用的命令。</p>
+</li>
+<li><p><em>/sbin</em>：管理员使用的系统管理程序。</p>
+</li>
+<li><p><em>/home</em>：存放普通用户的主目录，每个用户都有自己的目录，一般以用户账号命名。</p>
+</li>
+<li><p><em>/root</em>：系统管理员的用户主目录。</p>
+</li>
+<li><p><em>/lib</em>：系统开机所需要的最基本的动态链接数据库（相当于Windows中的DLL）。</p>
+</li>
+<li><p><em>/lost+found</em>：一般为空，存放系统非法关机后的某些文件。</p>
+</li>
+<li><p><em>/etc</em>：所有系统管理所需要的配置文件和子目录。</p>
+</li>
+<li><p><em>/usr</em>：用户的应用程序和文件目录。</p>
+</li>
+<li><p><em>/boot</em>：启动Linux的核心文件</p>
+</li>
+<li><p><em>/tmp</em>：临时文件。</p>
+</li>
+<li><p><em>/dev</em>：硬件资源映射的文件（太强了）</p>
+</li>
+<li><p><em>/media</em>：识别的设备如u盘等挂载进此文件目录。</p>
+</li>
+<li><p><em>/opt</em>：安装软件所在的目录（未安装的压缩包）。</p>
+</li>
+<li><p><em>/usr/local</em>：另一个给主机额外安装软件的安装目录（安装后的软件）。</p>
+</li>
+<li><p><em>/var</em>：日志文件目录。</p>
+</li>
+<li><p><em>/selinux</em>：安全子系统，当系统被攻击时触发。</p>
+</li>
+</ul>
+<h3 id="Vim编辑器"><a href="#Vim编辑器" class="headerlink" title="Vim编辑器"></a>Vim编辑器</h3><p>vim编辑器有三种模式</p>
+<ul>
+<li>正常模式：默认模式，可以使用快捷键。</li>
+<li>插入模式：可以在正常模式下按下i/I，o/O，a/A，r/R等进入，一般使用i</li>
+<li>命令行模式：提供相关指令，完成读取、存盘、替换、离开vim、显示行号等动作。</li>
+</ul>
+<p>模式转换：</p>
+<ul>
+<li>vim xxx 进入一般模式。</li>
+<li>i 进入插入模式。</li>
+<li>ESC返回一般模式。</li>
+<li>：或/ 进入命令模式。wq：保存并退出。q：退出。q！：强制退出。</li>
+</ul>
+<p>vim快捷键：</p>
+<ul>
+<li>nyy：拷贝当前n行，粘贴（P）。</li>
+<li>ndd：删除当前n行。</li>
+<li>/string：查找关键词，输入n查找下一个。</li>
+<li>set nu  /  set nonu 设置文件行号。</li>
+<li>插入模式下：G 到最末尾，gg：到首行。</li>
+<li>u：撤销操作。（正常模式下）</li>
+<li>set nu n shift -g ： 光标移动到第n行。</li>
+</ul>
+<h3 id="Linux常用命令"><a href="#Linux常用命令" class="headerlink" title="Linux常用命令"></a>Linux常用命令</h3><h5 id="关机重启指令"><a href="#关机重启指令" class="headerlink" title="关机重启指令"></a>关机重启指令</h5><ul>
+<li><p>shutdown：可以接多个选项。</p>
+<ul>
+<li><p>-h now  立即关机。</p>
+</li>
+<li><p>-h x  x分钟后关机。</p>
+</li>
+<li><p>-r now 立即重启。</p>
+</li>
+</ul>
+</li>
+<li><p>halt：相当于shutdown -h now  立即关机。</p>
+</li>
+<li><p>reboot：相当于shutdown -r now 立即重启。</p>
+</li>
+<li><p>sync：将内存数据同步到磁盘，建议关机前执行这个指令。</p>
+</li>
+</ul>
+<h5 id="用户登录与注销"><a href="#用户登录与注销" class="headerlink" title="用户登录与注销"></a>用户登录与注销</h5><ul>
+<li>logout：退出当前用户。（注：图形界面无效。）</li>
+</ul>
+<h5 id="用户管理"><a href="#用户管理" class="headerlink" title="用户管理"></a>用户管理</h5><ul>
+<li>useradd 【可选项】 用户名：添加用户，其中【可选项】分为<ul>
+<li>【-d】：指定用户目录</li>
+<li>【-g】指定用户组。</li>
+</ul>
+</li>
+<li>passwd 用户名：指定/修改用户密码。</li>
+<li>userdel  【可选项】 用户名：删除用户。【可选项】：<ul>
+<li>【-r】：删除用户并不保留家目录。</li>
+</ul>
+</li>
+<li>id 用户名：查看用户。查看结果分为<ul>
+<li>uid：用户id。</li>
+<li>gid：用户组id。</li>
+<li>组：用户组信息。</li>
+</ul>
+</li>
+<li>su -用户名：切换用户。高权限用户到底权限用户无需输入密码。<ul>
+<li>exit：回退操作，返回原用户。</li>
+<li>whoami：查看自身用户。</li>
+</ul>
+</li>
+</ul>
+<h5 id="用户组管理"><a href="#用户组管理" class="headerlink" title="用户组管理"></a>用户组管理</h5><ul>
+<li>groupadd 组名：增加用户组。</li>
+<li>groupdel 组名：删除用户组。</li>
+<li>usermod -g 用户组 用户名：修改用户所在的组。</li>
+<li>useradd -g 用户组 用户名：指定用户所在的组。</li>
+</ul>
+<blockquote>
+<p>用户信息存放在：/etc/passwd中，每行数据的显示格式如下：</p>
+<p>​    <strong>用户名：口令：用户标识号：组标识号：注释性描述：主目录：shell相关</strong></p>
+<p>组信息存放在：/etc/group中，每行数据显示格式如下：</p>
+<p>​    <strong>组名：口令：组标识号：组内用户列表</strong></p>
+<p>口令相关信息存放在：/etc/shadow中，没行数据显示格式如下：</p>
+<p>​    <strong>登录名：加密口令：最后修改时间：最小时间间隔：最大时间间隔：警告时间：不活动时间：失效时               间：标志</strong></p>
+</blockquote>
+<h5 id="运行级别"><a href="#运行级别" class="headerlink" title="运行级别"></a>运行级别</h5><ul>
+<li>init 【0123456】：指定运行级别。</li>
+</ul>
+<blockquote>
+<p>linux系统一共七个运行级别：</p>
+<ul>
+<li><p>0：关机</p>
+</li>
+<li><p>1：单用户</p>
+</li>
+<li><p>2：多用户无网络</p>
+</li>
+<li><p>3：多用户有网络</p>
+</li>
+<li><p>4：保留级别</p>
+</li>
+<li><p>5：图形界面</p>
+</li>
+<li><p>6：重启</p>
+</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>如果忘记了root密码，可以在开机时指定为单用户模式进入root，重新指定root密码。</p>
+</blockquote>
+<h5 id="帮助指令"><a href="#帮助指令" class="headerlink" title="帮助指令"></a>帮助指令</h5><ul>
+<li>man 【命令或配置文件】：显示命令或配置文件的相关文档。</li>
+<li>help 【命令】：显示命令的使用教程。</li>
+</ul>
+<h5 id="文件目录类"><a href="#文件目录类" class="headerlink" title="文件目录类"></a>文件目录类</h5><ul>
+<li>pwd：显示当前目录的绝对路径</li>
+<li>ls 【可选项】：显示文件或目录的信息，【可选项】：<ul>
+<li>【-a】：包括隐藏文件。</li>
+<li>【-l】：列表排列。</li>
+</ul>
+</li>
+<li>cd 目录：切换到想去的目录。<ul>
+<li>cd ~ ： 回到该用户的家目录。</li>
+<li>cd  .. ：回到上一级目录。</li>
+</ul>
+</li>
+<li>mkdir 【可选项】 目录名：创建目录。【可选项】：<ul>
+<li>-p：创建多级目录。</li>
+</ul>
+</li>
+<li>rmdir 目录名：删除目录。（目录中有文件则无法删除）</li>
+<li>rm 【可选项】：移除文件或目录。【可选项】：<ul>
+<li>-f：删除时不询问。</li>
+<li>-r：递归删除文件夹下所有目录。</li>
+</ul>
+</li>
+<li>touch 文件名：创建一个空文件。</li>
+<li>cp 【选项】 source dest：拷贝指定文件到指定目录，【可选项】：<ul>
+<li>-r：递归复制文件夹。</li>
+<li>\cp：强制覆盖不提醒。</li>
+</ul>
+</li>
+<li>mv  旧文件 新文件/路径：重命名文件/移动文件。</li>
+<li>cat 【可选项】 文件名：查看文件内容（只读），【可选项】：<ul>
+<li>-n：显示行号。</li>
+<li>| more：分页显示。（放在末尾）</li>
+</ul>
+</li>
+<li>more 文件名：查看文件内容（文本过滤器）并分页显示，显示时可以使用以下按键：<ul>
+<li>space：下一页。</li>
+<li>enter：下一行。</li>
+<li>q：离开more，不显示文件内容。</li>
+<li>ctrl F：下滚一屏。</li>
+<li>ctrl B：上滚一屏。</li>
+</ul>
+</li>
+<li>less 文件名：类似more，但是缓存显示，用于查看大型的日志文件。</li>
+<li>&gt;  : 输出重定向，将原文件内容覆盖。</li>
+<li>&gt;&gt;：追加。将内容追加到原文件尾部。</li>
+<li>echo：输出内容到控制台。</li>
+<li>head 【可选部分】 文件名 ：显示文件的开头部分（默认10行），【可选部分】：<ul>
+<li>-n x：显示开头x行。</li>
+</ul>
+</li>
+<li>tail 【可选部分】 文件名：显示文件末尾部分（默认10行），【可选部分】：<ul>
+<li>-n x，显示末尾n行。</li>
+<li>-f：实时追踪文档的所有更新。</li>
+</ul>
+</li>
+<li>ln -s  源目录 软链接文件：软链接指令。此时pwd查看的仍是软链接目录。</li>
+<li>history：查看已经执行的历史命令。</li>
+</ul>
+<h5 id="时间日期类"><a href="#时间日期类" class="headerlink" title="时间日期类"></a>时间日期类</h5><ul>
+<li>date：显示当前时间。<ul>
+<li>+%Y：显示年份。</li>
+<li>+%m：显示月份。</li>
+<li>+%D：显示日子。</li>
+<li>+%H：显示小时。</li>
+<li>+%M：显示分钟。</li>
+<li>+%S：显示秒钟。</li>
+</ul>
+</li>
+<li>cal：查看日历情况。</li>
+</ul>
+<h5 id="搜索查找类"><a href="#搜索查找类" class="headerlink" title="搜索查找类"></a>搜索查找类</h5><ul>
+<li>find 【搜索范围】 【可选项】：在某个范围内查找，【可选项】：<ul>
+<li>-name&lt;文件名&gt;：根据名称寻找。</li>
+<li>-user&lt;用户名&gt;：根据用户寻找。</li>
+<li>-size&lt;文件大小&gt;：根据文件大小寻找。这里+代表大于，-代表小于。</li>
+</ul>
+</li>
+<li>locate 文件名：利用实现建立的locate数据库实现快速查找。但是查找直线需要先建立数据库。</li>
+<li>grep 【可选项】 查找内容 | 源文件：利用管道符号|将前一个命令的处理结果输出传递给后面的命令处理。<ul>
+<li>-n：显示行号。</li>
+<li>-i：忽视大小写。</li>
+</ul>
+</li>
+</ul>
+<h5 id="压缩与解压缩"><a href="#压缩与解压缩" class="headerlink" title="压缩与解压缩"></a>压缩与解压缩</h5><ul>
+<li>gzip：压缩文件。</li>
+<li>gunzip：解压缩。</li>
+<li>zip -r ：递归压缩文件。</li>
+<li>unzip -d ： 将文件解压到指定的位置。</li>
+<li>tar 【可选项】：打包指令。【可选项】：<ul>
+<li>-c：产生tar打包文件。</li>
+<li>-v：显示详细信息。</li>
+<li>-f：指定打包后的文件名。</li>
+<li>-z：打包的同时压缩。</li>
+<li>-x：解包tar文件。</li>
+</ul>
+</li>
+</ul>
+<h3 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h3><blockquote>
+<p>使用xftp将必要的gz压缩文件传输到centOS的opt目录中后，可以进行开发环境的搭建。</p>
+</blockquote>
+<h5 id="jdk"><a href="#jdk" class="headerlink" title="jdk"></a>jdk</h5><p>在opt目录下，使用<code>tar -zxvf 文件名</code>的形式解压文件，然后使用<code>vim /etc/profile</code>进入配置文件，在最末尾配置JAVA_HOME和PATH环境：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">JAVA_HOME&#x3D;&#x2F;opt&#x2F;jkd</span><br><span class="line">PATH&#x3D;&#x2F;opt&#x2F;jdk&#x2F;bin:$PATH</span><br><span class="line">exprot JAVA_HOME PATH</span><br></pre></td></tr></table></figure>
+
+<p>配置完后注销用户使环境生效。可以通过java或javac指令验证是否配置成功。</p>
+<h5 id="tomcat"><a href="#tomcat" class="headerlink" title="tomcat"></a>tomcat</h5><p>在opt目录下，使用<code>tar -zxvf 文件名</code>的形式解压文件，进入bin目录，使用<code>startup.sh</code>开启服务器，在浏览器中访问8080端口，验证是否成功启动服务器。</p>
+<p>通过<code>service iptable status</code>查看端口状态（默认8080端口防火墙未关闭），通过<code>vim /etc/sysconfig/iptables</code>进入防火墙编辑文档，开启8080端口，在主机中通过<code>telnet socket</code>来访问端口以验证是否成功关闭防火墙。</p>
+<p>然后使用<code>service iptables restart</code>重启防火墙。</p>
+<h5 id="Eclipse"><a href="#Eclipse" class="headerlink" title="Eclipse"></a>Eclipse</h5><p>和上面两个大差不差，较简单。</p>
+<h3 id="组管理"><a href="#组管理" class="headerlink" title="组管理"></a>组管理</h3><blockquote>
+<p>Linux每个用户属于一个组。不能独立于组外。Linux中每个文件都有所有者，所在组，其他组的概念。</p>
+</blockquote>
+<h5 id="文件操作："><a href="#文件操作：" class="headerlink" title="文件操作："></a>文件操作：</h5><ul>
+<li>修改文件所有者： chown 新用户 文件名</li>
+<li>修改文件所在组： chgrp 新组名 文件名</li>
+</ul>
+<h5 id="用户操作："><a href="#用户操作：" class="headerlink" title="用户操作："></a>用户操作：</h5><ul>
+<li>修改用户所在组： usermod   -g  新组名 用户名</li>
+</ul>
+<h3 id="权限管理"><a href="#权限管理" class="headerlink" title="权限管理"></a>权限管理</h3><blockquote>
+<p>给一个文件或者目录指定三个权限，分别是该文件或目录所有者拥有的权限、所有者所在组拥有的权限、其他组拥有的权限。</p>
+</blockquote>
+<h5 id="文件类型："><a href="#文件类型：" class="headerlink" title="文件类型："></a>文件类型：</h5><ul>
+<li>- ：普通文件</li>
+<li>d : 目录</li>
+<li>l ： 链接文件</li>
+<li>c ：字符设备（键盘、鼠标等）</li>
+<li>b ： 块文件（硬盘）</li>
+</ul>
+<h5 id="权限说明："><a href="#权限说明：" class="headerlink" title="权限说明："></a>权限说明：</h5><ul>
+<li>r ： 文件的r代表可读，目录的r代表可查看。</li>
+<li>w ： 文件的w代表可写，目录的w代表可修改（删除修改目录中的文件等）。</li>
+<li>x ：文件中的x代表可执行，目录中的x代表可进入。</li>
+</ul>
+<h5 id="修改权限："><a href="#修改权限：" class="headerlink" title="修改权限："></a>修改权限：</h5><h6 id="方式一：使用-、-、-指定权限"><a href="#方式一：使用-、-、-指定权限" class="headerlink" title="方式一：使用 + 、- 、 = 指定权限"></a>方式一：使用 + 、- 、 = 指定权限</h6><ul>
+<li>chmod u/g/o/a  =/+/-  r/w/x 文件/目录  （u：所有者 g：所在组 o：其他组 a：所有人）</li>
+</ul>
+<h6 id="方式二：通过数字指定："><a href="#方式二：通过数字指定：" class="headerlink" title="方式二：通过数字指定："></a>方式二：通过数字指定：</h6><ul>
+<li>chmod 751 文件/目录 （r：4 w：2 x：1）</li>
+</ul>
+<h3 id="任务调度"><a href="#任务调度" class="headerlink" title="任务调度"></a>任务调度</h3><blockquote>
+<p>某些场景下我们希望在一个固定的时间执行一个固定的操作，如每天凌晨四点备份数据库，可以使用任务调度方式。</p>
+</blockquote>
+<h5 id="语法："><a href="#语法：" class="headerlink" title="语法："></a>语法：</h5><p>crontab 【选项】，其中【选项】可选值为：</p>
+<ul>
+<li>-e ：编辑crontab定时任务</li>
+<li>-l ： 查询crontab任务</li>
+<li>-r ： 删除当前用户的所有crontab任务</li>
+</ul>
+<h5 id="步骤："><a href="#步骤：" class="headerlink" title="步骤："></a>步骤：</h5><ol>
+<li>编辑任务脚本</li>
+<li>给予该脚本可执行权限</li>
+<li>使用 crontab -e 脚本的方式指定任务调度</li>
+<li>保存退出使任务调度生效</li>
+</ol>
+<h5 id="参数说明"><a href="#参数说明" class="headerlink" title="参数说明:"></a>参数说明:</h5><ul>
+<li>第一个*：一小时的第几分钟，可选值1-59</li>
+<li>第二个*：一天的第几个小时，可选值1-23</li>
+<li>第三个*：一个月的第几天，可选值1-31</li>
+<li>第四个*：一年的第几个月，可选值1-12</li>
+<li>第五个*：一周中的星期几，可选值0-7（0和7都代表周日）</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/07/18/Linux%E5%AD%A6%E4%B9%A0/" data-id="ckifb2s4900056jnr2idq47es" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/07/18/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%80%9D%E8%80%83/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          JavaSE
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/07/18/Git/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">工程实战</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/12/07/cpu%E9%A3%99%E9%AB%98%E6%8E%92%E6%9F%A5/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/04/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B4%A2%E5%BC%95/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/29/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F/">高并发相关技术</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/27/%E6%95%B0%E6%8D%AE%E5%BA%8F%E5%88%97%E5%8C%96%E6%96%B9%E6%A1%88/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/21/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

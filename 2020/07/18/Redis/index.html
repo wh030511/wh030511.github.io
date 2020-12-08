@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>数据库 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Redis 一款NoSQL数据库，用于解决高并发问题。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据库">
+<meta property="og:url" content="http://example.com/2020/07/18/Redis/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Redis 一款NoSQL数据库，用于解决高并发问题。">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlly1gh7vkvbi49j312e0gkq5n.jpg">
+<meta property="article:published_time" content="2020-07-18T10:00:10.410Z">
+<meta property="article:modified_time" content="2020-07-30T02:06:27.688Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://tva1.sinaimg.cn/large/007S8ZIlly1gh7vkvbi49j312e0gkq5n.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Redis" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/07/18/Redis/" class="article-date">
+  <time datetime="2020-07-18T10:00:10.410Z" itemprop="datePublished">2020-07-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      数据库
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h1><blockquote>
+<p>一款NoSQL数据库，用于解决高并发问题。</p>
+</blockquote>
+<a id="more"></a>
+
+<p><strong>1. 数据结构（5种基础类型）</strong></p>
+<table>
+<thead>
+<tr>
+<th align="center">Key</th>
+<th align="center">Value</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">String</td>
+<td align="center">字符串类型</td>
+</tr>
+<tr>
+<td align="center">Hash</td>
+<td align="center">map格式</td>
+</tr>
+<tr>
+<td align="center">List</td>
+<td align="center">linkedlist格式</td>
+</tr>
+<tr>
+<td align="center">Set</td>
+<td align="center">set格式</td>
+</tr>
+<tr>
+<td align="center">SortedSet</td>
+<td align="center">有序集合</td>
+</tr>
+</tbody></table>
+<p><strong>2. 持久化机制</strong></p>
+<ul>
+<li><p>RDB：默认方式</p>
+<p>在redis.window.conf文件中指定，参数如下：</p>
+<p>save 900 1：900s内有1个数据发生变化会触发持久化</p>
+<p>save 300 10：300s内10个数据发生变化会触发持久化</p>
+<p>save 60 10000：60s内10000个数据发生变化会触发持久化</p>
+</li>
+<li><p>AOF：日志记录</p>
+<p>可以记录每一条命令的操作，每次操作后都会写入硬盘，默认关闭。</p>
+<p>可以在conf文件中更改appendonly属性改为yes，然后指定参数：</p>
+<p>appendfsync always：每次操作都会触发持久化</p>
+<p>appendfsync everysec：每隔一秒触发持久化（起始默认）</p>
+<p>appendfsync no：永不持久化</p>
+</li>
+</ul>
+<p><strong>3. 相关问题</strong></p>
+<ul>
+<li><p>缓存穿透</p>
+<p>用户持续访问一个不存在的数据。</p>
+<p>解决：接口层增加校验，将一些明显恶意的访问请求拦截在接口层。</p>
+<p>​            对于数据库中也没有访问到的数据，在redis中增加这个key值并且将value设置为null，这样可以防止            攻击用户反复用一个无效id暴力攻击。</p>
+</li>
+<li><p>缓存击穿</p>
+<p>一个热门数据突然失效，大量请求直接打到数据库上。</p>
+<p>解决：设置热点数据永不过期。</p>
+</li>
+<li><p>缓存雪崩</p>
+<p>大量的key在同一时间过期，在到期的那个时间点，redis可能出现短暂的卡顿现象。严重的话就会出现缓存雪崩。</p>
+<p>解决：一般在过期时间上加一个随机值，使得过期时间分散一点，缓解redis服务器的压力。</p>
+</li>
+</ul>
+<p><strong>4. Bloom Filter（布隆过滤器）</strong></p>
+<p><strong>实现措施</strong>：使用一个bit数组和多个hash函数，每个元素加入集合时，分别使用不同的hash映射到bit数组的一位上并且置为1；当取元素时，首先判断经过多重hash后的对应位置上是否是1，全1才可能有值，如果有0则一定不存在。</p>
+<p><strong>用途</strong>：解决缓存穿透的问题。</p>
+<p><strong>缺点</strong>：存在误判、删除困难。</p>
+<p><strong>5. 常用使用场景</strong></p>
+<ol>
+<li>缓存提升服务器性能<ol start="2">
+<li>使用sortedset用来完成排行榜</li>
+<li>计算器/限速器。利用Redis中原子性的自增操作，统计点赞数、访问数等，避免频繁的读写数据库。限速器用来限制某个用户访问某API的频率，在抢购时很好用。</li>
+<li>Session共享。服务器集群时将Session放到Redis中可以确保经过负载均衡后无论永福访问哪台物理机都能获得自己的Session。</li>
+<li>常用数据的访问。对于一些常用数据，放在Redis中可以有效的减少查询开销。</li>
+</ol>
+</li>
+</ol>
+<p><strong>6.  缓存淘汰机制</strong></p>
+<p>定时扫描：</p>
+<p>redis将所有设置了过期时间的key放在一个独立的hash中，每秒定时扫描这个hash，而不是整个redis内存空间。</p>
+<ol>
+<li>在这个hash中随机选择20个key</li>
+<li>删除20个key中过期的值</li>
+<li>如果删除的数量超过了20的1/4，则重复第一步</li>
+<li>每次处理时间控制在25ms</li>
+</ol>
+<p><strong>定时扫描不能完全删除过期数据，使用惰性策略帮助删除</strong></p>
+<p>惰性策略：</p>
+<p>客户端访问时，对访问的key进行过期时间检查，如果已过期，立刻删除</p>
+<p>以上是主库的过期策略，redis不会扫描从库，而是在删除主库数据的时候，将del指令写入aof文件中，主从同步的时候执行</p>
+<blockquote>
+<p>不难看出，这种缓存淘汰机制有弊端：如果一个key已经过期但迟迟没有被随机选中，同时也没有被访问，那么这个key就会一直占用空间</p>
+</blockquote>
+<p><strong>7. redis单线程理解</strong></p>
+<p>redis分为客户端和服务端，所谓的单线程是服务端在处理数据的时候是单线程操作的。而redis处理数据是对内存的读写，速度非常快，不会成为性能瓶颈。对于建立客户端与服务端的连接、客户端像服务端发送请求数据这些阶段，并不是单线程的。</p>
+<p>redis建立的客户端和服务端的连接是一对多的，即多个客户端连接一个服务端（TCP连接），客户端通过socket与服务端建立连接，然后使用该连接与服务端进行网络IO传递消息，对于每个客户端，服务端都会使用一个线程来处理。</p>
+<p>同时，服务端会监听哪一个连接接收完成了请求数据（使用IO多路复用达到这个效果），发现了接收完成请求数据的连接后，会去单线程的处理这个请求，并返回数据。</p>
+<p>当对多个I/O监听时，一个I/O阻塞会影响其他I/O的处理，解决这个问题就要使用IO多路复用技术。</p>
+<p>IO多路复用是一个技术概念，有三种实现方式：</p>
+<ol>
+<li>非阻塞（忙轮询）：采用死循环方式轮询每一个流，如果有IO事件就处理，这样一个线程可以处理多个流，但效率不高，容易导致CPU空转。</li>
+<li>Select代理（无差别轮询）：可以观察多个流的IO事件，如果所有流都没有IO事件，则将线程进入阻塞状态，如果有一个或多个发生了IO事件，则唤醒线程去处理。但是会遍历所有的流，找出流需要处理的流。如果流个数为N，则时间复杂度为O(N)。</li>
+<li>Epoll代理：Select代理有一个缺点，线程在被唤醒后轮询所有的Stream，会存在无效操作。Epoll哪个流发生了I/O事件会通知处理线程，对流的操作都是有意义的，复杂度降低到了O(1)。</li>
+</ol>
+<p>redis使用的就是Epoll代理。<img src="https://tva1.sinaimg.cn/large/007S8ZIlly1gh7vkvbi49j312e0gkq5n.jpg" alt="截屏2020-07-29 下午3.10.05"></p>
+<p><strong>8. redis多线程</strong></p>
+<p>在redis6.0后引入了多线程，这里的多线程主要是为了对于一些操作的优化，如大键的删除，使用多线程线程异步删除，非阻塞的释放内存空间，减少redis主线程的阻塞事件，提高效率。</p>
+<p>实际上一般的操作还是单线程的。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/07/18/Redis/" data-id="ckifb2s4b00076jnrabyma166" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/07/18/Mybatis%E6%B3%A8%E8%A7%A3%E5%BC%80%E5%8F%91/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          SSM框架
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/07/18/Spring/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">SSM框架</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/12/07/cpu%E9%A3%99%E9%AB%98%E6%8E%92%E6%9F%A5/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/04/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B4%A2%E5%BC%95/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/29/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F/">高并发相关技术</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/27/%E6%95%B0%E6%8D%AE%E5%BA%8F%E5%88%97%E5%8C%96%E6%96%B9%E6%A1%88/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/21/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

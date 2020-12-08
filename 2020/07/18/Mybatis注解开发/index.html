@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>SSM框架 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Mybatis注解开发 使用注解将开发者从繁杂的xml文件中解脱出来。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SSM框架">
+<meta property="og:url" content="http://example.com/2020/07/18/Mybatis%E6%B3%A8%E8%A7%A3%E5%BC%80%E5%8F%91/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Mybatis注解开发 使用注解将开发者从繁杂的xml文件中解脱出来。">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-07-18T10:00:10.410Z">
+<meta property="article:modified_time" content="2020-07-18T10:00:10.410Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Mybatis注解开发" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/07/18/Mybatis%E6%B3%A8%E8%A7%A3%E5%BC%80%E5%8F%91/" class="article-date">
+  <time datetime="2020-07-18T10:00:10.410Z" itemprop="datePublished">2020-07-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      SSM框架
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Mybatis注解开发"><a href="#Mybatis注解开发" class="headerlink" title="Mybatis注解开发"></a>Mybatis注解开发</h1><blockquote>
+<p>使用注解将开发者从繁杂的xml文件中解脱出来。</p>
+</blockquote>
+<a id="more"></a>
+
+
+
+<h3 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h3><p><strong>1. 配置文件</strong></p>
+<p>使用maven工程导入所需要的依赖，然后配置主配置文件。注意，主配置文件中指定的映射配置文件位置需要使用class指定，或者直接使用package，如下所示：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;UTF-8&quot;</span>?&gt;</span><br><span class="line">&lt;!DOCTYPE configuration</span><br><span class="line">        PUBLIC <span class="string">&quot;-//mybatis.org//DTD Config 3.0//EN&quot;</span></span><br><span class="line">        <span class="string">&quot;http://mybatis.org/dtd/mybatis-3-config.dtd&quot;</span>&gt;</span><br><span class="line">&lt;configuration&gt;</span><br><span class="line">    &lt;properties resource=&quot;jdbcConfig.properties&quot;&gt;&lt;/properties&gt;</span><br><span class="line">    &lt;!-- 配置别名 --&gt;</span><br><span class="line">    &lt;typeAliases&gt;</span><br><span class="line">        &lt;<span class="keyword">package</span> name=<span class="string">&quot;com.itcast.domain&quot;</span>/&gt;</span><br><span class="line">    &lt;/typeAliases&gt;</span><br><span class="line">    &lt;!-- 配置环境 --&gt;</span><br><span class="line">    &lt;environments <span class="keyword">default</span>=<span class="string">&quot;mysql&quot;</span>&gt;</span><br><span class="line">        &lt;environment id=<span class="string">&quot;mysql&quot;</span>&gt;</span><br><span class="line">            &lt;transactionManager type=&quot;JDBC&quot;&gt;&lt;/transactionManager&gt;</span><br><span class="line">            &lt;dataSource type=<span class="string">&quot;POOLED&quot;</span>&gt;</span><br><span class="line">                &lt;property name=<span class="string">&quot;driver&quot;</span> value=<span class="string">&quot;$&#123;jdbc.driver&#125;&quot;</span>/&gt;</span><br><span class="line">                &lt;property name=<span class="string">&quot;url&quot;</span> value=<span class="string">&quot;$&#123;jdbc.url&#125;&quot;</span>/&gt;</span><br><span class="line">                &lt;property name=<span class="string">&quot;username&quot;</span> value=<span class="string">&quot;$&#123;jdbc.username&#125;&quot;</span>/&gt;</span><br><span class="line">                &lt;property name=<span class="string">&quot;password&quot;</span> value=<span class="string">&quot;$&#123;jdbc.password&#125;&quot;</span>/&gt;</span><br><span class="line">            &lt;/dataSource&gt;</span><br><span class="line">        &lt;/environment&gt;</span><br><span class="line">    &lt;/environments&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!-- 指定带有注解的dao接口所在位置 --&gt;</span><br><span class="line">    &lt;mappers&gt;</span><br><span class="line">        &lt;<span class="keyword">package</span> name=<span class="string">&quot;com.itcast.dao&quot;</span>/&gt;</span><br><span class="line">    &lt;/mappers&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br></pre></td></tr></table></figure>
+
+<p>将数据库配置信息放到单独的jdbcConfig.properties文件中进行解耦，使用typeAliases配置别名。</p>
+<p>这里有一个小的注意点，如果使用注解开发时，目录中存在xml文件，则无论是否显式的指定开发方式，都会报错</p>
+<p><strong>2. 编写实体类</strong></p>
+<p>使用ORM原则，编写与数据库相对应的实体类。</p>
+<h3 id="单表查询"><a href="#单表查询" class="headerlink" title="单表查询"></a>单表查询</h3><p><strong>1. 接口</strong></p>
+<p>在dao接口位置编写常见的查询语句与方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">IUserDao</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Select(value = &quot;select * from user&quot;)</span></span><br><span class="line">    <span class="function">List&lt;User&gt; <span class="title">findAll</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Insert(&quot;insert into user(username,address,sex,birthday) values(#&#123;username&#125;,#&#123;address&#125;,#&#123;sex&#125;,#&#123;birthday&#125;)&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">insertUser</span><span class="params">(User user)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Update(&quot;update user set username=#&#123;username&#125; , sex = #&#123;sex&#125; , birthday = #&#123;birthday&#125; , address = #&#123;address&#125; where id = #&#123;id&#125;&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">updateUser</span><span class="params">(User user)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Delete(&quot;delete from user where id = #&#123;id&#125;&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">deleteUser</span><span class="params">(<span class="keyword">int</span> id)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Select(&quot;select * from user where id = #&#123;id&#125;&quot;)</span></span><br><span class="line">    <span class="function">User <span class="title">findById</span><span class="params">(Integer id)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Select(&quot;select * from user where username like #&#123;username&#125;&quot;)</span></span><br><span class="line">    <span class="function">List&lt;User&gt; <span class="title">findUserByName</span><span class="params">(String name)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Select(&quot;select count(*) from user&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">findTotal</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Mybatis支持的查询注解如上，@Select @Update @Insert @Delete 其中的value值就是查询语句。</p>
+<p>注意#和$的区别，#修饰的位置是预编译的，相当于PrepareStatement，先用？填充去编译，后赋予实际值去执行。而$相当于Statement，是先拼接字符串，后执行SQL语句的。明显会存在SQL注入的问题。</p>
+<p><strong>2. 测试类</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AnnoCRUDTest</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> InputStream is;</span><br><span class="line">    <span class="keyword">private</span> SqlSessionFactory factory;</span><br><span class="line">    <span class="keyword">private</span> SqlSession sqlSession;</span><br><span class="line">    <span class="keyword">private</span> IUserDao proxyDao;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Before</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        is = Resources.getResourceAsStream(<span class="string">&quot;SqlMapConfig.xml&quot;</span>);</span><br><span class="line">        factory = <span class="keyword">new</span> SqlSessionFactoryBuilder().build(is);</span><br><span class="line">        sqlSession = factory.openSession();</span><br><span class="line">        proxyDao = sqlSession.getMapper(IUserDao.class);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@After</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">destroy</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        sqlSession.commit();</span><br><span class="line">        is.close();</span><br><span class="line">        sqlSession.close();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testInsert</span><span class="params">()</span></span>&#123;</span><br><span class="line">        User u = <span class="keyword">new</span> User();</span><br><span class="line">        u.setUsername(<span class="string">&quot;Annotation&quot;</span>);</span><br><span class="line">        u.setSex(<span class="string">&quot;男&quot;</span>);</span><br><span class="line">        u.setBirthday(<span class="keyword">new</span> Date());</span><br><span class="line">        u.setAddress(<span class="string">&quot;北京&quot;</span>);</span><br><span class="line">        proxyDao.insertUser(u);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testUpdate</span><span class="params">()</span></span>&#123;</span><br><span class="line">        User u = <span class="keyword">new</span> User();</span><br><span class="line">        u.setUsername(<span class="string">&quot;Annotation2&quot;</span>);</span><br><span class="line">        u.setId(<span class="number">53</span>);</span><br><span class="line">        u.setSex(<span class="string">&quot;男&quot;</span>);</span><br><span class="line">        u.setBirthday(<span class="keyword">new</span> Date());</span><br><span class="line">        u.setAddress(<span class="string">&quot;南京&quot;</span>);</span><br><span class="line">        proxyDao.updateUser(u);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testDelete</span><span class="params">()</span></span>&#123;</span><br><span class="line">        proxyDao.deleteUser(<span class="number">53</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testFindOne</span><span class="params">()</span></span>&#123;</span><br><span class="line">        User u = proxyDao.findById(<span class="number">50</span>);</span><br><span class="line">        System.out.println(u);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testFindByName</span><span class="params">()</span></span>&#123;</span><br><span class="line">        List&lt;User&gt; users = proxyDao.findUserByName(<span class="string">&quot;%王%&quot;</span>);</span><br><span class="line">        <span class="keyword">for</span> (User user : users) &#123;</span><br><span class="line">            System.out.println(user);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testFindTotal</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> total = proxyDao.findTotal();</span><br><span class="line">        System.out.println(total);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>测试类中将整个流程通用的方法提取，利用@Before和@After注解，使代码更加清晰。</p>
+<p>注意，在destory方法中，需要先提交事务，否则增删改操作会回滚。或者在配置文件中指明默认提交也可以。</p>
+<h3 id="多表查询"><a href="#多表查询" class="headerlink" title="多表查询"></a>多表查询</h3><p><strong>1. 当实体类没有按照ORM与数据库一一对应时，通过注解来构建映射关系</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Select(value = &quot;select * from user&quot;)</span></span><br><span class="line">   <span class="meta">@Results(id = &quot;userMap&quot; , value=&#123;</span></span><br><span class="line"><span class="meta">           @Result(id=true,column=&quot;id&quot; , property = &quot;userId&quot;),</span></span><br><span class="line"><span class="meta">           @Result(column=&quot;username&quot; , property = &quot;userName&quot;),</span></span><br><span class="line"><span class="meta">           @Result(column=&quot;address&quot; , property = &quot;userAddress&quot;),</span></span><br><span class="line"><span class="meta">           @Result(column=&quot;sex&quot; , property = &quot;userSex&quot;),</span></span><br><span class="line"><span class="meta">           @Result(column=&quot;birthday&quot; , property = &quot;userBirthday&quot;)</span></span><br><span class="line"><span class="meta">   &#125;)</span></span><br><span class="line">   <span class="function">List&lt;User&gt; <span class="title">findAll</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">   <span class="meta">@Select(&quot;select * from user where id = #&#123;id&#125;&quot;)</span></span><br><span class="line">   <span class="meta">@ResultMap(value = &#123;&quot;userMap&quot;&#125;)</span></span><br><span class="line">   <span class="function">User <span class="title">findById</span><span class="params">(Integer id)</span></span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">   <span class="meta">@Select(&quot;select * from user where username like #&#123;username&#125;&quot;)</span></span><br><span class="line">   <span class="meta">@ResultMap(value = &#123;&quot;userMap&quot;&#125;)</span></span><br><span class="line">   <span class="function">List&lt;User&gt; <span class="title">findUserByName</span><span class="params">(String name)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p><strong><em>一般还是要按照ORM设计实体类</em></strong></p>
+<p><strong>2. 多对一查询</strong></p>
+<p>通过注解嵌套查询</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Results(id = &quot;userMap&quot; , value=&#123;</span></span><br><span class="line"><span class="meta">            @Result(id=true,column=&quot;id&quot; , property = &quot;id&quot;),</span></span><br><span class="line"><span class="meta">            @Result(id=true,column=&quot;uid&quot; , property = &quot;uid&quot;),</span></span><br><span class="line"><span class="meta">            @Result(id=true,column=&quot;money&quot; , property = &quot;money&quot;),</span></span><br><span class="line"><span class="meta">            @Result(property = &quot;user&quot; , column = &quot;uid&quot; , one = @One( select = &quot;com.itcast.dao.IUserDao.findById&quot; , fetchType = FetchType.EAGER))</span></span><br><span class="line"><span class="meta">    &#125;)</span></span><br></pre></td></tr></table></figure>
+
+<p>在“多”中声明了多对一的映射，这里的one代表的是对一，即每个账户对应一个用户，而fetchType指定是立即加载还是懒加载。EAGER是立即加载，LAZY是懒加载。</p>
+<p><strong>3. 一对多查询</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Results(id = &quot;userMap&quot; , value=&#123;</span></span><br><span class="line"><span class="meta">            @Result(id=true,column=&quot;id&quot; , property = &quot;userId&quot;),</span></span><br><span class="line"><span class="meta">            @Result(column=&quot;username&quot; , property = &quot;userName&quot;),</span></span><br><span class="line"><span class="meta">            @Result(column=&quot;address&quot; , property = &quot;userAddress&quot;),</span></span><br><span class="line"><span class="meta">            @Result(column=&quot;sex&quot; , property = &quot;userSex&quot;),</span></span><br><span class="line"><span class="meta">            @Result(column=&quot;birthday&quot; , property = &quot;userBirthday&quot;),</span></span><br><span class="line"><span class="meta">            @Result(property = &quot;accounts&quot; , column = &quot;id&quot; ,</span></span><br><span class="line"><span class="meta">                    many = @Many(select = &quot;com.itcast.dao.IAccountDao.findAccountByUid&quot;,fetchType = FetchType.LAZY))</span></span><br><span class="line"><span class="meta">    &#125;)</span></span><br></pre></td></tr></table></figure>
+
+<p>在“一”中声明了一对多的映射，然后在相关的方法的注解上声明property为这个映射结果，many代表是对多的，select是指定要执行的操作的全限定方法名，fetchType是指定立即加载还是懒加载。</p>
+<p><strong>4. Mybatis的缓存机制</strong></p>
+<p><strong>缓存：</strong>将数据存放在内存中，减少与数据库的IO，提高性能。一般适用于对结果影响不大的数据。</p>
+<p>缓存分为一级缓存和二级缓存，在注解开发或者xml中开启方式不同。在xml开发时，要依次在主配置文件、映射配置文件、当前操作中开启二级缓存。</p>
+<table>
+<thead>
+<tr>
+<th align="center"></th>
+<th align="center">一级缓存</th>
+<th align="center">二级缓存</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">存放位置</td>
+<td align="center">SqlSession</td>
+<td align="center">SqlSessionFactory</td>
+</tr>
+<tr>
+<td align="center">开启方式</td>
+<td align="center">默认开启</td>
+<td align="center">@CacheNamespace（blocking = true）</td>
+</tr>
+<tr>
+<td align="center">注意事项</td>
+<td align="center">每次操作SqlSession对象都会清空缓存</td>
+<td align="center">缓存中存放的值会复用，而不是对象复用</td>
+</tr>
+</tbody></table>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/07/18/Mybatis%E6%B3%A8%E8%A7%A3%E5%BC%80%E5%8F%91/" data-id="ckifb2s4a00066jnr8qyf0o4h" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/07/18/%E4%BA%8C%E5%8F%89%E6%A0%91%E5%92%8C%E5%9B%BE/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          数据结构
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/07/18/Redis/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">数据库</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/12/07/cpu%E9%A3%99%E9%AB%98%E6%8E%92%E6%9F%A5/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/04/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B4%A2%E5%BC%95/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/29/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F/">高并发相关技术</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/27/%E6%95%B0%E6%8D%AE%E5%BA%8F%E5%88%97%E5%8C%96%E6%96%B9%E6%A1%88/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/21/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>数据结构 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="栈、队列、堆 基础数据结构的复习与扩展">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据结构">
+<meta property="og:url" content="http://example.com/2020/07/18/%E6%A0%88%E3%80%81%E9%98%9F%E5%88%97%E3%80%81%E5%A0%86/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="栈、队列、堆 基础数据结构的复习与扩展">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-07-18T10:00:10.414Z">
+<meta property="article:modified_time" content="2020-07-18T10:00:10.414Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-栈、队列、堆" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/07/18/%E6%A0%88%E3%80%81%E9%98%9F%E5%88%97%E3%80%81%E5%A0%86/" class="article-date">
+  <time datetime="2020-07-18T10:00:10.414Z" itemprop="datePublished">2020-07-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      数据结构
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="栈、队列、堆"><a href="#栈、队列、堆" class="headerlink" title="栈、队列、堆"></a>栈、队列、堆</h1><blockquote>
+<p>基础数据结构的复习与扩展</p>
+</blockquote>
+<a id="more"></a>
+
+<h3 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h3><p><strong>1. 使用队列实现栈（LC225）</strong></p>
+<blockquote>
+<p>思路：栈的特点是先进后出，队列的特点是先进先出，所以需要将队列中先进的元素放到队列的尾部，为了节省空间考虑，可以使用一个队列完成功能，即：当在队列尾部插入一个元素后，将该元素前面的其他元素依次弹出并插入到尾部。</p>
+</blockquote>
+<p><em>代码：</em></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">MyStack</span> </span>&#123; <span class="comment">// 接口</span></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 压入栈</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">push</span><span class="params">(Object obj)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 弹出栈</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function">Object <span class="title">pop</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 查看栈是否为空</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">isEmpty</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 查看栈顶元素</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">     <span class="function">Object <span class="title">peek</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StackByQueue</span> <span class="keyword">implements</span> <span class="title">MyStack</span> </span>&#123; <span class="comment">// 实现</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> LinkedList queue; <span class="comment">// 使用双向链表充当队列</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> size; <span class="comment">//可以通过queue.size()替代，但是显式指明会更加直观</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">StackByQueue</span><span class="params">()</span></span>&#123;</span><br><span class="line">        queue = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">        size = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">push</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">        queue.add(obj);</span><br><span class="line">        size++;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; size - <span class="number">1</span>; i++)&#123;</span><br><span class="line">            queue.add(queue.poll());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">pop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!isEmpty())&#123;</span><br><span class="line">            size--;</span><br><span class="line">            <span class="keyword">return</span> queue.pop();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isEmpty</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> size == <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">peek</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!isEmpty())&#123;</span><br><span class="line">            <span class="keyword">return</span> queue.peek();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>2. 设计一个栈，可以在O(1)的时间内找到栈中的最大元素（LC155）</strong></p>
+<blockquote>
+<p>思路：如果要在常数时间内找到一个最大值，则不能遍历遍历元素。开始的思路是通过一个int数来记录最大数，但是存在一个问题，当栈中的元素被弹出，而且该元素刚好是最大数，那么接下来的最大数如何记录呢？针对这个问题和栈的特点（即每次只能弹出最顶端的元素），可以设计一个栈记录当前高度的最大值。</p>
+</blockquote>
+<p><em>代码：</em></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MaxStack</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> Stack&lt;Integer&gt; dataStack;</span><br><span class="line">	<span class="keyword">private</span> Stack&lt;Integer&gt; maxStack;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span> max;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** initialize your data structure here. */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MaxStack</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    	dataStack = <span class="keyword">new</span> Stack&lt;&gt;();</span><br><span class="line">        maxStack = <span class="keyword">new</span> Stack&lt;&gt;();</span><br><span class="line">        max = Integer.MIN_VALUE;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">push</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">        dataStack.push(x);</span><br><span class="line">        max = Math.max(max,x);</span><br><span class="line">        maxStack.push(max);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">pop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        dataStack.pop();</span><br><span class="line">        maxStack.pop();</span><br><span class="line">        max = maxStack.size() == <span class="number">0</span> ?  Integer.MIN_VALUE : maxStack.peek();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">top</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(!dataStack.empty())&#123;</span><br><span class="line">            <span class="keyword">return</span> dataStack.peek();</span><br><span class="line">        &#125;</span><br><span class="line">		<span class="keyword">return</span> -<span class="number">1</span>; <span class="comment">// 栈空时</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getMax</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(!maxStack.empty())&#123;</span><br><span class="line">            <span class="keyword">return</span> maxStack.peek();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> -<span class="number">1</span>; <span class="comment">// 栈空时</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>3. 判断栈的弹出序列是否合法（LC946）</strong></p>
+<blockquote>
+<p>思路：分别用一个栈和一个队列来记录压入和弹出序列，压入时和队列的peek元素对比，如果一样，则说明该元素可以合法弹出，故栈和队列都弹出peek元素，当遍历完压入序列后，如果栈空，说明所有的元素都可以合法弹出，否则就有非法弹出的元素。</p>
+</blockquote>
+<p><em>代码：</em></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">validateStackSequences</span><span class="params">(<span class="keyword">int</span>[] pushed, <span class="keyword">int</span>[] popped)</span> </span>&#123;</span><br><span class="line">        Stack&lt;Integer&gt; stack = <span class="keyword">new</span> Stack&lt;&gt;();</span><br><span class="line">        <span class="keyword">int</span> index = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i : pushed)&#123;</span><br><span class="line">            stack.push(i);           </span><br><span class="line">            <span class="comment">// 如果相同则弹出</span></span><br><span class="line">            <span class="keyword">while</span> (!stack.empty() &amp;&amp; stack.peek() == popped[index])&#123;</span><br><span class="line">                stack.pop();</span><br><span class="line">                index++;</span><br><span class="line">            &#125;          </span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> stack.empty();    </span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong><em>问题记录：本来想使用LinkedList作为队列，但是LeetCode提交时挂掉了，死在了一个很长的输入数组中，所以改成使用index记录，更省空间。而且，LinkedList的add()方法是插入尾部，而push()方法是插入头部。顺便对LinkedList集合容器各个方法做一个总结</em></strong></p>
+<ol>
+<li>add / remove<ul>
+<li>add = addLast , 区别是add返回boolean，addLast无返回值。addFirst无返回值，插入头部。</li>
+<li>remove = removeFirst，无元素throw new NoSuchElementException，有元素返回被删除的元素值</li>
+</ul>
+</li>
+<li>push / pop / poll<ul>
+<li>push = addFirst</li>
+<li>pop = removeFirst</li>
+<li>poll = pollFirst 删除头部元素，若无元素返回null，有元素返回该元素的值。pollLast 删除尾部元素</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p>push 和 pop 构成了栈操作，add 和 remove 构成了队列操作，poll在某些不想抛异常的情况下替代remove</p>
+</blockquote>
+<h3 id="队列"><a href="#队列" class="headerlink" title="队列"></a>队列</h3><p><strong>1. 使用栈实现队列（LC232）</strong></p>
+<blockquote>
+<p>思路：与上面的例题相似，如何将一个先进的元素变成先出，可以考虑使用两个栈，每次压入栈时都压入主栈，要弹出时判断副栈是否有元素，如果没有元素则将主栈元素依次弹入副栈，再将副栈第一个元素弹出。增加一个判断的好处是不用每次压入主栈就弹出到副栈，提高效率。</p>
+</blockquote>
+<p><em>代码：</em></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">MyQueue</span> </span>&#123; <span class="comment">// 接口</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/** Initialize your data structure here. */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MyQueue</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/** Push element x to the back of queue. */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">push</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/** Removes the element from in front of queue and returns that element. */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">pop</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/** Get the front element. */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">peek</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/** Returns whether the queue is empty. */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">empty</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">QueueByStack</span> <span class="keyword">implements</span> <span class="title">MyQueue</span></span>&#123;</span><br><span class="line">    Stack&lt;Integer&gt; stack1 = <span class="keyword">new</span> Stack&lt;&gt;();</span><br><span class="line">    Stack&lt;Integer&gt; stack2 = <span class="keyword">new</span> Stack&lt;&gt;();</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MyQueue</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">push</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">		stack1.push(x);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">pop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(!stack2.empty())&#123;</span><br><span class="line">            <span class="keyword">return</span> stack2.pop();</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span>(stack1.size() == <span class="number">0</span>) <span class="keyword">return</span> -<span class="number">1</span>; <span class="comment">// 队列无元素</span></span><br><span class="line">        </span><br><span class="line">      	transform();</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> stack2.pop();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">transform</span><span class="params">()</span></span>&#123; <span class="comment">// 将stack1的元素转移到stack2中</span></span><br><span class="line">        <span class="keyword">while</span>(!stack1.empyt())&#123;</span><br><span class="line">            stack2.push(stack1.pop());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">peek</span><span class="params">()</span> </span>&#123;</span><br><span class="line">       <span class="keyword">if</span>(!stack2.empty())&#123;</span><br><span class="line">            <span class="keyword">return</span> stack2.peek();</span><br><span class="line">        &#125;</span><br><span class="line">        transform();</span><br><span class="line">        <span class="keyword">return</span> stack2.peek();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">empty</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> stack1.size() == <span class="number">0</span> &amp;&amp; stack2.size() == <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h3><p><strong><em>预备知识：</em></strong></p>
+<p>*<em>最大（小）二叉堆：最大（小）值先出的完全二叉树，也叫优先队列**</em></p>
+<p><strong>1. 数组中的第K个最大的元素（LC215）</strong></p>
+<blockquote>
+<p>思路：第一反应数组排序，返回length-k下标的数，AC了而且耗时2ms。如果用小顶堆来做也很简单，维护一个K大小的堆，遍历数组，当堆未满时，直接添加，当堆满时，判断该数组元素是否大于堆顶元素，如果是，则替换之，如果不是，继续遍历。该方法时间复杂度按理是O(n)，但实际比数组排序的O(nlogn)更加耗时些，遍历数组是O(n)，所以多出的时间开销应该是用于建立和维护堆，所以当K值较大时这种方法并不合适。</p>
+</blockquote>
+<p><strong><em>代码：</em></strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">findKthLargest</span><span class="params">(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (nums == <span class="keyword">null</span> || nums.length == <span class="number">0</span>) <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">        PriorityQueue&lt;Integer&gt; minHeap = <span class="keyword">new</span> PriorityQueue&lt;&gt;(k);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> num : nums) &#123;</span><br><span class="line">            <span class="keyword">if</span> (minHeap.size() &lt; k) minHeap.offer(num);</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (minHeap.peek() &lt; num)&#123;</span><br><span class="line">                minHeap.poll();</span><br><span class="line">                minHeap.offer(num);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> minHeap.peek();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="扩展："><a href="#扩展：" class="headerlink" title="扩展："></a>扩展：</h4><blockquote>
+<p>从大顶堆的构建中很明显可以看出一个排序算法：堆排序。这个算法的核心思想大概是这样的：一组无序序列进行初始化堆后，堆顶元素一定是最大值，故将该值与堆叶子节点的元素交换位置，交换过位置的元素就是有序序列了。然后重复这个过程，直到所有数组都有序。如果是二叉树实现的堆结构，则可以使用一个队列来层次遍历获得有序数组。</p>
+<p>而Java中堆是通过数组实现的，其左右节点对应的值通过数学表达式：2<em>index+1，2\</em>index+2来构建关系，故堆序后只要遍历该数组，就可以得到有序数组。</p>
+</blockquote>
+<p><strong>2. 数据流的中位数(LC703)</strong></p>
+<blockquote>
+<p>思路：要在一个随机存取的数据流中动态的获得中位数，简单的在每次取出中位数的时候对数组排序是不行的，时间复杂度会爆炸，所以要使用一个动态平衡的数据结构，始终维护数组的中位数。一个大顶堆和一个小顶堆就能很巧妙的解决这个问题：大顶堆维护数组的前一半元素，其堆顶元素是前一半元素中最大的，而小顶堆恰恰相反，堆顶元素是后一半元素最小的，所以需要get中位数时，只要对这两个堆顶元素操作即可，并不关系其他元素是否有序。</p>
+<p>一般来说，是需要使用大量的if else来判断各种情况的，但是如果牺牲一点点性能，就能使整个代码非常简洁美妙。</p>
+</blockquote>
+<p><strong><em>代码：</em></strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MedianFinder</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    PriorityQueue&lt;Integer&gt; maxHeap;</span><br><span class="line">    PriorityQueue&lt;Integer&gt; minHeap;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MedianFinder</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        maxHeap = <span class="keyword">new</span> PriorityQueue&lt;&gt;(<span class="keyword">new</span> Comparator&lt;Integer&gt;() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compare</span><span class="params">(Integer o1, Integer o2)</span> </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> o2 - o1;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;); <span class="comment">// 最大堆</span></span><br><span class="line">        minHeap = <span class="keyword">new</span> PriorityQueue&lt;&gt;(); <span class="comment">// 最小堆</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addNum</span><span class="params">(<span class="keyword">int</span> num)</span> </span>&#123;   </span><br><span class="line">    </span><br><span class="line">        maxHeap.offer(num);</span><br><span class="line">      	minHeap.offer(maxHeap.poll());</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> (maxHeap.size() &lt; minHeap.size())&#123;</span><br><span class="line">            maxHeap.offer(minHeap.poll());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">findMedian</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> minHeap.size() &lt; maxHeap.size() ? (<span class="keyword">double</span>)maxHeap.peek() :</span><br><span class="line">        										(maxHeap.peek()	+ minHeap.peek()) * <span class="number">0.5</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="理解："><a href="#理解：" class="headerlink" title="理解："></a>理解：</h5><p>在添加元素时，实际上将该元素添加到小顶堆，然后判断大小顶堆大小是否相等，若大顶堆较小，则将小顶堆堆顶元素添加到大顶堆。所以在取得中位数时，大小顶堆的大小只有可能小顶堆大于等于大顶堆。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/07/18/%E6%A0%88%E3%80%81%E9%98%9F%E5%88%97%E3%80%81%E5%A0%86/" data-id="ckifb2s4n000n6jnr6o75ai4x" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/07/18/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          框架核心
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/07/18/%E5%B8%B8%E8%AF%86%E7%A7%AF%E7%B4%AF/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">工程实战</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/12/07/cpu%E9%A3%99%E9%AB%98%E6%8E%92%E6%9F%A5/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/04/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B4%A2%E5%BC%95/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/29/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F/">高并发相关技术</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/27/%E6%95%B0%E6%8D%AE%E5%BA%8F%E5%88%97%E5%8C%96%E6%96%B9%E6%A1%88/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/21/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

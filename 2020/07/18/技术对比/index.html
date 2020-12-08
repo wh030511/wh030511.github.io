@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>工程实战 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="技术对比 参加了阿里的面试，问到了多种技术之间的对比，所以写一篇博客持续更新市面上常用技术的对比。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="工程实战">
+<meta property="og:url" content="http://example.com/2020/07/18/%E6%8A%80%E6%9C%AF%E5%AF%B9%E6%AF%94/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="技术对比 参加了阿里的面试，问到了多种技术之间的对比，所以写一篇博客持续更新市面上常用技术的对比。">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-07-18T10:00:10.413Z">
+<meta property="article:modified_time" content="2020-07-18T10:00:10.414Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-技术对比" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/07/18/%E6%8A%80%E6%9C%AF%E5%AF%B9%E6%AF%94/" class="article-date">
+  <time datetime="2020-07-18T10:00:10.413Z" itemprop="datePublished">2020-07-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      工程实战
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="技术对比"><a href="#技术对比" class="headerlink" title="技术对比"></a>技术对比</h1><blockquote>
+<p>参加了阿里的面试，问到了多种技术之间的对比，所以写一篇博客持续更新市面上常用技术的对比。</p>
+</blockquote>
+<a id="more"></a>
+
+
+
+<h3 id="面向对象和面向过程"><a href="#面向对象和面向过程" class="headerlink" title="面向对象和面向过程"></a>面向对象和面向过程</h3><blockquote>
+<p>严格来说并不是技术，而是不同编程语言的特点。莉莉丝笔试也问到了面向对象编程和函数式编程的区别，现整理如下。</p>
+</blockquote>
+<p>面向对象着眼于完成需求的主体，而面向过程着眼于如何完成需求本身。这是我认为的他们最大的不同点。</p>
+<p>而面向对象编程是如何将目光从完成需求转移到完成任务的主体上来的呢？就是通过对象了，每个对象都是一个主体，在这个主体中提供了许许多多的方法，这些方法就可以看成这个主体的各种能力。很显然，这些主体在很多场景下是可以复用的，所以面向对象天然的就比面向过程拥有更好的复用性。</p>
+<p>不仅如此，面向对象中还引入了继承的概念，通过继承，使得一个类拥有其父类的所有功能，并且还能扩展出自己独有的能力，这样通用的需求有通用的类去完成，在通用需求上的一些特有更新就可以通过继承来与之一一匹配，而无需重新编写一个与原类重合度很高的新类，大大节省了代码量。需求是会随时更新的，通过继承的设计使得我们无需频繁的打开原有代码修改，只需要扩展出新类即可，很好的维护了开闭原则，大大减少了bug的可能。</p>
+<p>面向对象的封装特点，我认为是为了更好的组织代码。类和对象的目的是为了向外界提供用于完成需求的各种方法，这些方法是抽象的，而在类中被封装的变量和方法最终都会被开放的方法所使用。换句话说，这些封装的成员是工具，封装将这些底层实现的细节隐藏，只想外界暴露值得外界看到的方法。这也是为什么成员变量通常都是用private修饰的原因，数据总是没有任何功能的。</p>
+<p>至于面向对象的第三个特点多态，他是依赖于继承和方法重写的。其外在表现是声明为父类，实现是子类。这样在调用父类和子类共有的方法时，JVM通过动态绑定的机制去执行子类重写的方法。这么做的好处是可以提高代码的可维护性，当我们要修改想要使用的具体实现时，只需要更改实现的相关代码，而真正执行的代码无需更改。对于这个优势，在使用Spring依赖注入时可以更加明显的体会到。</p>
+<p>至于函数式编程，了解的不多，只知道他的核心思想是消除变量，有一定了解后会更新。</p>
+<h3 id="前后端数据交互"><a href="#前后端数据交互" class="headerlink" title="前后端数据交互"></a>前后端数据交互</h3><blockquote>
+<p>即前后端都遵从的一种数据组织的形式。</p>
+</blockquote>
+<p><strong>1. json</strong></p>
+<p>轻量级的交互方式，易于解析，可以直接被服务端使用，便于维护。</p>
+<p><strong>2. xml</strong></p>
+<p>重量级的交互方式，解析时花费时间长，而且不同的浏览器之间解析方式不同，故需要编写许多重复代码。其组织也比较复杂，各种子节点父节点，解析困难。</p>
+<p>其有点在于格式统一，可以与其他系统远程交互。</p>
+<h3 id="NoSQL数据库"><a href="#NoSQL数据库" class="headerlink" title="NoSQL数据库"></a>NoSQL数据库</h3><blockquote>
+<p>在内存中存放数据，防止高并发影响数据库性能，减少数据库压力，提高查询速度。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="center"></th>
+<th align="center">Redis</th>
+<th align="center">Memcached</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><strong>数据结构</strong></td>
+<td align="center">5种（String,list,hash,set,zset）</td>
+<td align="center">1种(String)</td>
+</tr>
+<tr>
+<td align="center"><strong>持久化</strong></td>
+<td align="center">RDB、AOF</td>
+<td align="center">不支持</td>
+</tr>
+<tr>
+<td align="center"><strong>内存管理</strong></td>
+<td align="center">申请内存，数据超量时触发swap，将冷数据刷新到磁盘</td>
+<td align="center">预分配池管理，适合作为缓存，存储速度更快</td>
+</tr>
+<tr>
+<td align="center"><strong>数据一致性</strong></td>
+<td align="center">串行操作，无需考虑数据一致性</td>
+<td align="center">通过cas保证数据一致性</td>
+</tr>
+<tr>
+<td align="center"><strong>线程与IO</strong></td>
+<td align="center">单线程，只能通过多开redis解决；需要执行排序和聚合等功能，IO较慢</td>
+<td align="center">多线程，可能出现锁冲突；IO多路复用，更快一些。</td>
+</tr>
+<tr>
+<td align="center"><strong>其他</strong></td>
+<td align="center">集成了事务、复制、lua脚本等功能，支持主从，天然支持高可用集群</td>
+<td align="center">需要自己实现一致性hash的负载均衡算法才能解决集群</td>
+</tr>
+</tbody></table>
+<h3 id="HTTP和HTTPS"><a href="#HTTP和HTTPS" class="headerlink" title="HTTP和HTTPS"></a>HTTP和HTTPS</h3><p>HTTP：基于发送方和接收方的，无连接的，应用层协议，一般基于TCP/IP传输数据。设计的初衷是为了提供一种发布和接收HTML页面的方法。</p>
+<table>
+<thead>
+<tr>
+<th align="center">版本</th>
+<th align="center">产生时间</th>
+<th align="center">重要内容</th>
+<th align="center">现状</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">HTTP/0.9</td>
+<td align="center">1991</td>
+<td align="center">不涉及数据包传输，规定客户端和服务器之间通信格式，只能GET请求</td>
+<td align="center">没有正式的作为标准</td>
+</tr>
+<tr>
+<td align="center">HTTP/1.0</td>
+<td align="center">1996</td>
+<td align="center">传输内容格式不限制</td>
+<td align="center">正式作为标准</td>
+</tr>
+<tr>
+<td align="center">HTTP/1.1</td>
+<td align="center">1997</td>
+<td align="center">连接复用，不是1.0时每个资源都需要建立连接</td>
+<td align="center">2015年前使用最广泛</td>
+</tr>
+<tr>
+<td align="center">HTTP/2</td>
+<td align="center">2015</td>
+<td align="center">多路复用，一个连接可以同时传输多个资源，提高速度</td>
+<td align="center">逐渐覆盖市场</td>
+</tr>
+</tbody></table>
+<p>为了解决HTTP是无状态的，起到服务端记录客户端状态的能力，提供了会话技术（Cookie和Session）和HTTP/1.1持久连接，请求行中Connection：keep-alive即保持连接（字节面试问到）。</p>
+<p>HTTPS：基于HTTP协议，使用SSL/TLS提供数据加密处理，验证对方身份并且保护数据完整性。</p>
+<p>底层原理：使用混合加密技术，即对称加密和非对称加密的结合。客户端使用对称加密的密钥对传输数据加密，然后使用非对称加密的公钥对密钥进行加密，这样网络上传输的就是加密后的数据和密钥，即使被截取，没有非对称加密的私钥，则无法获取真正的数据。</p>
+<p>公钥保存再服务端的数字证书中，而证书由受信任的数字证书颁发机构CA，在验证服务器身份后颁发，证书中包含了一个密钥对（公钥和私钥）和所有者识别信息。起到了身份验证的作用。</p>
+<p>注：https缓存可以通过Cache-Control：public来将缓存写入本地。</p>
+<p>​        https的端口是443</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/07/18/%E6%8A%80%E6%9C%AF%E5%AF%B9%E6%AF%94/" data-id="ckifb2s4l000k6jnr6fvec8wu" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/07/18/%E6%89%8B%E6%92%95Mybatis/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          SSM框架
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/07/18/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B9%8B%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">算法思想</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/12/07/cpu%E9%A3%99%E9%AB%98%E6%8E%92%E6%9F%A5/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/04/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B4%A2%E5%BC%95/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/29/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F/">高并发相关技术</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/27/%E6%95%B0%E6%8D%AE%E5%BA%8F%E5%88%97%E5%8C%96%E6%96%B9%E6%A1%88/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/21/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>工程实战 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="常识积累 积累诸如状态码、协议栈这样的常识知识。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="工程实战">
+<meta property="og:url" content="http://example.com/2020/07/18/%E5%B8%B8%E8%AF%86%E7%A7%AF%E7%B4%AF/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="常识积累 积累诸如状态码、协议栈这样的常识知识。">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-07-18T10:00:10.413Z">
+<meta property="article:modified_time" content="2020-07-18T10:00:10.413Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-常识积累" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/07/18/%E5%B8%B8%E8%AF%86%E7%A7%AF%E7%B4%AF/" class="article-date">
+  <time datetime="2020-07-18T10:00:10.413Z" itemprop="datePublished">2020-07-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      工程实战
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="常识积累"><a href="#常识积累" class="headerlink" title="常识积累"></a>常识积累</h1><blockquote>
+<p>积累诸如状态码、协议栈这样的常识知识。                                                                                                                                                          </p>
+</blockquote>
+<a id="more"></a>
+
+<h2 id="状态码"><a href="#状态码" class="headerlink" title="状态码"></a>状态码</h2><h4 id="1XX（Infomational）：信息提示性，表示接收的请求正在处理。"><a href="#1XX（Infomational）：信息提示性，表示接收的请求正在处理。" class="headerlink" title="1XX（Infomational）：信息提示性，表示接收的请求正在处理。"></a>1XX（Infomational）：信息提示性，表示接收的请求正在处理。</h4><table>
+<thead>
+<tr>
+<th align="center"></th>
+<th align="center">名称</th>
+<th align="center">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><strong>100</strong></td>
+<td align="center">Continue</td>
+<td align="center">客户端用于确认服务器是否能接受实体，尝试发送100 continue的Except，如果可以接受则返回100 continue，否则返回错误码</td>
+</tr>
+<tr>
+<td align="center"><strong>101</strong></td>
+<td align="center">Switching Protocols</td>
+<td align="center">服务器正在根据客户端的指令，将协议切换成Upgrade首部所列的协议</td>
+</tr>
+</tbody></table>
+<p>说明：1XX信息提示性状态码是在HTTP/1.1版本中新增的，所以无法被HTTP/1.0识别。会出现这样的新增是基于以下的场景：客户端想向服务器发送一个很大的数据报，但不知道服务器是否愿意接受，则可以发送一个请求报文，其中Except：100 continue，由服务器进行决断，如果愿意接受，则返回100 continue，否则考虑返回417 Exceptation Failed。注意这样的过程并不是严格的，客户端可能在收到服务器确认的状态码之前就发送了较大的数据报（考虑网络拥塞），唯一严格的是只能由客户端发起100 continue请求，服务器做出回应，不能由服务器主动发送该响应报文。</p>
+<h4 id="2XX（Success）：请求成功，表示请求正常处理完毕。"><a href="#2XX（Success）：请求成功，表示请求正常处理完毕。" class="headerlink" title="2XX（Success）：请求成功，表示请求正常处理完毕。"></a>2XX（Success）：请求成功，表示请求正常处理完毕。</h4><table>
+<thead>
+<tr>
+<th align="center"></th>
+<th align="center">名称</th>
+<th align="center">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><strong>200</strong></td>
+<td align="center">OK</td>
+<td align="center">成功，请求被正常处理</td>
+</tr>
+<tr>
+<td align="center"><strong>201</strong></td>
+<td align="center">Created</td>
+<td align="center">已创建，请求成功并且服务器创建了新的资源</td>
+</tr>
+<tr>
+<td align="center"><strong>202</strong></td>
+<td align="center">Accepted</td>
+<td align="center">已接受，请求被正常接受，不意味着会被正常处理</td>
+</tr>
+<tr>
+<td align="center"><strong>203</strong></td>
+<td align="center">Non-Autoratative-Infomation</td>
+<td align="center">非授权信息，服务器成功处理了请求，但返回的信息可能来自另一来源</td>
+</tr>
+<tr>
+<td align="center"><strong>204</strong></td>
+<td align="center">No Content</td>
+<td align="center">无内容，服务器正常处理了请求，但没有返回任何内容（如刷新表单页面）</td>
+</tr>
+<tr>
+<td align="center"><strong>205</strong></td>
+<td align="center">Reset Content</td>
+<td align="center">重置内容，告知浏览器重置文档视图，清除当前页面中所有Html表单元素</td>
+</tr>
+<tr>
+<td align="center"><strong>206</strong></td>
+<td align="center">Partial Content</td>
+<td align="center">部分内容，成功执行了一个部分GET请求</td>
+</tr>
+</tbody></table>
+<h4 id="3XX（Rediction）：重定向，表示需要进行附加操作以完成请求。"><a href="#3XX（Rediction）：重定向，表示需要进行附加操作以完成请求。" class="headerlink" title="3XX（Rediction）：重定向，表示需要进行附加操作以完成请求。"></a>3XX（Rediction）：重定向，表示需要进行附加操作以完成请求。</h4><table>
+<thead>
+<tr>
+<th align="center"></th>
+<th align="center">名称</th>
+<th align="center">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><strong>300</strong></td>
+<td align="center">Multiple Choise</td>
+<td align="center">多种选择，针对请求，服务器可执行多种操作</td>
+</tr>
+<tr>
+<td align="center"><strong>301</strong></td>
+<td align="center">Moved Permanently</td>
+<td align="center">永久性重定向，请求的资源已经永远移动到新位置，会自动将请求转移到新位置（重定向）</td>
+</tr>
+<tr>
+<td align="center"><strong>302</strong></td>
+<td align="center">Found</td>
+<td align="center">临时性重定向，表示请求的资源暂时被分配了新的URL，将来的请求还将是老的URL。注：POST请求遇到302会转为GET请求，在HTTP/1.0生效</td>
+</tr>
+<tr>
+<td align="center"><strong>303</strong></td>
+<td align="center">See Other</td>
+<td align="center">查看其他位置，告知客户端使用另一个URL获取资源，主要目的是允许POST请求的响应将客户端定位到某个资源上去。HTTP/1.1生效</td>
+</tr>
+<tr>
+<td align="center"><strong>304</strong></td>
+<td align="center">Not Modified</td>
+<td align="center">未修改，客户端发送了某个有条件的请求，该条件未能满足，服务端返回该状态码，如客户端想访问修改过的网页，但是网页未被修改</td>
+</tr>
+<tr>
+<td align="center"><strong>305</strong></td>
+<td align="center">Use Proxy</td>
+<td align="center">使用代理，告知客户端只能通过代理访问网页</td>
+</tr>
+<tr>
+<td align="center"><strong>307</strong></td>
+<td align="center">Temporary Redirect</td>
+<td align="center">临时重定向，对302的一个改进，POST不会变为GET</td>
+</tr>
+</tbody></table>
+<h4 id="4XX（Client-Error）：客户端错误，表示服务器无法处理请求。"><a href="#4XX（Client-Error）：客户端错误，表示服务器无法处理请求。" class="headerlink" title="4XX（Client Error）：客户端错误，表示服务器无法处理请求。"></a>4XX（Client Error）：客户端错误，表示服务器无法处理请求。</h4><p>大多数被浏览器解决，常见的只有404</p>
+<table>
+<thead>
+<tr>
+<th align="center"></th>
+<th align="center">名称</th>
+<th align="center">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><strong>400</strong></td>
+<td align="center">Bad Request</td>
+<td align="center">错误请求，请求报文中存在语法错误</td>
+</tr>
+<tr>
+<td align="center"><strong>401</strong></td>
+<td align="center">Unauthorized</td>
+<td align="center">未授权，请求要求身份验证。对于登录后请求的网页，服务器可能返回此响应</td>
+</tr>
+<tr>
+<td align="center"><strong>402</strong></td>
+<td align="center">Payment Required</td>
+<td align="center">保留中</td>
+</tr>
+<tr>
+<td align="center"><strong>403</strong></td>
+<td align="center">Forbidden</td>
+<td align="center">禁止，服务器拒绝请求</td>
+</tr>
+<tr>
+<td align="center"><strong>404</strong></td>
+<td align="center">Not Found</td>
+<td align="center">未找到，服务器找不到请求的资源</td>
+</tr>
+<tr>
+<td align="center"><strong>405</strong></td>
+<td align="center">Method Not Allowed</td>
+<td align="center">方法禁用，禁用请求中指定的方法</td>
+</tr>
+<tr>
+<td align="center"><strong>406</strong></td>
+<td align="center">Not Accepted</td>
+<td align="center">不接受，客户端指明自己愿意接收的实体类型，但是服务器中没有相对应的实体</td>
+</tr>
+<tr>
+<td align="center"><strong>407</strong></td>
+<td align="center">proxy Authentication Required</td>
+<td align="center">需要代理授权，类似401，指定请求者应当授权使用代理</td>
+</tr>
+<tr>
+<td align="center"><strong>408</strong></td>
+<td align="center">Request TImeout</td>
+<td align="center">请求超时，服务器等候请求时发生超时</td>
+</tr>
+<tr>
+<td align="center"><strong>409</strong></td>
+<td align="center">Conflict</td>
+<td align="center">冲突，服务器完成请求时发生冲突，需要在响应报文中包含相关信息</td>
+</tr>
+<tr>
+<td align="center"><strong>410</strong></td>
+<td align="center">Gone</td>
+<td align="center">已删除，请求的资源已经永久删除</td>
+</tr>
+<tr>
+<td align="center"><strong>411</strong></td>
+<td align="center">Length Required</td>
+<td align="center">需要有效长度，服务器只接受含有有效内容长度标头字段的请求</td>
+</tr>
+<tr>
+<td align="center"><strong>412</strong></td>
+<td align="center">Precondition Failed</td>
+<td align="center">未满足前提条件，服务器未满足请求者在请求中设置的其中一个请求条件</td>
+</tr>
+<tr>
+<td align="center"><strong>413</strong></td>
+<td align="center">Request Entity Too large</td>
+<td align="center">请求实体过大，服务器无法处理过大的请求</td>
+</tr>
+<tr>
+<td align="center"><strong>414</strong></td>
+<td align="center">Request URL Too Long</td>
+<td align="center">请求的URI过长，请求的URI过长服务器无法处理</td>
+</tr>
+<tr>
+<td align="center"><strong>415</strong></td>
+<td align="center">Unsupported Media Type</td>
+<td align="center">不支持的媒体类型，请求格式不受请求页面的支持</td>
+</tr>
+<tr>
+<td align="center"><strong>416</strong></td>
+<td align="center">Request Range Not Satisfiable</td>
+<td align="center">请求范围不符合要求，页面无法提供请求的范围</td>
+</tr>
+<tr>
+<td align="center"><strong>417</strong></td>
+<td align="center">Expectation Failed</td>
+<td align="center">未满足期望值，服务器未满足‘Except’请求标头字段的要求</td>
+</tr>
+</tbody></table>
+<h4 id="5XX（Server-Error）：服务器错误，表示服务器处理请求出错。"><a href="#5XX（Server-Error）：服务器错误，表示服务器处理请求出错。" class="headerlink" title="5XX（Server Error）：服务器错误，表示服务器处理请求出错。"></a>5XX（Server Error）：服务器错误，表示服务器处理请求出错。</h4><table>
+<thead>
+<tr>
+<th align="center"></th>
+<th align="center">名称</th>
+<th align="center">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><strong>500</strong></td>
+<td align="center">Internal Server Error</td>
+<td align="center">服务器内部错误，无法完成请求</td>
+</tr>
+<tr>
+<td align="center"><strong>501</strong></td>
+<td align="center">Not Implemented</td>
+<td align="center">尚未实施，服务器不具备完成功能的请求（如无法识别方法）</td>
+</tr>
+<tr>
+<td align="center"><strong>502</strong></td>
+<td align="center">Bad Gateway</td>
+<td align="center">错误网关，服务器作为网关或代理，从上游服务器收到无效响应</td>
+</tr>
+<tr>
+<td align="center"><strong>503</strong></td>
+<td align="center">Service Unavailable</td>
+<td align="center">服务不可用，服务器目前无法使用</td>
+</tr>
+<tr>
+<td align="center"><strong>504</strong></td>
+<td align="center">Gateway Timeout</td>
+<td align="center">网关超时，服务器作为网关或代理，没有及时从上游服务器收到请求</td>
+</tr>
+<tr>
+<td align="center"><strong>505</strong></td>
+<td align="center">HTTP Version Not Supported</td>
+<td align="center">HTTP版本不受支持，服务器不支持请求中的HTTP协议版本</td>
+</tr>
+</tbody></table>
+<h2 id="OSI各层协议"><a href="#OSI各层协议" class="headerlink" title="OSI各层协议"></a>OSI各层协议</h2><p><strong>OSI七层模型与常用协议</strong></p>
+<table>
+<thead>
+<tr>
+<th align="center">OSI七层模型</th>
+<th align="center">对应功能</th>
+<th align="center">常用协议</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">应用层</td>
+<td align="center">以图形界面的形式为用户提供服务</td>
+<td align="center">HTTP、FTP、SMTP、DNS、POP3</td>
+</tr>
+<tr>
+<td align="center">表示层</td>
+<td align="center">对数据进行表示、加密、压缩</td>
+<td align="center">JPEG、PICT、ASCII</td>
+</tr>
+<tr>
+<td align="center">会话层</td>
+<td align="center">确定数据是否需要网络传递</td>
+<td align="center">SQL、NFS、NetBIOS</td>
+</tr>
+<tr>
+<td align="center">传输层</td>
+<td align="center">对报文进行分组、传输协议、端口封装、差错校验</td>
+<td align="center">TCP<br />UDP</td>
+</tr>
+<tr>
+<td align="center">网络层</td>
+<td align="center">IP地址编译、路由选择</td>
+<td align="center">ARP（地址解析协议）<br />RARP（反向地址转换协议）<br />IP<br />ICMP（网际控制报文协议）</td>
+</tr>
+<tr>
+<td align="center">数据链路层</td>
+<td align="center">MAC地址编译</td>
+<td align="center">IEEE<br />802.3/802.2、HDLC</td>
+</tr>
+<tr>
+<td align="center">物理层</td>
+<td align="center">数据实际传输、电气特性定义</td>
+<td align="center">PPP（点对点协议）<br />SLTP（串行线路网际协议）</td>
+</tr>
+</tbody></table>
+<p>注：ping用的协议就是ICMP（字节面试问到）</p>
+<blockquote>
+<p>字节三面问了ping的实现原理……我又懵了，看都看不完整，面试完这就补上。</p>
+</blockquote>
+<p>ping是基于ICMP协议的，由于IP协议是不提供可靠传输的，所以丢包后发送方无法获取通知，针对这个问题，产生了ICMP协议，它主要的功能就是确定数据是否成功发送到了目标位置，如果没有产生了什么错误。</p>
+<p>它是这样做的：ICMP报头中有一个属性TYPE，这个属性的不同取值被规定了不同的含义，当发送方发送信息时，TYPE属性规定为8，代表回送请求，如果能成功到达，则会返回数据包，并将ICMP报头的TYPE属性置0。如果没有收到响应数据包或者TYPE属性不为0，则代表目标不可达或其他的一些问题。</p>
+<p>将TYPE所有取值记录如下：</p>
+<table>
+<thead>
+<tr>
+<th align="center">TYPE</th>
+<th align="center">含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">0</td>
+<td align="center">回送应答</td>
+</tr>
+<tr>
+<td align="center">3</td>
+<td align="center">目标不可达</td>
+</tr>
+<tr>
+<td align="center">4</td>
+<td align="center">原点抑制</td>
+</tr>
+<tr>
+<td align="center">5</td>
+<td align="center">重定向或改变路由</td>
+</tr>
+<tr>
+<td align="center">8</td>
+<td align="center">回送请求</td>
+</tr>
+<tr>
+<td align="center">9</td>
+<td align="center">路由器公告</td>
+</tr>
+<tr>
+<td align="center">10</td>
+<td align="center">路由器请求</td>
+</tr>
+<tr>
+<td align="center">11</td>
+<td align="center">超时</td>
+</tr>
+<tr>
+<td align="center">17</td>
+<td align="center">地址子网请求</td>
+</tr>
+<tr>
+<td align="center">18</td>
+<td align="center">地址子网应答</td>
+</tr>
+</tbody></table>
+<p>注：traceroute可以用来追踪经过的路由器，其底层原理也是通过ICMP协议</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/07/18/%E5%B8%B8%E8%AF%86%E7%A7%AF%E7%B4%AF/" data-id="ckifb2s4k000i6jnr5vbi8oxg" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/07/18/%E6%A0%88%E3%80%81%E9%98%9F%E5%88%97%E3%80%81%E5%A0%86/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          数据结构
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/07/18/%E6%89%8B%E6%92%95Mybatis/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">SSM框架</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/12/07/cpu%E9%A3%99%E9%AB%98%E6%8E%92%E6%9F%A5/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/04/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B4%A2%E5%BC%95/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/29/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F/">高并发相关技术</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/27/%E6%95%B0%E6%8D%AE%E5%BA%8F%E5%88%97%E5%8C%96%E6%96%B9%E6%A1%88/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/21/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
