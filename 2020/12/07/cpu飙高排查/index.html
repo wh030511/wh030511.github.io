@@ -8,13 +8,15 @@
   <link rel="dns-prefetch" href="http://example.com">
   <title>Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="article">
+  <meta name="description" content="cpu占用过高问题排查过程一次难得的问题排查过程">
+<meta property="og:type" content="article">
 <meta property="og:title" content="Hexo">
 <meta property="og:url" content="http://example.com/2020/12/07/cpu%E9%A3%99%E9%AB%98%E6%8E%92%E6%9F%A5/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="cpu占用过高问题排查过程一次难得的问题排查过程">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-12-07T12:13:39.097Z">
-<meta property="article:modified_time" content="2020-12-07T12:13:56.522Z">
+<meta property="article:modified_time" content="2020-12-09T15:23:31.562Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
   
@@ -157,7 +159,21 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <h2 id="cpu占用过高问题排查过程"><a href="#cpu占用过高问题排查过程" class="headerlink" title="cpu占用过高问题排查过程"></a>cpu占用过高问题排查过程</h2><p>一次难得的问题排查过程</p>
+<a id="more"></a>
+
+<p><strong>背景</strong></p>
+<p>前一天晚上服务上线ppe（产品预发环境），第二天测试验证功能时，发现功能无效。开始排查。</p>
+<p><strong>过程</strong></p>
+<p>初步定位到无法收到上游消息，与上游rd沟通，他们的日志中显示消息成功发送。从日志中定位到消息的发送broker和offset，用公司的消息队列工具排查，显示上游确实发送了消息，也被成功消费了，不存在消息积压的问题。</p>
+<p>服务显示cpu占用率达到80%，猜测服务已经不可用，与此同时另一个功能也报错，可以确定由于cpu飙高导致服务不可用，所以没能成功消费到上游的消息。</p>
+<p>拉kitex的oncall，使用pprof性能分析工具排查cpu飙高的原因，发现耗时都在rpc调用，而rpc是在消息消费的地方，于是换了mq的oncall。</p>
+<p>在此期间，猜测是由于昨天将消息消费由无序消费改成了有序消费，所以导致了该问题，于是尝试将消费方式改为无序，cpu使用率成功降低下来了。</p>
+<p>oncall解释了mq server方对有序消息和无序消息的处理逻辑的不同，他说有序消息会被丢弃，而无序消息会被重新投送到broker重试，验证客户端代码，发现不同的环境还是有不同的逻辑。对于泳道而言，有序消息不存在重试机制，刚好ppe环境使用的是泳道消费，oncall也承认是他们的客户端代码有误。</p>
+<p>但是显然这个对于问题的解决没有帮助。</p>
+<p>oncall给出的理由是，我们泳道的消息数量太少，而泳道消费的逻辑是每个cluster都要去拉取64条消息到缓存中，如果数量不够，就会一直拉取，大量的网络请求将cpu的使用率拉高。（可能有误，需要理解）</p>
+<p>oncall让我们恢复现场，恢复现场的同时将消费者组名称更改，重新上ppe之后发现问题没有复现。oncall判断这样是符合预期的，因为线上和ppe的消费者组不同，所以不会造成空拉取。</p>
+
       
 
       
@@ -279,7 +295,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    目录，不存在的…
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#cpu%E5%8D%A0%E7%94%A8%E8%BF%87%E9%AB%98%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5%E8%BF%87%E7%A8%8B"><span class="toc-number">1.</span> <span class="toc-text">cpu占用过高问题排查过程</span></a></li></ol>
                     </div>
                 </span>
             </div>
